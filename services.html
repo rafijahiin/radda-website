@@ -8,22 +8,25 @@
 <meta property="og:title" content="Our services · Radda MCH-FP Centre">
 <meta property="og:description" content="Antenatal and postnatal care, child immunization, family planning, community health and laboratory services at Radda MCH-FP Centre, Mirpur, Dhaka.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0a5cb8">
+<meta name="theme-color" content="#06306f">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&amp;family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800&amp;family=Source+Sans+3:wght@400..700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+<!-- header:start -->
 <a class="skip" href="#main">Skip to content</a>
 <div class="utility">
   <div class="container">
     <div class="u-left">
-      <span>Clinic hours · Sun–Thu 9 AM–5 PM · Sat 9 AM–2 PM · Fri closed</span>
-      <a class="hide-m" href="tel:+8801335097710">Call +880 1335-097710</a>
+      <span class="status" data-status hidden><i aria-hidden="true"></i><span data-status-title></span></span>
+      <span class="u-hours">Sun-Thu 9 AM-5 PM · Sat 9 AM-2 PM · Fri closed</span>
     </div>
     <div class="u-right">
+      <a href="tel:+8801335097710">+880 1335-097710</a>
       <a href="mailto:info@raddacentre.org">info@raddacentre.org</a>
       <a href="https://www.facebook.com/bd.radda" rel="noopener" target="_blank">Facebook</a>
     </div>
@@ -36,23 +39,22 @@
       <span class="logo-text"><strong>RADDA</strong><span>MCH-FP Centre · Dhaka</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="index.html">Home</a>
-      <a href="services.html" aria-current="page">Our services</a>
-      <a href="about.html">About Radda</a>
-      <a href="visit.html">Visit &amp; contact</a>
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="services.html" data-nav="services" aria-current="page">Our services</a>
+      <a href="about.html" data-nav="about">About Radda</a>
+      <a href="visit.html" data-nav="visit">Visit &amp; contact</a>
       <a class="btn btn-primary nav-cta" href="visit.html#register">Request a visit</a>
     </nav>
     <a class="btn btn-primary header-cta" href="visit.html#register">Request a visit</a>
-    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Open menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
   </div>
 </header>
+<!-- header:end -->
 
 <main id="main">
 <section class="page-hero">
   <div class="container">
-    <div class="crumbs"><a href="index.html">Home</a> / Our services</div>
+    <div class="crumbs"><a href="index.html">Home</a><span aria-hidden="true">/</span>Our services</div>
     <h1>Care for every stage of family life</h1>
     <p>From the first pregnancy check-up to a child's last booster dose, our trained health workers look after the whole family.</p>
   </div>
@@ -61,6 +63,7 @@
 <section class="section">
   <div class="container split">
     <nav class="svc-nav" aria-label="Services on this page">
+      <b>On this page</b>
       <a href="#maternal">Pregnancy and after birth</a>
       <a href="#child">Vaccines and child health</a>
       <a href="#family-planning">Family planning and community health</a>
@@ -69,10 +72,12 @@
     </nav>
 
     <div>
-      <article class="svc-block prose" id="maternal">
-        <div class="photo"><img src="assets/photos/maternal.jpg" alt="A midwife checking a pregnant mother" loading="lazy"></div>
-        <span class="eyebrow">Reproductive health</span>
-        <h2>Pregnancy and after birth</h2>
+      <article class="svc-block" id="maternal" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico" style="--tile:var(--sun-100)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.600-7.500 10.200-7.500 10.200z"/></svg></span>
+          <div><span class="label">Reproductive health</span><h2>Pregnancy and after birth</h2></div>
+        </div>
+        <div class="photo" data-art="maternal"><img src="assets/photos/maternal.jpg" alt="A midwife checking a pregnant mother" loading="lazy"></div>
         <p>Regular check-ups during pregnancy catch problems early and keep mother and baby safe. We see mothers through pregnancy and in the weeks after birth.</p>
         <ul class="checklist">
           <li>Antenatal check-ups</li>
@@ -82,33 +87,39 @@
           <li>Health and nutrition education</li>
           <li>Advice for the whole family</li>
         </ul>
-        <a class="btn btn-line" href="visit.html?service=maternal#register">Request this service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-primary" href="visit.html?service=maternal#register">Request this service <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
 
-      <article class="svc-block prose" id="child">
-        <div class="photo"><img src="assets/photos/child.jpg" alt="A nurse giving a child a vaccine" loading="lazy"></div>
-        <span class="eyebrow">Child health</span>
-        <h2>Vaccines and child health</h2>
+      <article class="svc-block" id="child" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.500 3v5.500c0 4.600-3.200 8-7.500 9.500-4.300-1.500-7.500-4.900-7.500-9.500V6z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></svg></span>
+          <div><span class="label">Child health</span><h2>Vaccines and child health</h2></div>
+        </div>
+        <div class="photo" data-art="child"><img src="assets/photos/child.jpg" alt="A nurse giving a child a vaccine" loading="lazy"></div>
         <p>We give every child the government's Expanded Programme on Immunization (EPI) schedule, protecting against the main childhood diseases, including the Hepatitis B vaccine for babies under one year. We also offer additional vaccines for children and adults.</p>
-        <table class="data">
-          <thead><tr><th>Vaccine</th><th>Who it is for</th></tr></thead>
-          <tbody>
-            <tr><td>Government EPI schedule</td><td>Babies and young children</td></tr>
-            <tr><td>Hepatitis B (EPI)</td><td>Babies under 1 year</td></tr>
-            <tr><td>Hepatitis A and B</td><td>All ages</td></tr>
-            <tr><td>Hib</td><td>Babies up to 1 year</td></tr>
-            <tr><td>Typhoid</td><td>Children up to 5 years</td></tr>
-            <tr><td>MMR, chickenpox, anti-rabies</td><td>All ages</td></tr>
-          </tbody>
-        </table>
-        <p class="note">Please bring your child's vaccination card to every visit.</p>
-        <a class="btn btn-line" href="visit.html?service=child#register">Request this service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th scope="col">Vaccine</th><th scope="col">Who it is for</th></tr></thead>
+            <tbody>
+              <tr><td>Government EPI schedule</td><td>Babies and young children</td></tr>
+              <tr><td>Hepatitis B (EPI)</td><td>Babies under 1 year</td></tr>
+              <tr><td>Hepatitis A and B</td><td>All ages</td></tr>
+              <tr><td>Hib</td><td>Babies up to 1 year</td></tr>
+              <tr><td>Typhoid</td><td>Children up to 5 years</td></tr>
+              <tr><td>MMR, chickenpox, anti-rabies</td><td>All ages</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.500"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Please bring your child's vaccination card to every visit.</span></p>
+        <a class="btn btn-primary" href="visit.html?service=child#register">Request this service <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
 
-      <article class="svc-block prose" id="family-planning">
-        <div class="photo"><img src="assets/photos/family-planning.jpg" alt="A counsellor speaking with a young couple" loading="lazy"></div>
-        <span class="eyebrow">Community health</span>
-        <h2>Family planning and community health</h2>
+      <article class="svc-block" id="family-planning" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico" style="--tile:var(--mint-100)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="7.500" r="2.800"/><circle cx="16.500" cy="8.500" r="2.300"/><path d="M2.500 20c0-3.600 2.400-6.200 5.500-6.200s5.500 2.600 5.500 6.200M15 14.200c.5-.1 1-.2 1.500-.2 2.800 0 5 2.400 5 5.500"/></svg></span>
+          <div><span class="label">Community health</span><h2>Family planning and community health</h2></div>
+        </div>
+        <div class="photo" data-art="family-planning"><img src="assets/photos/family-planning.jpg" alt="A counsellor speaking with a young couple" loading="lazy"></div>
         <p>Every family has the right to decide when to have children. Our counsellors explain the options in private and help couples choose the method that suits them. Our teams also work in the community, through our static clinics and satellite clinics.</p>
         <ul class="checklist">
           <li>Contraceptives and counselling</li>
@@ -118,12 +129,14 @@
           <li>Static and satellite clinics</li>
           <li>Physiotherapy</li>
         </ul>
-        <a class="btn btn-line" href="visit.html?service=family-planning#register">Request this service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-primary" href="visit.html?service=family-planning#register">Request this service <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
 
-      <article class="svc-block prose" id="laboratory">
-        <span class="eyebrow">Support services</span>
-        <h2>Laboratory tests</h2>
+      <article class="svc-block" id="laboratory" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.500 3h5M10.500 3v6.200L5.200 18a2 2 0 0 0 1.700 3h10.200a2 2 0 0 0 1.700-3l-5.300-8.800V3"/><path d="M7.800 14.500h8.400"/></svg></span>
+          <div><span class="label">Support services</span><h2>Laboratory tests</h2></div>
+        </div>
         <p>Each of our three permanent clinics has its own laboratory, so most routine tests can be done during your visit, at an affordable cost.</p>
         <ul class="checklist">
           <li>Clinical pathology</li>
@@ -131,12 +144,14 @@
           <li>Haematology</li>
           <li>Tests during pregnancy</li>
         </ul>
-        <a class="btn btn-line" href="visit.html?service=laboratory#register">Request this service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-primary" href="visit.html?service=laboratory#register">Request this service <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </article>
 
-      <article class="svc-block prose" id="training">
-        <span class="eyebrow">Training and research</span>
-        <h2>Training the next generation of health workers</h2>
+      <article class="svc-block" id="training" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico" style="--tile:var(--sun-100)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.500 9.500L12 5l9.500 4.500L12 14z"/><path d="M6.500 11.800V16c0 1.400 2.500 2.800 5.500 2.800s5.500-1.400 5.500-2.800v-4.200M21.500 9.500v5"/></svg></span>
+          <div><span class="label">Training and research</span><h2>Training the next generation of health workers</h2></div>
+        </div>
         <p>Through the Radda Paramedic Institute and our training and research work, we prepare health workers to serve mothers and children in communities across Bangladesh.</p>
         <p><a class="more" href="visit.html#contact">Ask about training</a></p>
       </article>
@@ -144,19 +159,21 @@
   </div>
 </section>
 
-<section class="band">
-  <div class="container">
+<div class="band-wrap">
+  <section class="band" aria-labelledby="band-h" data-reveal>
     <div>
-      <h2>Not sure which service you need?</h2>
+      <h2 id="band-h">Not sure which service you need?</h2>
       <p>Call us or send a WhatsApp message. Our staff will guide you.</p>
     </div>
     <div class="actions">
-      <a class="btn btn-white" href="visit.html#register">Request a visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-sun" href="visit.html#register">Request a visit <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-line-white" href="tel:+8801335097710">Call +880 1335-097710</a>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 </main>
+
+<!-- footer:start -->
 <footer class="site-footer">
   <div class="container top">
     <div>
@@ -166,9 +183,9 @@
       </a>
       <p>Maternal and child health, family planning and immunization for the families of Mirpur, Dhaka, since 1974.</p>
       <div class="social">
-        <a href="https://www.facebook.com/bd.radda" target="_blank" rel="noopener" aria-label="Radda on Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3Z"/></svg></a>
-        <a href="mailto:info@raddacentre.org" aria-label="Email Radda"><svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4 7.4V17h16V7.4l-8 4.8ZM5.2 7 12 11l6.8-4H5.2Z"/></svg></a>
-        <a href="tel:+8801335097710" aria-label="Call Radda"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg></a>
+        <a href="https://www.facebook.com/bd.radda" target="_blank" rel="noopener" aria-label="Radda on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3Z"/></svg></a>
+        <a href="mailto:info@raddacentre.org" aria-label="Email Radda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm9 7.2L4 7.4V17h16V7.4l-8 4.8ZM5.2 7 12 11l6.8-4H5.2Z"/></svg></a>
+        <a href="tel:+8801335097710" aria-label="Call Radda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg></a>
       </div>
     </div>
     <div>
@@ -195,6 +212,7 @@
         <li><a href="tel:+8801335097710">+880 1335-097710</a></li>
         <li><a href="mailto:info@raddacentre.org">info@raddacentre.org</a></li>
         <li>Mirpur, Dhaka, Bangladesh</li>
+        <li>Sun-Thu 9 AM-5 PM · Sat 9 AM-2 PM</li>
         <li>Closed Fridays &amp; government holidays</li>
       </ul>
     </div>
@@ -204,6 +222,12 @@
     <span>In partnership with the Government of Bangladesh since 1994.</span>
   </div>
 </footer>
+<nav class="mbar" aria-label="Quick contact">
+  <a href="tel:+8801335097710"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>
+  <a href="https://wa.me/8801335097710" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5z"/></svg>WhatsApp</a>
+  <a href="visit.html#register">Request a visit</a>
+</nav>
 <script src="assets/js/site.js"></script>
+<!-- footer:end -->
 </body>
 </html>
