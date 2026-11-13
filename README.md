@@ -61,7 +61,8 @@ To change the WhatsApp number, edit `whatsapp:` at the top of `assets/js/site.js
 
 ## Editing content
 
-- The header and footer are repeated in each of the four pages, between the `<!-- header:start -->` and `<!-- footer:end -->` comments. A change to one must be copied to the other three.
+- The header and footer are repeated in each of the four pages, between the `<!-- header:start -->` and `<!-- footer:end -->` comments. Edit them in `index.html`, then run `node tools/sync-partials.js .` to copy them to the other three pages (or copy by hand).
+- `node tools/make-art.js assets/img` redraws the illustrations if their colours or figures need to change. Both tools are optional and need Node.js; the site itself needs nothing.
 - Phone, email and Facebook appear in the header, the footer, the bar at the bottom of phone screens, and `visit.html`. Search all files for `1335` to find every copy of the phone number.
 - The update notice at the top of the home page is the `<div class="notice">` block in `index.html`. Delete it when it is no longer needed.
 - Colours and fonts are set at the top of `assets/css/site.css` (`--blue` is the main brand colour, `--sun` is the warm accent).
