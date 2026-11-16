@@ -14,10 +14,7 @@ content:
     type: file
     path: src/_data/newsItems.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{title_en} {title_bn}"
+    list: true
     fields:
       - name: title_en
         label: Title (English)
@@ -92,9 +89,7 @@ content:
     type: file
     path: src/_data/holidays.json
     format: json
-    list:
-      collapsible:
-        summary: "{date} {name}"
+    list: true
     fields:
       - name: date
         label: Date the centre is closed
@@ -111,9 +106,7 @@ content:
     type: file
     path: src/_data/trustees.json
     format: json
-    list:
-      collapsible:
-        summary: "{name}"
+    list: true
     fields:
       - name: name
         label: Name (English)
