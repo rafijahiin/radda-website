@@ -12,7 +12,7 @@ depth: 0
 <div class="notice" role="region" aria-label="{{ h.notice_aria }}"{% if item.notice_until %} data-until="{{ item.notice_until }}"{% endif %}>
   <div class="container">
     <span class="tag">{{ h.notice_tag }}</span>
-    <p>{{ item[lng.code].summary }} <a href="{{ up }}news/{{ item.id }}.html">{{ h.read_more }}</a></p>
+    <p>{{ item[lng.code].summary or item[lng.code].title }} {% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ h.read_more }}</a>{% else %}<a href="{{ up }}news/{{ item.id }}.html">{{ h.read_more }}</a>{% endif %}</p>
   </div>
 </div>
 {%- endif %}{% endfor %}

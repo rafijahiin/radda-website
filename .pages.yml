@@ -1,0 +1,158 @@
+# Staff editing screen (Pages CMS, https://pagescms.org).
+# This file tells the editing screen which parts of the site staff can change
+# and what each form looks like. Saving a form commits to this repository,
+# and GitHub then rebuilds and publishes the site within about two minutes.
+
+media:
+  input: src/assets/photos
+  output: /assets/photos
+  extensions: [jpg]
+
+content:
+  - name: news
+    label: News and updates
+    type: file
+    path: src/_data/newsItems.json
+    format: json
+    list: true
+    fields:
+      - name: title_en
+        label: Title (English)
+        type: string
+        description: Fill in at least one title. If a language is left empty, the other language is shown on that version of the site.
+      - name: title_bn
+        label: Title (Bangla)
+        type: string
+      - name: type
+        label: Kind of item
+        type: select
+        required: true
+        options:
+          values:
+            - name: update
+              label: From Radda (gets its own page on the site)
+            - name: press
+              label: In the press (links to another website)
+      - name: url
+        label: Link to the article
+        type: string
+        description: Only for press items. Paste the full address, starting with https://
+      - name: summary_en
+        label: Summary (English)
+        type: text
+        description: One or two sentences, shown in the news list.
+      - name: summary_bn
+        label: Summary (Bangla)
+        type: text
+      - name: body_en
+        label: Full text (English)
+        type: text
+        description: Only for items from Radda. Leave an empty line between paragraphs. If empty, the summary is used.
+      - name: body_bn
+        label: Full text (Bangla)
+        type: text
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: date_text_en
+        label: Date in words (English, optional)
+        type: string
+        description: Use this only when the exact day is not known, for example "October 2026". It replaces the date above.
+      - name: date_text_bn
+        label: Date in words (Bangla, optional)
+        type: string
+      - name: source_en
+        label: Source (English)
+        type: string
+        description: For press items, the name of the newspaper or website. Leave empty for items from Radda.
+      - name: source_bn
+        label: Source (Bangla)
+        type: string
+      - name: notice
+        label: Show in the notice bar at the top of the home page
+        type: boolean
+      - name: notice_until
+        label: Hide the notice bar after this date
+        type: date
+        description: Optional. Leave empty to keep the notice until it is switched off above.
+        options:
+          format: yyyy-MM-dd
+      - name: id
+        label: Short name for the web address (optional)
+        type: string
+        description: Lowercase English letters, numbers and hyphens, for example "eid-holiday-hours". Do not change it after the item is published, or old links will stop working.
+        pattern: "^[a-z0-9-]*$"
+
+  - name: holidays
+    label: Government holidays
+    type: file
+    path: src/_data/holidays.json
+    format: json
+    list: true
+    fields:
+      - name: date
+        label: Date the centre is closed
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: name
+        label: Name of the holiday (for your own reference)
+        type: string
+
+  - name: trustees
+    label: Board of Trustees
+    type: file
+    path: src/_data/trustees.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Name (English)
+        type: string
+        required: true
+      - name: name_bn
+        label: Name (Bangla)
+        type: string
+        description: Optional. Until this is filled in, the English name is shown on the Bangla page.
+      - name: role
+        label: Role
+        type: select
+        required: true
+        options:
+          values:
+            - name: chair
+              label: Chairperson
+            - name: treasurer
+              label: Treasurer and Member
+            - name: member
+              label: Member
+
+  - name: contact
+    label: Contact details
+    type: file
+    path: src/_data/contact.json
+    format: json
+    fields:
+      - name: phone
+        label: Phone number
+        type: string
+        required: true
+        description: As it should appear on the site, with the country code, for example +880 1335-097710
+      - name: whatsapp
+        label: WhatsApp number
+        type: string
+        required: true
+        description: Digits only, with the country code and no plus sign, for example 8801335097710. Visit requests are sent to this number.
+        pattern: "^[0-9]{10,15}$"
+      - name: email
+        label: Email address
+        type: string
+        required: true
+      - name: facebook_url
+        label: Facebook page link
+        type: string
+        required: true
+        description: The full address, starting with https://

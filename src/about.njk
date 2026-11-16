@@ -77,7 +77,9 @@ depth: 0
     </div>
     <div class="people" data-reveal style="--d:1">
       {%- for person in site.trustees %}
-      <div class="person"><i aria-hidden="true" lang="en">{{ person.initials }}</i><div><strong lang="en">{{ person.name }}</strong><span>{{ a.roles[person.role] }}</span></div></div>
+      {#- On the Bangla page a trustee's Bangla name is used once it has been filled in (trustees.json). -#}
+      {%- set banglaName = person.name_bn if lng.code == "bn" else "" %}
+      <div class="person"><i aria-hidden="true" lang="en">{{ person.initials }}</i><div><strong{% if not banglaName %} lang="en"{% endif %}>{{ banglaName or person.name }}</strong><span>{{ a.roles[person.role] }}</span></div></div>
       {%- endfor %}
     </div>
   </div>

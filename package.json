@@ -4,6 +4,7 @@
   "private": true,
   "description": "Website of Radda MCH-FP Centre, Mirpur, Dhaka",
   "scripts": {
+    "test": "node --test",
     "build": "eleventy",
     "start": "eleventy --serve --port 8101",
     "check": "node tools/check-site.js"

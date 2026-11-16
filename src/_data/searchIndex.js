@@ -2,8 +2,8 @@
 // so search never goes out of date. Each entry: t = title, x = extra text,
 // u = link (relative to the language root, or a full address), k = kind.
 const langs = require("./langs.json");
-const news = require("./news.json");
-const site = require("./site.json");
+const news = require("./news.js");
+const site = require("./site.js");
 
 const join = (parts) => parts.filter(Boolean).join(" ");
 
