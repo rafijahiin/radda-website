@@ -21,7 +21,9 @@
   var REVEAL_CLEANUP_MS = 1600;
   var COUNT_DURATION_MS = 1400;
   var BOOKING_WINDOW_DAYS = 60;
-  var MIN_PHONE_DIGITS = 11;
+  var PHONE_PATTERN = /^(?:88)?01[3-9]\d{8}$/;   // Bangladeshi mobile, with or without 88
+  var LOOKAHEAD_DAYS = 14;
+  var MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
   function pad(n) { return String(n).padStart(2, "0"); }
@@ -80,30 +82,37 @@
     var h = Math.floor(mins / 60), m = mins % 60;
     return (h % 12 || 12) + (m ? ":" + pad(m) : "") + (h < 12 ? " AM" : " PM");
   }
-  function hoursOn(now, offset) {
-    var date = new Date(Date.UTC(now.y, now.m - 1, now.d + offset));
+  function dateAt(now, offset) { return new Date(Date.UTC(now.y, now.m - 1, now.d + offset)); }
+  function isHoliday(date) {
     var key = date.getUTCFullYear() + "-" + pad(date.getUTCMonth() + 1) + "-" + pad(date.getUTCDate());
-    if (CLINIC.holidays.indexOf(key) !== -1) return null;
-    return CLINIC.hours[date.getUTCDay()];
+    return CLINIC.holidays.indexOf(key) !== -1;
   }
+  function hoursOn(date) { return isHoliday(date) ? null : CLINIC.hours[date.getUTCDay()]; }
   function clinicStatus() {
     var now = dhakaNow();
     if (now.day < 0) return null;
-    var today = hoursOn(now, 0);
+    var todayDate = dateAt(now, 0);
+    var holiday = isHoliday(todayDate);
+    function status(open, title, detail) {
+      return { open: open, day: now.day, holiday: holiday, title: title, detail: detail };
+    }
+    var today = hoursOn(todayDate);
     if (today && now.minutes >= today[0] && now.minutes < today[1]) {
-      return { open: true, day: now.day, title: "Open now", detail: "Closes at " + clock(today[1]) + " today" };
+      return status(true, "Open now", "Closes at " + clock(today[1]) + " today");
     }
     if (today && now.minutes < today[0]) {
-      return { open: false, day: now.day, title: "Closed now", detail: "Opens today at " + clock(today[0]) };
+      return status(false, "Closed now", "Opens today at " + clock(today[0]));
     }
-    for (var i = 1; i <= 7; i++) {
-      var next = hoursOn(now, i);
-      if (next) {
-        var name = i === 1 ? "tomorrow" : DAY_NAMES[(now.day + i) % 7];
-        return { open: false, day: now.day, title: "Closed now", detail: "Opens " + name + " at " + clock(next[0]) };
-      }
+    for (var i = 1; i <= LOOKAHEAD_DAYS; i++) {
+      var nextDate = dateAt(now, i);
+      var next = hoursOn(nextDate);
+      if (!next) continue;
+      var name = i === 1 ? "tomorrow" : DAY_NAMES[nextDate.getUTCDay()];
+      // A week or more away: add the date so "Sunday" cannot be mistaken for the coming one.
+      if (i >= 7) name += " " + nextDate.getUTCDate() + " " + MONTH_NAMES[nextDate.getUTCMonth()];
+      return status(false, "Closed now", "Opens " + name + " at " + clock(next[0]));
     }
-    return { open: false, day: now.day, title: "Closed now", detail: "" };
+    return status(false, "Closed now", "Please call for opening times");
   }
   function paintStatus() {
     var s;
@@ -119,7 +128,8 @@
       if (detail) detail.textContent = s.detail;
     });
     each(document.querySelectorAll("table.hours tr[data-days]"), function (row) {
-      var isToday = row.getAttribute("data-days").split(",").indexOf(String(s.day)) !== -1;
+      var key = s.holiday ? "holiday" : String(s.day);
+      var isToday = row.getAttribute("data-days").split(",").indexOf(key) !== -1;
       row.classList.toggle("today", isToday);
     });
   }
@@ -165,16 +175,23 @@
   if (spyLinks.length && "IntersectionObserver" in window) {
     var byId = {};
     each(spyLinks, function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+    var visible = [];
+    var setActive = function (id) {
+      each(spyLinks, function (a) { a.classList.remove("active"); a.removeAttribute("aria-current"); });
+      var link = id ? byId[id] : null;
+      if (!link) return;
+      link.classList.add("active");
+      link.setAttribute("aria-current", "true");
+      var bar = link.parentNode;
+      if (bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: link.offsetLeft - 16, behavior: reduceMotion ? "auto" : "smooth" });
+    };
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        each(spyLinks, function (a) { a.classList.remove("active"); });
-        var link = byId[entry.target.id];
-        if (!link) return;
-        link.classList.add("active");
-        var bar = link.parentNode;
-        if (bar.scrollWidth > bar.clientWidth) bar.scrollTo({ left: link.offsetLeft - 16, behavior: reduceMotion ? "auto" : "smooth" });
+        var id = entry.target.id;
+        visible = visible.filter(function (v) { return v !== id; });
+        if (entry.isIntersecting) visible = visible.concat(id);
       });
+      setActive(visible[visible.length - 1]);
     }, { rootMargin: "-30% 0px -60% 0px" });
     Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
   }
@@ -189,6 +206,7 @@
   var errBox = document.getElementById("form-error");
   var preview = document.getElementById("preview");
   var smsLink = document.getElementById("sms-link");
+  var waLink = document.getElementById("wa-link");
   var afternoon = form.querySelector('input[name="session"][value="Afternoon"]');
   var morning = form.querySelector('input[name="session"][value="Morning"]');
 
@@ -220,24 +238,31 @@
     }
   }
 
+  /* A date counts only when it is complete and inside the booking window. Browsers fire
+     "change" on half-typed dates (year 0020), which must not be judged. */
+  function inWindow(v) { return /^\d{4}-\d{2}-\d{2}$/.test(v) && v >= dateIn.min && v <= dateIn.max; }
+  function closedReason(v) {
+    if (parse(v).getDay() === 5) return "The centre is closed on Fridays. Please choose another day.";
+    if (CLINIC.holidays.indexOf(v) !== -1) return "The centre is closed on that day for a government holiday. Please choose another day.";
+    return "";
+  }
+  function isSaturday(v) { return parse(v).getDay() === 6; }
+
   /* Fridays and listed holidays closed; Saturdays morning only (9:00 AM to 2:00 PM) */
   dateIn.addEventListener("change", function () {
     showError("");
-    if (!dateIn.value) return;
-    var day = parse(dateIn.value).getDay();
-    if (day === 5) {
-      showError("The centre is closed on Fridays. Please choose another day.");
+    afternoon.disabled = false;
+    if (!inWindow(dateIn.value)) return;
+    var reason = closedReason(dateIn.value);
+    if (reason) {
+      showError(reason);
       dateIn.value = "";
       return;
     }
-    if (CLINIC.holidays.indexOf(dateIn.value) !== -1) {
-      showError("The centre is closed on that day for a government holiday. Please choose another day.");
-      dateIn.value = "";
-      return;
+    if (isSaturday(dateIn.value)) {
+      afternoon.disabled = true;
+      if (afternoon.checked) morning.checked = true;
     }
-    var sat = day === 6;
-    afternoon.disabled = sat;
-    if (sat && afternoon.checked) morning.checked = true;
   });
 
   function val(sel) { var el = form.querySelector(sel); return el ? el.value.trim() : ""; }
@@ -249,10 +274,14 @@
     var phone = val("#v-phone");
 
     if (!service) return { error: "Please choose the service you need." };
-    if (!dateIn.value) return { error: "Please choose a preferred date." };
+    if (!dateIn.value) return { error: "Please choose a preferred date.", field: dateIn };
+    if (!inWindow(dateIn.value)) return { error: "Please choose a date between today and " + pretty(dateIn.max) + ".", field: dateIn };
+    var reason = closedReason(dateIn.value);
+    if (reason) return { error: reason, field: dateIn };
     if (!session) return { error: "Please choose morning or afternoon." };
-    if (name.length < 2) return { error: "Please enter the patient's name." };
-    if (phone.replace(/\D/g, "").length < MIN_PHONE_DIGITS) return { error: "Please enter a valid mobile number (11 digits)." };
+    if (session.value === "Afternoon" && isSaturday(dateIn.value)) return { error: "On Saturdays the centre closes at 2 PM. Please choose the morning." };
+    if (name.length < 2) return { error: "Please enter the patient's name.", field: form.querySelector("#v-name") };
+    if (!PHONE_PATTERN.test(phone.replace(/\D/g, ""))) return { error: "Please enter a valid mobile number: 11 digits, starting with 01.", field: form.querySelector("#v-phone") };
 
     var lines = [
       "Visit request: Radda MCH-FP Centre",
@@ -272,13 +301,22 @@
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    each(form.querySelectorAll("[aria-invalid]"), function (el) { el.removeAttribute("aria-invalid"); });
     var r = buildMessage();
-    if (r.error) { showError(r.error); return; }
+    if (r.error) {
+      if (r.field) r.field.setAttribute("aria-invalid", "true");
+      showError(r.error);
+      return;
+    }
     showError("");
+    var waUrl = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(r.text);
     preview.hidden = false;
     preview.textContent = r.text;
     smsLink.hidden = false;
     smsLink.href = "sms:+" + CLINIC.whatsapp + "?body=" + encodeURIComponent(r.text);
-    window.open("https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(r.text), "_blank", "noopener");
+    // A plain link as well: some in-app browsers silently block window.open.
+    waLink.hidden = false;
+    waLink.href = waUrl;
+    window.open(waUrl, "_blank", "noopener");
   });
 })();
