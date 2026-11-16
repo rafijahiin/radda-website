@@ -19,12 +19,12 @@ You do not need any technical knowledge. You change the site by filling in forms
 
 ## Posting an announcement
 
-1. Open **News and updates** and add a new entry at the bottom of the list. The last entry is shown first on the website.
+1. Open **News and updates**, scroll to the bottom and press **Add an item**. The last item in the list is shown first on the website.
 2. Write the title and a one or two sentence summary, in English, in Bangla, or both. If you write only one language, that text is shown on both versions of the site.
 3. Under **Kind of item**, choose **From Radda**.
 4. Write the full text if you have more to say. Leave an empty line between paragraphs.
-5. Pick the date.
-6. If patients need to see it straight away (for example a closure), tick **Show in the notice bar**. Set **Hide the notice bar after this date** so it disappears on its own.
+5. Write the date as it should appear, for example 16 November 2026.
+6. If patients need to see it straight away (for example a closure), switch on **Show in the notice bar**. In **Last day to show the notice**, type the date in the form 2027-01-31 (year, month, day, in English digits) so the notice disappears on its own after that day.
 7. Press **Save**.
 
 ## Adding a newspaper story
@@ -33,11 +33,11 @@ Do the same, but choose **In the press**, paste the full link to the article, an
 
 ## Adding a holiday
 
-Open **Government holidays**, add an entry, pick the date and save. On that day the site will show the centre as closed, and patients will not be able to request a visit for it.
+Open **Government holidays**, press **Add an item**, pick the date and press **Save**. On that day the site will show the centre as closed, and patients will not be able to request a visit for it.
 
 ## Adding photos
 
-Open **Media** and upload a JPG. A photo replaces one of the drawings on the site only if it has one of these exact file names:
+Open **Media**, press **Upload** and choose a JPG. A photo replaces one of the drawings on the site only if it has one of these exact file names:
 
 `hero.jpg`, `maternal.jpg`, `child.jpg`, `family-planning.jpg`, `about.jpg`, `centre.jpg`, `support.jpg`
 
@@ -70,12 +70,12 @@ Nothing you do here can break the website. If a save contains a mistake the site
 
 ## ঘোষণা দেওয়া
 
-1. **News and updates** খুলে তালিকার একদম নিচে নতুন একটি এন্ট্রি যোগ করুন। সবার শেষের এন্ট্রিটি ওয়েবসাইটে সবার আগে দেখায়।
+1. **News and updates** খুলে একদম নিচে গিয়ে **Add an item** চাপুন। তালিকার সবার শেষেরটি ওয়েবসাইটে সবার আগে দেখায়।
 2. শিরোনাম এবং এক-দুই বাক্যের সারাংশ লিখুন। ইংরেজিতে, বাংলায়, বা দুই ভাষাতেই লিখতে পারেন। একটি ভাষায় লিখলে সেই লেখাই সাইটের দুই সংস্করণে দেখাবে।
 3. **Kind of item**-এ **From Radda** বেছে নিন।
 4. আরও কিছু বলার থাকলে পুরো লেখাটি লিখুন। দুই অনুচ্ছেদের মাঝে একটি ফাঁকা লাইন রাখুন।
-5. তারিখ বেছে নিন।
-6. রোগীদের এখনই জানা দরকার হলে (যেমন কেন্দ্র বন্ধ থাকা), **Show in the notice bar**-এ টিক দিন। **Hide the notice bar after this date**-এ তারিখ দিলে ঘোষণাটি ওই দিনের পর নিজে থেকেই সরে যাবে।
+5. তারিখটি যেভাবে দেখাতে চান সেভাবে লিখুন, যেমন ১৬ নভেম্বর ২০২৬।
+6. রোগীদের এখনই জানা দরকার হলে (যেমন কেন্দ্র বন্ধ থাকা), **Show in the notice bar** চালু করুন। **Last day to show the notice**-এ তারিখটি 2027-01-31 এই ধরনে লিখুন (বছর, মাস, দিন, ইংরেজি সংখ্যায়)। ওই দিনের পর ঘোষণাটি নিজে থেকেই সরে যাবে।
 7. **Save** চাপুন।
 
 ## পত্রিকার খবর যোগ করা
@@ -84,11 +84,11 @@ Nothing you do here can break the website. If a save contains a mistake the site
 
 ## ছুটির দিন যোগ করা
 
-**Government holidays** খুলে একটি এন্ট্রি যোগ করুন, তারিখ বেছে নিয়ে সেভ করুন। ওই দিন সাইটে কেন্দ্র বন্ধ দেখাবে, এবং রোগীরা ওই দিনের জন্য আসার অনুরোধ পাঠাতে পারবেন না।
+**Government holidays** খুলে **Add an item** চাপুন, তারিখ বেছে নিয়ে **Save** চাপুন। ওই দিন সাইটে কেন্দ্র বন্ধ দেখাবে, এবং রোগীরা ওই দিনের জন্য আসার অনুরোধ পাঠাতে পারবেন না।
 
 ## ছবি যোগ করা
 
-**Media** খুলে একটি JPG ছবি আপলোড করুন। ছবির ফাইলের নাম ঠিক নিচের যেকোনো একটি হলে তবেই সেটি সাইটের আঁকা ছবির জায়গায় বসবে:
+**Media** খুলে **Upload** চেপে একটি JPG ছবি বেছে নিন। ছবির ফাইলের নাম ঠিক নিচের যেকোনো একটি হলে তবেই সেটি সাইটের আঁকা ছবির জায়গায় বসবে:
 
 `hero.jpg`, `maternal.jpg`, `child.jpg`, `family-planning.jpg`, `about.jpg`, `centre.jpg`, `support.jpg`
 

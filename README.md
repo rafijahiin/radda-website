@@ -31,9 +31,11 @@ Staff do not need GitHub. The four files marked "staff editing screen" above, an
 1. Go to https://app.pagescms.org and sign in with the GitHub account that owns this repository.
 2. When asked, install the Pages CMS GitHub App and give it access to **only** the `radda-website` repository.
 3. Open `radda-website` in Pages CMS. You should see News and updates, Government holidays, Board of Trustees, Contact details and Media.
-4. Invite each staff member by email from the collaborators section. They sign in from the email they receive and can edit content and photos, but cannot change the forms or invite others.
+4. Invite each staff member by email: open **Collaborators** in the left menu and press **Invite a collaborator**. They sign in from the email they receive and can edit content and photos, but cannot change the forms or invite others.
 
 **Why a mistake cannot break the live site.** Every save triggers the same build as any other change. The build tidies what it can (see `src/_data/news.js` and `src/_data/site.js`): an empty language falls back to the other one, an entry with no title is skipped, a bad link is ignored. If something essential is wrong, such as an empty phone number, the build stops and the live site keeps showing the last good version. GitHub emails the repository owner when a build fails. `npm test` runs the checks for these rules.
+
+**Two things to know about `.pages.yml`.** For a file that holds a list (news, holidays, trustees), the setting must be exactly `list: true`; the longer form with `collapsible` makes Pages CMS show the file as one blank entry, and saving that would wipe the list. And optional dates are plain text fields, because the date picker fills an empty field with today's date.
 
 **What staff cannot change from the forms:** the wording of the pages, the opening hours and the page layout. Those stay with whoever maintains the repository.
 
