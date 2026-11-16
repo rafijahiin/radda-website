@@ -14,7 +14,10 @@ content:
     type: file
     path: src/_data/newsItems.json
     format: json
-    list: true
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{title_en} {title_bn}"
     fields:
       - name: title_en
         label: Title (English)
@@ -51,18 +54,16 @@ content:
       - name: body_bn
         label: Full text (Bangla)
         type: text
-      - name: date
-        label: Date
-        type: date
-        options:
-          format: yyyy-MM-dd
+      # Dates here are plain text on purpose: the date picker fills an empty
+      # field with today's date, which would put a wrong date on old items.
       - name: date_text_en
-        label: Date in words (English, optional)
+        label: Date (English)
         type: string
-        description: Use this only when the exact day is not known, for example "October 2026". It replaces the date above.
+        description: As it should appear, for example "16 November 2026" or "October 2026". Can be left empty.
       - name: date_text_bn
-        label: Date in words (Bangla, optional)
+        label: Date (Bangla)
         type: string
+        description: For example "১৬ নভেম্বর ২০২৬". If empty, the English date is shown.
       - name: source_en
         label: Source (English)
         type: string
@@ -74,11 +75,12 @@ content:
         label: Show in the notice bar at the top of the home page
         type: boolean
       - name: notice_until
-        label: Hide the notice bar after this date
-        type: date
-        description: Optional. Leave empty to keep the notice until it is switched off above.
-        options:
-          format: yyyy-MM-dd
+        label: Last day to show the notice (optional)
+        type: string
+        description: Type the date as year-month-day in English digits, for example 2027-01-31. The notice disappears after that day. Leave empty to keep it until it is switched off above.
+        pattern:
+          regex: "^([0-9]{4}-[0-9]{2}-[0-9]{2})?$"
+          message: "Write the date like 2027-01-31, or leave this empty"
       - name: id
         label: Short name for the web address (optional)
         type: string
@@ -90,7 +92,9 @@ content:
     type: file
     path: src/_data/holidays.json
     format: json
-    list: true
+    list:
+      collapsible:
+        summary: "{date} {name}"
     fields:
       - name: date
         label: Date the centre is closed
@@ -107,7 +111,9 @@ content:
     type: file
     path: src/_data/trustees.json
     format: json
-    list: true
+    list:
+      collapsible:
+        summary: "{name}"
     fields:
       - name: name
         label: Name (English)
