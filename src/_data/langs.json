@@ -1,0 +1,4 @@
+[
+  { "code": "en", "dir": "", "name": "English", "locale": "en-GB", "og": "en_GB" },
+  { "code": "bn", "dir": "bn/", "name": "বাংলা", "locale": "bn-BD", "og": "bn_BD" }
+]

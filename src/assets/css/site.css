@@ -548,7 +548,7 @@ table.data tbody tr:hover { background: var(--blue-50); }
 .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
 .btn-wa { font-size: 1.06rem; padding: 1.05em 1.7em; }
 .preview { margin-top: 24px; padding: 20px 22px; border-radius: 6px 20px 20px 20px; background: #e4f6ec; color: #0c3a26; white-space: pre-wrap; font-size: .98rem; line-height: 1.5; max-width: 480px; }
-.preview::before { content: "Your message"; display: block; font: 650 .72rem/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.preview::before { content: attr(data-label); display: block; font: 650 .72rem/1 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
 .form-small { font-size: .92rem; color: var(--muted); margin: 22px 0 0; max-width: 60ch; }
 
 .info-panel { position: sticky; top: 112px; background: var(--navy); color: var(--blue-200); border-radius: 28px; padding: clamp(24px, 3vw, 36px); }
@@ -606,19 +606,6 @@ table.hours tr.today th, table.hours tr.today td { color: var(--sun); }
 
 /* Responsive -------------------------------------------------------------- */
 @media (max-width: 1080px) {
-  .commit .container { grid-template-columns: repeat(3, 1fr); }
-  .commit .intro { grid-column: 1 / -1; max-width: 560px; }
-  .cards.four { grid-template-columns: repeat(2, 1fr); }
-  .quick-grid { grid-template-columns: repeat(2, 1fr); }
-  .q:nth-child(3) { border-left: 0; }
-  .q:nth-child(n + 3) { border-top: 1px solid var(--line); }
-  .visit-grid { grid-template-columns: minmax(0, 1fr); }
-  .info-panel { position: static; }
-  .chip-a { left: -4%; }
-  .chip-b { right: -3%; }
-}
-
-@media (max-width: 900px) {
   .header-cta { display: none; }
   .menu-btn { display: block; }
   .site-header .container { min-height: 68px; }
@@ -634,6 +621,19 @@ table.hours tr.today th, table.hours tr.today td { color: var(--sun); }
   .nav a:not(.btn) { padding: 16px 6px; font-size: 1.14rem; border-bottom: 1px solid var(--line); border-radius: 0; }
   .nav a:not(.btn)::after { display: none; }
   .nav-cta { display: inline-flex; margin-top: 18px; }
+  .commit .container { grid-template-columns: repeat(3, 1fr); }
+  .commit .intro { grid-column: 1 / -1; max-width: 560px; }
+  .cards.four { grid-template-columns: repeat(2, 1fr); }
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  .q:nth-child(3) { border-left: 0; }
+  .q:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .visit-grid { grid-template-columns: minmax(0, 1fr); }
+  .info-panel { position: static; }
+  .chip-a { left: -4%; }
+  .chip-b { right: -3%; }
+}
+
+@media (max-width: 900px) {
 
   .hero .container { grid-template-columns: 1fr; padding-top: 44px; }
   .hero-art { justify-self: center; width: min(74%, 340px); margin-top: 8px; }
@@ -667,7 +667,7 @@ table.hours tr.today th, table.hours tr.today td { color: var(--sun); }
 
 @media (max-width: 720px) {
   body { font-size: 1rem; padding-bottom: 76px; }
-  .u-right a:not(:first-child), .u-hours { display: none; }
+  .u-extra, .u-hours { display: none; }
   .utility .container { min-height: 40px; }
   .notice .container { align-items: flex-start; }
   .notice { font-size: .92rem; }
@@ -719,4 +719,136 @@ table.hours tr.today th, table.hours tr.today td { color: var(--sun); }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   .hero, .page-hero, .figures-wrap, .info-panel, .site-footer { background: #fff !important; color: #000 !important; }
   .hero h1, .page-hero h1, .figures-wrap h2, .figure .n { color: #000 !important; }
+}
+
+/* 13. Language switch, search, service finder, news ------------------------ */
+.lang-switch {
+  display: inline-flex; align-items: center; padding: 4px 14px; border-radius: 999px;
+  background: var(--sun); color: var(--navy); text-decoration: none;
+  font: 700 .86rem/1.5 var(--font-display), "Hind Siliguri", "Nirmala UI", sans-serif;
+  transition: background-color .2s, transform .2s var(--ease);
+}
+.utility a.lang-switch { color: var(--navy); }
+.utility a.lang-switch:hover { background: #ffc35a; text-decoration: none; transform: translateY(-1px); }
+
+.search-btn {
+  flex: none; width: 46px; height: 46px; border-radius: 50%; display: none; place-items: center;
+  border: 1.5px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
+  transition: border-color .2s, color .2s, background-color .2s;
+}
+.js .search-btn { display: grid; }
+.search-btn svg { width: 20px; height: 20px; }
+.search-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-50); }
+
+.search-open { overflow: hidden; }
+.search {
+  position: fixed; inset: 0; z-index: 90; display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; justify-items: center;
+  padding: clamp(16px, 9vh, 96px) 16px 16px; background: rgba(6, 26, 56, .62);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); animation: fade .2s ease;
+}
+.search-box {
+  width: min(100%, 680px); max-height: 100%; display: flex; flex-direction: column; overflow: hidden;
+  background: #fff; border-radius: 24px; box-shadow: 0 40px 90px -30px rgba(2, 12, 32, .7); animation: rise .35s var(--ease);
+}
+.search-row { display: flex; align-items: center; gap: 14px; padding: 16px 16px 16px 24px; border-bottom: 1px solid var(--line); color: var(--muted); }
+.search-row:focus-within { box-shadow: inset 0 -3px 0 var(--blue); }
+.search-row > svg { flex: none; width: 22px; height: 22px; }
+.search-row input { flex: 1; min-width: 0; border: 0; outline: 0; box-shadow: none; background: none; font: 500 1.2rem/1.5 var(--font-body); color: var(--ink); }
+.search-row input::-webkit-search-cancel-button { display: none; }
+.search-close { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 0; background: var(--blue-50); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+.search-close:hover { background: var(--blue-100); }
+.search-close svg { width: 18px; height: 18px; }
+.search-hint { margin: 0; padding: 18px 24px 22px; color: var(--muted); font-size: .98rem; }
+.search-results { overflow-y: auto; padding: 8px; }
+.search-results:empty { display: none; }
+.search-results a { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; row-gap: 2px; padding: 12px 16px; border-radius: 14px; text-decoration: none; color: var(--body); }
+.search-results a:hover, .search-results a:focus-visible { background: var(--blue-50); }
+.search-results .kind {
+  grid-row: span 2; align-self: start; margin-top: 2px; min-width: 84px; text-align: center; padding: 4px 10px; border-radius: 999px;
+  font: 650 .68rem/1.5 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--blue-700); background: var(--blue-100);
+}
+.search-results strong { font: 700 1.05rem/1.35 var(--font-display); color: var(--ink); }
+.search-results small { font-size: .9rem; line-height: 1.45; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@keyframes fade { from { opacity: 0; } }
+
+.finder { padding-top: clamp(56px, 7vw, 88px); }
+.finder-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; margin-bottom: 24px; }
+.finder-head h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+.finder-head p { margin: 0; color: var(--muted); }
+.finder-chips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.finder-chip {
+  position: relative; display: grid; gap: 2px; padding: 18px 56px 18px 22px; text-decoration: none; color: var(--body);
+  border: 1.5px solid var(--line); border-radius: 18px; background: #fff;
+  transition: border-color .25s, background-color .25s, transform .3s var(--ease), box-shadow .3s;
+}
+.finder-chip strong { font: 700 1.08rem/1.35 var(--font-display); color: var(--ink); }
+.finder-chip small { font-size: .9rem; color: var(--muted); }
+.finder-chip svg { position: absolute; right: 20px; top: 50%; width: 20px; height: 20px; margin-top: -10px; color: var(--blue); transition: transform .3s var(--ease); }
+.finder-chip:hover { border-color: var(--blue); background: var(--blue-50); color: var(--body); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.finder-chip:hover svg { transform: translateX(5px); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.filter {
+  font: 650 .95rem/1.4 var(--font-display); padding: .65em 1.3em; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--line-strong); background: #fff; color: var(--ink);
+  transition: border-color .2s, color .2s, background-color .2s;
+}
+.filter:hover { border-color: var(--blue); color: var(--blue); }
+.filter[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.news-type { display: block; color: var(--blue); margin-bottom: 4px; }
+
+.article { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+.page-hero h1.article-title { max-width: 20ch; font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.08; }
+.more.back { flex-direction: row-reverse; }
+.more.back::after { transform: scaleX(-1); }
+.more.back:hover::after { transform: scaleX(-1) translateX(5px); }
+.coverage { background: var(--blue-50); border-radius: var(--radius); padding: 28px; }
+.coverage h2 { font-size: 1.3rem; margin-bottom: 16px; }
+.coverage li { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid var(--line); }
+.coverage li a { font: 650 1.02rem/1.4 var(--font-display); color: var(--ink); text-decoration: none; }
+.coverage li a:hover { color: var(--blue); text-decoration: underline; }
+.coverage li span { font-size: .88rem; color: var(--muted); }
+
+.trustees-note { margin-top: 18px; }
+.support-actions { margin-top: 28px; }
+
+/* 14. Bangla typography ---------------------------------------------------- */
+/* Bangla needs more line height than Latin and no negative letter spacing,
+   or the vowel signs above and below the line get clipped. */
+html:lang(bn) {
+  --font-display: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", sans-serif;
+  --font-body: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", sans-serif;
+}
+html:lang(bn) body { line-height: 1.75; }
+html:lang(bn) :is(h1, h2, h3) { letter-spacing: 0; line-height: 1.32; font-weight: 700; }
+html:lang(bn) .hero h1 { font-size: clamp(2.1rem, 3.7vw, 3.3rem); }
+html:lang(bn) .hero h1 em { background-size: 100% .2em; padding-bottom: .16em; }
+html:lang(bn) .page-hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.5rem); max-width: 18ch; }
+html:lang(bn) :is(.btn, .eyebrow, .label, .kicker, .tag, .q-k, .crumbs, .status, .nav a:not(.btn), .logo-text strong, .logo-text span,
+  .svc-nav b, .site-footer h2, .news-item .meta, .info-panel dt, table.data th, .mbar a, .years b, .timeline .yr, .chip b, .filter,
+  .search-results .kind, .pull) { line-height: 1.5; letter-spacing: 0; }
+html:lang(bn) .figure .n { line-height: 1.25; letter-spacing: 0; font-weight: 700; }
+html:lang(bn) .logo-text strong { font-size: 1.55rem; font-weight: 700; }
+html:lang(bn) .logo-text span { margin-top: -2px; font-size: .76rem; }
+html:lang(bn) .eyebrow, html:lang(bn) .label, html:lang(bn) .q-k { font-size: .9rem; }
+html:lang(bn) [lang="en"] { font-family: "Archivo", "Segoe UI", Helvetica, Arial, sans-serif; }
+
+/* 15. Responsive rules for the additions ----------------------------------- */
+@media (max-width: 1080px) {
+  .logo { order: 1; }
+  .search-btn { order: 2; margin-left: auto; width: 44px; height: 44px; }
+  .menu-btn { order: 3; margin-left: 0; }
+  .site-header .container { gap: 10px; }
+}
+@media (max-width: 900px) {
+  .article { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .finder-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finder-chip { padding: 14px 40px 14px 16px; }
+  .finder-chip svg { right: 14px; width: 18px; height: 18px; margin-top: -9px; }
+  .search-results .kind { min-width: 0; }
+}
+@media (max-width: 420px) {
+  .finder-chips { grid-template-columns: minmax(0, 1fr); }
 }

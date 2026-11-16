@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "org": "Radda MCH-FP Centre",
+    "logo_name": "RADDA",
+    "logo_sub": "MCH-FP Centre · Dhaka",
+    "home_aria": "Radda MCH-FP Centre, home",
+    "skip": "Skip to content",
+    "hours_short": "Sun-Thu 9 AM-5 PM · Sat 9 AM-2 PM · Fri closed",
+    "call_on": "Call {phone}"
+  },
+  "pages": {
+    "home": { "file": "index.html", "title": "Radda MCH-FP Centre · Mother and child health in Mirpur, Dhaka", "desc": "Since 1974, Radda MCH-FP Centre has provided maternal and child health care, family planning and immunization to the families of Mirpur, Dhaka." },
+    "services": { "file": "services.html", "title": "Our services · Radda MCH-FP Centre", "desc": "Antenatal and postnatal care, child immunization, family planning, community health and laboratory services at Radda MCH-FP Centre, Mirpur, Dhaka." },
+    "about": { "file": "about.html", "title": "About Radda · Radda MCH-FP Centre", "desc": "The history of Radda MCH-FP Centre: founded in 1974 by Rädda Barnen (Swedish Save the Children) and run in Bangladesh since 1994." },
+    "news": { "file": "news.html", "title": "News and updates · Radda MCH-FP Centre", "desc": "Announcements from Radda MCH-FP Centre and coverage of our work in the press." },
+    "visit": { "file": "visit.html", "title": "Visit & contact · Radda MCH-FP Centre", "desc": "Clinic hours, locations and contact details for Radda MCH-FP Centre in Mirpur, Dhaka. Request a visit on WhatsApp." }
+  },
+  "nav": {
+    "aria": "Main",
+    "home": "Home",
+    "services": "Our services",
+    "about": "About Radda",
+    "news": "News",
+    "visit": "Visit & contact",
+    "cta": "Request a visit",
+    "open_menu": "Open menu",
+    "search": "Search",
+    "switch_to": "বাংলা",
+    "switch_aria": "বাংলায় পড়ুন (read in Bangla)"
+  },
+  "search": {
+    "title": "Search Radda",
+    "placeholder": "Search services, vaccines, hours",
+    "hint": "Try: vaccine, pregnancy, hours, Mirpur",
+    "close": "Close search"
+  },
+  "mbar": { "aria": "Quick contact", "call": "Call", "whatsapp": "WhatsApp", "visit": "Request a visit" },
+  "footer": {
+    "about": "Maternal and child health, family planning and immunization for the families of Mirpur, Dhaka, since 1974.",
+    "facebook_aria": "Radda on Facebook",
+    "email_aria": "Email Radda",
+    "call_aria": "Call Radda",
+    "care": "Care",
+    "care_links": [
+      { "label": "Mothers & pregnancy", "href": "services.html#maternal" },
+      { "label": "Child health & vaccines", "href": "services.html#child" },
+      { "label": "Family planning", "href": "services.html#family-planning" },
+      { "label": "Laboratory tests", "href": "services.html#laboratory" }
+    ],
+    "radda": "Radda",
+    "radda_links": [
+      { "label": "Our story", "href": "about.html" },
+      { "label": "Board of Trustees", "href": "about.html#trustees" },
+      { "label": "Where we work", "href": "about.html#reach" },
+      { "label": "News and updates", "href": "news.html" },
+      { "label": "Support the centre", "href": "visit.html#support" }
+    ],
+    "contact": "Contact",
+    "address": "Mirpur, Dhaka, Bangladesh",
+    "hours": "Sun-Thu 9 AM-5 PM · Sat 9 AM-2 PM",
+    "closed": "Closed Fridays & government holidays",
+    "rights": "Radda MCH-FP Centre. All rights reserved.",
+    "partner": "In partnership with the Government of Bangladesh since 1994."
+  },
+  "home": {
+    "notice_tag": "Update",
+    "notice_aria": "Service update",
+    "read_more": "Read more",
+    "kicker": "Mirpur, Dhaka · Since 1974",
+    "h1_a": "Every pregnancy safe.",
+    "h1_b": "Every child",
+    "h1_em": "protected.",
+    "lead": "For fifty years Radda has given the mothers and children of Mirpur good, affordable care close to home: pregnancy check-ups, vaccines, family planning and everyday health care.",
+    "explore": "Explore our services",
+    "hero_alt": "A mother holding her baby during a check-up at Radda",
+    "chip_a_n": "~250",
+    "chip_a": "mothers and children seen on a typical day",
+    "chip_b_n": "1974",
+    "chip_b": "the year our first clinic opened",
+    "quick": {
+      "hours_k": "Clinic hours",
+      "hours_a": "Sun-Thu 9 AM-5 PM",
+      "hours_b": "Sat 9 AM-2 PM · Fri closed",
+      "call_k": "Call us",
+      "call_b": "During clinic hours",
+      "wa_k": "WhatsApp",
+      "wa_a": "Message the clinic",
+      "wa_b": "We reply during clinic hours",
+      "find_k": "Find us",
+      "find_a": "Mirpur-10 and Mirpur-1",
+      "find_b": "Get directions"
+    },
+    "finder_title": "What do you need today?",
+    "finder_sub": "Choose a service and we will start your visit request.",
+    "commit_eyebrow": "Our purpose",
+    "commit_title": "What we work for",
+    "commit_intro": "Three commitments have guided Radda since its first clinic opened in Mirpur.",
+    "commit": [
+      { "title": "Safe motherhood", "body": "Care before, during and after pregnancy, so no mother faces it alone." },
+      { "title": "Every child protected", "body": "Full immunization and growth checks for every child who walks through our door." },
+      { "title": "Choice for every family", "body": "Confidential family planning advice, so families decide their own future." }
+    ],
+    "svc_eyebrow": "Our services",
+    "svc_title": "Care for mothers, children and families",
+    "svc_all": "All services",
+    "learn_more": "Learn more",
+    "cards": [
+      { "id": "maternal", "label": "Reproductive health", "title": "Pregnancy and after birth", "body": "Antenatal check-ups with tetanus vaccination, postnatal care with vitamin A, and nutrition advice for mothers.", "alt": "An antenatal check-up" },
+      { "id": "child", "label": "Child health", "title": "Vaccines and child care", "body": "The full government immunization schedule, plus Hepatitis, typhoid, MMR, chickenpox and other vaccines.", "alt": "A child receiving a vaccine" },
+      { "id": "family-planning", "label": "Community health", "title": "Family planning", "body": "Contraceptives and private counselling, with awareness on breastfeeding, STIs and HIV prevention.", "alt": "A counsellor talking with a couple" }
+    ],
+    "fig_eyebrow": "Radda in numbers",
+    "fig_title": "Half a century of community care",
+    "figures": [
+      { "n": "1974", "label": "The year our first clinic opened in Mirpur" },
+      { "pre": "~", "n": "250", "count": 250, "label": "Mothers and children seen on a typical day" },
+      { "n": "3", "count": 3, "label": "Permanent clinics with their own laboratories" },
+      { "n": "5", "count": 5, "label": "Communities reached across Dhaka" }
+    ],
+    "story_eyebrow": "Our story",
+    "story_title": "Started by Rädda Barnen. Run by Bangladesh.",
+    "story_alt": "Radda health workers with mothers in the waiting area",
+    "story": [
+      "Radda began in 1974 as a project of Rädda Barnen, Swedish Save the Children, to bring mother and child health care to the poorest families of Mirpur. For twenty years Rädda Barnen ran and funded the centre.",
+      "In 1994, with the permission of the Ministry of Health, the centre passed into Bangladeshi hands. It has worked alongside the government ever since, under a volunteer Board of Trustees."
+    ],
+    "years": [
+      { "n": "1974", "label": "Founded in Mirpur" },
+      { "n": "1994", "label": "Handed over to Bangladesh" },
+      { "n": "Today", "label": "Working with the government" }
+    ],
+    "story_link": "Read our history",
+    "news_eyebrow": "News",
+    "news_title": "Radda in the news",
+    "news_all": "All news",
+    "band_title": "Plan your visit",
+    "band_body": "Tell us the service you need and a day that suits you. We will confirm your visit on WhatsApp or by phone."
+  },
+  "services": {
+    "h1": "Care for every stage of family life",
+    "lead": "From the first pregnancy check-up to a child's last booster dose, our trained health workers look after the whole family.",
+    "nav_aria": "Services on this page",
+    "on_this_page": "On this page",
+    "request": "Request this service",
+    "list": [
+      {
+        "id": "maternal", "label": "Reproductive health", "title": "Pregnancy and after birth", "alt": "A midwife checking a pregnant mother",
+        "body": "Regular check-ups during pregnancy catch problems early and keep mother and baby safe. We see mothers through pregnancy and in the weeks after birth.",
+        "items": ["Antenatal check-ups", "Tetanus toxoid (TT) vaccination", "Postnatal care for mother and newborn", "Vitamin A for breastfeeding mothers", "Health and nutrition education", "Advice for the whole family"]
+      },
+      {
+        "id": "child", "label": "Child health", "title": "Vaccines and child health", "alt": "A nurse giving a child a vaccine",
+        "body": "We give every child the government's Expanded Programme on Immunization (EPI) schedule, protecting against the main childhood diseases, including the Hepatitis B vaccine for babies under one year. We also offer additional vaccines for children and adults."
+      },
+      {
+        "id": "family-planning", "label": "Community health", "title": "Family planning and community health", "alt": "A counsellor speaking with a young couple",
+        "body": "Every family has the right to decide when to have children. Our counsellors explain the options in private and help couples choose the method that suits them. Our teams also work in the community, through our static clinics and satellite clinics.",
+        "items": ["Contraceptives and counselling", "STI and HIV/AIDS prevention awareness", "Breastfeeding promotion", "Community health education", "Static and satellite clinics", "Physiotherapy"]
+      },
+      {
+        "id": "laboratory", "label": "Support services", "title": "Laboratory tests",
+        "body": "Each of our three permanent clinics has its own laboratory, so most routine tests can be done during your visit, at an affordable cost.",
+        "items": ["Clinical pathology", "Biochemistry", "Haematology", "Tests during pregnancy"]
+      },
+      {
+        "id": "training", "label": "Training and research", "title": "Training the next generation of health workers", "nav": "Training and research",
+        "body": "Through the Radda Paramedic Institute and our training and research work, we prepare health workers to serve mothers and children in communities across Bangladesh.",
+        "link": "Ask about training"
+      }
+    ],
+    "vaccines": {
+      "head": ["Vaccine", "Who it is for"],
+      "rows": [
+        ["Government EPI schedule", "Babies and young children"],
+        ["Hepatitis B (EPI)", "Babies under 1 year"],
+        ["Hepatitis A and B", "All ages"],
+        ["Hib", "Babies up to 1 year"],
+        ["Typhoid", "Children up to 5 years"],
+        ["MMR, chickenpox, anti-rabies", "All ages"]
+      ],
+      "callout": "Please bring your child's vaccination card to every visit."
+    },
+    "band_title": "Not sure which service you need?",
+    "band_body": "Call us or send a WhatsApp message. Our staff will guide you."
+  },
+  "about": {
+    "h1": "Fifty years beside the mothers of Mirpur",
+    "lead": "Radda was founded to give the poorest families in Mirpur the same quality of care as anyone else. That is still our purpose.",
+    "who_eyebrow": "Who we are",
+    "pull": "A mother and child in Mirpur deserve the same quality of care as anyone, anywhere.",
+    "lede": "Radda MCH-FP Centre is a non-profit health centre in Mirpur, Dhaka. MCH-FP stands for Maternal and Child Health and Family Planning, the work we have done since our first day.",
+    "who": [
+      "We serve families on low incomes, many of whom live in informal settlements, at little or no cost. Our health workers run three permanent clinics with laboratories, satellite clinics in the community, and an immunization programme in partnership with the Government of Bangladesh.",
+      "We are governed by a Board of Trustees and funded by the government, partners and individual supporters."
+    ],
+    "history_eyebrow": "Our history",
+    "history_title": "From a Swedish project to a Bangladeshi institution",
+    "centre_alt": "The Radda centre in Mirpur",
+    "timeline": [
+      { "yr": "1974", "title": "Founded in Mirpur", "body": "Rädda Barnen, then Swedish Save the Children, opens the centre to bring mother and child health care to underserved families." },
+      { "yr": "1974 to 1994", "title": "Twenty years of growth", "body": "Rädda Barnen runs, manages and almost fully funds the centre as its services and reach expand." },
+      { "yr": "1994", "title": "Handed over to Bangladesh", "body": "With the permission of the Ministry of Health, full responsibility for the centre passes to local management." },
+      { "yr": "Today", "title": "Serving thousands of families", "body": "Three permanent clinics, community outreach and a paramedic institute, working with the government." }
+    ],
+    "reach_eyebrow": "Where we work",
+    "reach_title": "Rooted in Mirpur, reaching across Dhaka",
+    "reach_intro": "Our clinics and community teams serve families in five areas of the city.",
+    "places": [
+      { "label": "Main centre", "title": "Mirpur", "body": "Our main centre at Mirpur-10 and the vaccination centre at Mirpur-1." },
+      { "label": "Community", "title": "Bauniabad", "body": "Outreach and clinic services for families in Bauniabad." },
+      { "label": "Community", "title": "Bhasantek", "body": "Care for families living in the Bhasantek settlement." },
+      { "label": "Community", "title": "Uttara & Old Dhaka", "body": "Services extended to families in Uttara and Old Dhaka." }
+    ],
+    "gov_eyebrow": "Governance",
+    "trustees_title": "Board of Trustees",
+    "trustees_note": "Radda is overseen by a volunteer Board of Trustees.",
+    "roles": { "chair": "Chairperson", "treasurer": "Treasurer and Member", "member": "Member" },
+    "band_title": "Help us keep care within reach",
+    "band_body": "Your support keeps pregnancy check-ups, vaccines and family planning affordable for the families who need them most.",
+    "band_cta": "Support Radda"
+  },
+  "news": {
+    "h1": "News and updates",
+    "lead": "Announcements from Radda and coverage of our work in the press.",
+    "filter_aria": "Filter news",
+    "filters": { "all": "All", "update": "From Radda", "press": "In the press" },
+    "types": { "update": "From Radda", "press": "In the press" },
+    "back": "All news",
+    "coverage_title": "In the press",
+    "questions": "Questions? Call or WhatsApp us on {phone}."
+  },
+  "visit": {
+    "h1": "Visit us",
+    "lead": "Walk in during clinic hours, or request a visit below and we will confirm it with you.",
+    "form_title": "Request a visit",
+    "form_intro": "Fill in the form and press the button. WhatsApp will open with your request ready to send to the clinic. We reply during clinic hours.",
+    "noscript": "This form needs JavaScript. Please call or WhatsApp the clinic on {phone} instead.",
+    "q_service": "Which service do you need?",
+    "options": [
+      { "key": "maternal", "label": "Pregnancy check-up", "sub": "Antenatal or postnatal care" },
+      { "key": "child", "label": "Child vaccination", "sub": "EPI and other vaccines" },
+      { "key": "family-planning", "label": "Family planning", "sub": "Counselling and methods" },
+      { "key": "laboratory", "label": "Laboratory test", "sub": "Pathology, blood tests" },
+      { "key": "general", "label": "General health", "sub": "Other health concerns" },
+      { "key": "physio", "label": "Physiotherapy", "sub": "Assessment and therapy" }
+    ],
+    "q_date": "Preferred date",
+    "date_hint": "Closed Fridays and government holidays.",
+    "q_session": "Time of day",
+    "morning": "Morning",
+    "morning_sub": "9 AM to 1 PM",
+    "afternoon": "Afternoon",
+    "afternoon_sub": "1 to 5 PM, not Sat",
+    "q_name": "Patient's name",
+    "q_phone": "Mobile number",
+    "q_age": "Age",
+    "age_ph": "e.g. 26, or 9 months",
+    "q_for": "Visiting for",
+    "for_options": ["Myself", "My child", "A family member"],
+    "q_note": "Anything we should know? (optional)",
+    "note_ph": "For example: months of pregnancy, which vaccine dose is due, or past visits",
+    "send": "Send on WhatsApp",
+    "wa_again": "Open WhatsApp again",
+    "sms": "Send by SMS instead",
+    "preview_label": "Your message",
+    "form_small": "Your details go only to the clinic through your own WhatsApp or SMS. This website does not store them. A visit is confirmed only when the clinic replies.",
+    "info_aria": "Clinic information",
+    "hours_title": "Clinic hours",
+    "hours_rows": [
+      { "days": "0,1,2,3,4", "label": "Sunday to Thursday", "value": "9:00 AM to 5:00 PM" },
+      { "days": "6", "label": "Saturday", "value": "9:00 AM to 2:00 PM" },
+      { "days": "5", "label": "Friday", "value": "Closed" },
+      { "days": "holiday", "label": "Government holidays", "value": "Closed" }
+    ],
+    "phone_label": "Phone & WhatsApp",
+    "email_label": "Email",
+    "facebook_label": "Facebook",
+    "urgent_title": "In labour or an emergency?",
+    "urgent_before": "Do not wait for a reply. Go to the nearest hospital straight away, or call the national emergency number",
+    "urgent_number": "999",
+    "urgent_after": ".",
+    "loc_eyebrow": "Locations",
+    "loc_title": "Where to find us",
+    "locations": [
+      { "map": "main", "title": "Main centre · Mirpur-10", "body": "Mother and child health, family planning, laboratory and general services." },
+      { "map": "mirpur1", "title": "Vaccination centre · Mirpur-1", "body": "Between Muktijoddha Market and Fair Plaza. Child vaccination and mother-and-child services." }
+    ],
+    "directions": "Get directions",
+    "map_title": "Map of Radda MCH-FP Centre, Mirpur, Dhaka",
+    "support_eyebrow": "Support Radda",
+    "support_title": "Help keep care within reach",
+    "support_alt": "A health worker with a mother and baby",
+    "support_body": [
+      "Many of the families we serve could not pay for care anywhere else. Gifts from people and organisations help us keep pregnancy check-ups, vaccines and family planning affordable, and rebuild what was damaged in 2026.",
+      "To give, or to partner with us, please contact our office. We will share bank and mobile banking details and send a receipt for every gift."
+    ],
+    "support_email": "Email us about giving",
+    "support_subject": "Supporting Radda MCH-FP Centre"
+  },
+  "js": {
+    "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "status": {
+      "open": "Open now",
+      "closed": "Closed now",
+      "closes": "Closes at {time} today",
+      "opens_today": "Opens today at {time}",
+      "opens_tomorrow": "Opens tomorrow at {time}",
+      "opens_day": "Opens {day} at {time}",
+      "call": "Please call for opening times"
+    },
+    "search": {
+      "empty": "No results. Try another word, or call us on {phone}.",
+      "kinds": { "page": "Page", "service": "Service", "vaccine": "Vaccine", "place": "Location", "news": "News", "info": "Information" }
+    },
+    "form": {
+      "err_service": "Please choose the service you need.",
+      "err_date": "Please choose a preferred date.",
+      "err_window": "Please choose a date between today and {date}.",
+      "err_friday": "The centre is closed on Fridays. Please choose another day.",
+      "err_holiday": "The centre is closed on that day for a government holiday. Please choose another day.",
+      "err_session": "Please choose morning or afternoon.",
+      "err_saturday": "On Saturdays the centre closes at 2 PM. Please choose the morning.",
+      "err_name": "Please enter the patient's name.",
+      "err_phone": "Please enter a valid mobile number: 11 digits, starting with 01.",
+      "msg_title": "Visit request: Radda MCH-FP Centre",
+      "msg_service": "Service",
+      "msg_date": "Preferred date",
+      "msg_session": "Session",
+      "msg_patient": "Patient",
+      "msg_age": "age",
+      "msg_for": "Visiting for",
+      "msg_mobile": "Mobile",
+      "msg_note": "Note",
+      "msg_confirm": "Please confirm my visit. Thank you."
+    }
+  }
+}

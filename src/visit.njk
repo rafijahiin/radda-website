@@ -1,0 +1,152 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}visit.html"
+layout: base.njk
+key: visit
+file: visit.html
+depth: 0
+---
+{%- set v = t.visit %}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.visit }}</div>
+    <h1>{{ v.h1 }}</h1>
+    <p>{{ v.lead }}</p>
+  </div>
+</section>
+
+<section class="section tint" id="register">
+  <div class="container visit-grid">
+    <div class="form-card">
+      <h2>{{ v.form_title }}</h2>
+      <p>{{ v.form_intro }}</p>
+      <form id="visit-form" novalidate>
+        <div class="form-error" id="form-error" role="alert" tabindex="-1" hidden></div>
+        <noscript><p class="form-error">{{ v.noscript | replace("{phone}", site.phone_display) }}</p></noscript>
+
+        <fieldset class="fieldset">
+          <legend><span class="step" aria-hidden="true">1</span>{{ v.q_service }} <span class="req" aria-hidden="true">*</span></legend>
+          <div class="opt-grid">
+            {%- for opt in v.options %}
+            <label class="opt"><input type="radio" name="service" value="{{ opt.label }}" data-key="{{ opt.key }}"><span>{{ opt.label }}<small>{{ opt.sub }}</small></span></label>
+            {%- endfor %}
+          </div>
+        </fieldset>
+
+        <div class="row2">
+          <div class="field">
+            <label for="v-date"><span class="step" aria-hidden="true">2</span>{{ v.q_date }} <span class="req" aria-hidden="true">*</span></label>
+            <input type="date" id="v-date" name="date" required aria-describedby="v-date-hint">
+            <div class="hint" id="v-date-hint">{{ v.date_hint }}</div>
+          </div>
+          <fieldset class="fieldset">
+            <legend><span class="step" aria-hidden="true">3</span>{{ v.q_session }} <span class="req" aria-hidden="true">*</span></legend>
+            <div class="opt-grid two">
+              <label class="opt"><input type="radio" name="session" value="{{ v.morning }}" data-session="morning" checked><span>{{ v.morning }}<small>{{ v.morning_sub }}</small></span></label>
+              <label class="opt"><input type="radio" name="session" value="{{ v.afternoon }}" data-session="afternoon"><span>{{ v.afternoon }}<small>{{ v.afternoon_sub }}</small></span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="v-name"><span class="step" aria-hidden="true">4</span>{{ v.q_name }} <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="v-name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="v-phone">{{ v.q_phone }} <span class="req" aria-hidden="true">*</span></label>
+            <input type="tel" id="v-phone" autocomplete="tel" inputmode="tel" placeholder="01XXXXXXXXX" required>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="v-age">{{ v.q_age }}</label>
+            <input type="text" id="v-age" placeholder="{{ v.age_ph }}">
+          </div>
+          <div class="field">
+            <label for="v-for">{{ v.q_for }}</label>
+            <select id="v-for">{% for opt in v.for_options %}<option>{{ opt }}</option>{% endfor %}</select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="v-note">{{ v.q_note }}</label>
+          <textarea id="v-note" placeholder="{{ v.note_ph }}"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-wa" type="submit"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg> {{ v.send }}</button>
+          <a class="btn btn-line" id="wa-link" href="#" target="_blank" rel="noopener" hidden>{{ v.wa_again }}</a>
+          <a class="btn btn-line" id="sms-link" href="#" hidden>{{ v.sms }}</a>
+        </div>
+        <div class="preview" id="preview" aria-live="polite" data-label="{{ v.preview_label }}" hidden></div>
+        <p class="form-small">{{ v.form_small }}</p>
+      </form>
+    </div>
+
+    <aside class="info-panel" id="contact" aria-label="{{ v.info_aria }}">
+      <h3>{{ v.hours_title }}</h3>
+      <div class="info-status" data-status hidden><i aria-hidden="true"></i><div><strong data-status-title></strong><small data-status-detail></small></div></div>
+      <table class="hours">
+        {%- for row in v.hours_rows %}
+        <tr data-days="{{ row.days }}"><th scope="row">{{ row.label }}</th><td>{{ row.value }}</td></tr>
+        {%- endfor %}
+      </table>
+      <dl>
+        <div><dt>{{ v.phone_label }}</dt><dd><a href="tel:{{ site.phone_tel }}">{{ site.phone_display }}</a></dd></div>
+        <div><dt>{{ v.email_label }}</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
+        <div><dt>{{ v.facebook_label }}</dt><dd><a href="{{ site.facebook_url }}" target="_blank" rel="noopener">{{ site.facebook_label }}</a></dd></div>
+      </dl>
+      <div class="urgent">
+        <strong>{{ v.urgent_title }}</strong>
+        {{ v.urgent_before }} <a href="tel:999">{{ v.urgent_number }}</a>{{ v.urgent_after }}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" id="locations" aria-labelledby="loc-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ v.loc_eyebrow }}</span>
+        <h2 id="loc-h">{{ v.loc_title }}</h2>
+      </div>
+    </div>
+    <div class="locations">
+      {%- for loc in v.locations %}
+      <div class="loc" data-reveal style="--d:{{ loop.index0 }}">
+        <span class="pin">{% icon "pin" %}</span>
+        <div>
+          <h3>{{ loc.title }}</h3>
+          <p>{{ loc.body }}</p>
+          <p><a class="more" href="{{ site.maps[loc.map] }}" target="_blank" rel="noopener">{{ v.directions }}</a></p>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="map" data-reveal>
+      <iframe title="{{ v.map_title }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="{{ site.maps.embed }}"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="section tint feature" id="support" aria-labelledby="support-h">
+  <div class="container">
+    <div class="feature-media" data-reveal>
+      <div class="photo" data-art="support"><img src="{{ root }}assets/photos/support.jpg" alt="{{ v.support_alt }}" loading="lazy"></div>
+    </div>
+    <div class="body" data-reveal style="--d:1">
+      <span class="eyebrow">{{ v.support_eyebrow }}</span>
+      <h2 id="support-h">{{ v.support_title }}</h2>
+      {%- for p in v.support_body %}
+      <p>{{ p }}</p>
+      {%- endfor %}
+      <div class="actions support-actions">
+        <a class="btn btn-primary" href="mailto:{{ site.email }}?subject={{ v.support_subject | urlencode }}">{{ v.support_email }} {% icon "arrow", 2.4 %}</a>
+        <a class="btn btn-line" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>

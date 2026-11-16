@@ -1,0 +1,36 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}news.html"
+layout: base.njk
+key: news
+file: news.html
+depth: 0
+---
+{%- set n = t.news %}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.news }}</div>
+    <h1>{{ n.h1 }}</h1>
+    <p>{{ n.lead }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filters" role="group" aria-label="{{ n.filter_aria }}">
+      {%- for name in ["all", "update", "press"] %}
+      <button class="filter" type="button" data-filter="{{ name }}" aria-pressed="{{ 'true' if name == 'all' else 'false' }}">{{ n.filters[name] }}</button>
+      {%- endfor %}
+    </div>
+    <div class="news">
+      {%- for item in news %}
+      {% include "news-item.njk" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{%- set bandTitle = t.home.band_title %}{% set bandBody = t.home.band_body %}
+{% include "band.njk" %}
+</main>

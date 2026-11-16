@@ -1,0 +1,74 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}services.html"
+layout: base.njk
+key: services
+file: services.html
+depth: 0
+---
+{%- set s = t.services %}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.services }}</div>
+    <h1>{{ s.h1 }}</h1>
+    <p>{{ s.lead }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <nav class="svc-nav" aria-label="{{ s.nav_aria }}">
+      <b>{{ s.on_this_page }}</b>
+      {%- for svc in s.list %}
+      <a href="#{{ svc.id }}">{{ svc.nav or svc.title }}</a>
+      {%- endfor %}
+    </nav>
+
+    <div>
+      {%- for svc in s.list %}
+      {%- set meta = serviceMeta[svc.id] %}
+      <article class="svc-block" id="{{ svc.id }}" data-reveal>
+        <div class="svc-head">
+          <span class="svc-ico"{% if meta.tile %} style="--tile:var(--{{ meta.tile }})"{% endif %}>{% icon meta.icon, 1.8 %}</span>
+          <div><span class="label">{{ svc.label }}</span><h2>{{ svc.title }}</h2></div>
+        </div>
+        {%- if meta.art %}
+        <div class="photo" data-art="{{ meta.art }}"><img src="{{ root }}assets/photos/{{ meta.art }}.jpg" alt="{{ svc.alt }}" loading="lazy"></div>
+        {%- endif %}
+        <p>{{ svc.body }}</p>
+        {%- if svc.items %}
+        <ul class="checklist">
+          {%- for item in svc.items %}
+          <li>{{ item }}</li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+        {%- if meta.vaccines %}
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr>{% for cell in s.vaccines.head %}<th scope="col">{{ cell }}</th>{% endfor %}</tr></thead>
+            <tbody>
+              {%- for row in s.vaccines.rows %}
+              <tr><td>{{ row[0] }}</td><td>{{ row[1] }}</td></tr>
+              {%- endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="callout">{% icon "card" %}<span>{{ s.vaccines.callout }}</span></p>
+        {%- endif %}
+        {%- if meta.request %}
+        <a class="btn btn-primary" href="{{ up }}visit.html?service={{ meta.request }}#register">{{ s.request }} {% icon "arrow", 2.4 %}</a>
+        {%- endif %}
+        {%- if svc.link %}
+        <p><a class="more" href="{{ up }}visit.html#contact">{{ svc.link }}</a></p>
+        {%- endif %}
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{%- set bandTitle = s.band_title %}{% set bandBody = s.band_body %}
+{% include "band.njk" %}
+</main>

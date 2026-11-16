@@ -1,0 +1,175 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}index.html"
+layout: base.njk
+key: home
+file: index.html
+depth: 0
+---
+{%- set h = t.home %}
+{#- Service notices: any news item marked "notice": true. It hides itself after "notice_until" (YYYY-MM-DD). -#}
+{%- for item in news %}{% if item.notice %}
+<div class="notice" role="region" aria-label="{{ h.notice_aria }}"{% if item.notice_until %} data-until="{{ item.notice_until }}"{% endif %}>
+  <div class="container">
+    <span class="tag">{{ h.notice_tag }}</span>
+    <p>{{ item[lng.code].summary }} <a href="{{ up }}news/{{ item.id }}.html">{{ h.read_more }}</a></p>
+  </div>
+</div>
+{%- endif %}{% endfor %}
+
+<main id="main">
+<section class="hero">
+  <div class="container">
+    <div class="hero-copy">
+      <span class="kicker"><i aria-hidden="true"></i>{{ h.kicker }}</span>
+      <h1><span>{{ h.h1_a }}</span> <span>{{ h.h1_b }} <em>{{ h.h1_em }}</em></span></h1>
+      <p class="lead">{{ h.lead }}</p>
+      <div class="actions">
+        <a class="btn btn-sun" href="{{ up }}visit.html#register">{{ t.nav.cta }} {% icon "arrow", 2.4 %}</a>
+        <a class="btn btn-line-white" href="{{ up }}services.html">{{ h.explore }}</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="photo hero-photo" data-art="hero"><img src="{{ root }}assets/photos/hero.jpg" alt="{{ h.hero_alt }}"></div>
+      <div class="chip chip-a"><b>{{ h.chip_a_n }}</b><span>{{ h.chip_a }}</span></div>
+      <div class="chip chip-b"><b>{{ h.chip_b_n }}</b><span>{{ h.chip_b }}</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="quick">
+  <div class="container">
+    <div class="quick-grid">
+      <div class="q" data-status>
+        <span class="q-ico">{% icon "clock" %}</span>
+        <span class="q-body"><span class="q-k">{{ h.quick.hours_k }}</span><strong data-status-title>{{ h.quick.hours_a }}</strong><small data-status-detail>{{ h.quick.hours_b }}</small></span>
+      </div>
+      <a class="q" href="tel:{{ site.phone_tel }}">
+        <span class="q-ico">{% icon "phone" %}</span>
+        <span class="q-body"><span class="q-k">{{ h.quick.call_k }}</span><strong>{{ site.phone_display }}</strong><small>{{ h.quick.call_b }}</small></span>
+      </a>
+      <a class="q" href="https://wa.me/{{ site.clinic.whatsapp }}" target="_blank" rel="noopener">
+        <span class="q-ico">{% icon "chat" %}</span>
+        <span class="q-body"><span class="q-k">{{ h.quick.wa_k }}</span><strong>{{ h.quick.wa_a }}</strong><small>{{ h.quick.wa_b }}</small></span>
+      </a>
+      <a class="q" href="{{ up }}visit.html#locations">
+        <span class="q-ico">{% icon "pin" %}</span>
+        <span class="q-body"><span class="q-k">{{ h.quick.find_k }}</span><strong>{{ h.quick.find_a }}</strong><small>{{ h.quick.find_b }}</small></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="finder" aria-labelledby="finder-h">
+  <div class="container" data-reveal>
+    <div class="finder-head">
+      <h2 id="finder-h">{{ h.finder_title }}</h2>
+      <p>{{ h.finder_sub }}</p>
+    </div>
+    <div class="finder-chips">
+      {%- for opt in t.visit.options %}
+      <a class="finder-chip" href="{{ up }}visit.html?service={{ opt.key }}#register"><strong>{{ opt.label }}</strong><small>{{ opt.sub }}</small>{% icon "arrow", 2.2 %}</a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="commit" aria-labelledby="commit-h">
+  <div class="container">
+    <div class="intro" data-reveal>
+      <span class="eyebrow">{{ h.commit_eyebrow }}</span>
+      <h2 id="commit-h">{{ h.commit_title }}</h2>
+      <p>{{ h.commit_intro }}</p>
+    </div>
+    {%- for c in h.commit %}
+    <div class="item" data-reveal style="--d:{{ loop.index }}">
+      <div class="num" aria-hidden="true">0{{ loop.index }}</div>
+      <h3>{{ c.title }}</h3>
+      <p>{{ c.body }}</p>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="svc-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ h.svc_eyebrow }}</span>
+        <h2 id="svc-h">{{ h.svc_title }}</h2>
+      </div>
+      <a class="more" href="{{ up }}services.html">{{ h.svc_all }}</a>
+    </div>
+    <div class="cards">
+      {%- for card in h.cards %}
+      <a class="card" href="{{ up }}services.html#{{ card.id }}" data-reveal style="--d:{{ loop.index0 }}">
+        <div class="photo" data-art="{{ card.id }}"><img src="{{ root }}assets/photos/{{ card.id }}.jpg" alt="{{ card.alt }}" loading="lazy"></div>
+        <div class="body">
+          <span class="label">{{ card.label }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.body }}</p>
+          <span class="more">{{ h.learn_more }}</span>
+        </div>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section figures-wrap" aria-labelledby="fig-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ h.fig_eyebrow }}</span>
+        <h2 id="fig-h">{{ h.fig_title }}</h2>
+      </div>
+    </div>
+    <div class="figures" data-reveal>
+      {%- for f in h.figures %}
+      <div class="figure"><div class="n">{% if f.pre %}<sup>{{ f.pre }}</sup>{% endif %}<span{% if f.count %} data-count="{{ f.count }}"{% endif %}>{{ f.n }}</span></div><div class="l">{{ f.label }}</div></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section feature" aria-labelledby="story-h">
+  <div class="container">
+    <div class="feature-media" data-reveal>
+      <div class="photo" data-art="about"><img src="{{ root }}assets/photos/about.jpg" alt="{{ h.story_alt }}" loading="lazy"></div>
+    </div>
+    <div class="body" data-reveal style="--d:1">
+      <span class="eyebrow">{{ h.story_eyebrow }}</span>
+      <h2 id="story-h">{{ h.story_title }}</h2>
+      {%- for p in h.story %}
+      <p>{{ p }}</p>
+      {%- endfor %}
+      <div class="years" aria-hidden="true">
+        {%- for y in h.years %}
+        <div><b>{{ y.n }}</b><span>{{ y.label }}</span></div>{% if not loop.last %}<i></i>{% endif %}
+        {%- endfor %}
+      </div>
+      <a class="more" href="{{ up }}about.html">{{ h.story_link }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="news" aria-labelledby="news-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ h.news_eyebrow }}</span>
+        <h2 id="news-h">{{ h.news_title }}</h2>
+      </div>
+      <a class="more" href="{{ up }}news.html">{{ h.news_all }}</a>
+    </div>
+    <div class="news">
+      {%- for item in news %}{% if loop.index <= 3 %}
+      {% include "news-item.njk" %}
+      {%- endif %}{% endfor %}
+    </div>
+  </div>
+</section>
+
+{%- set bandTitle = h.band_title %}{% set bandBody = h.band_body %}{% set bandFlush = true %}
+{% include "band.njk" %}
+</main>

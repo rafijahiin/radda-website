@@ -1,34 +1,62 @@
 # Radda MCH-FP Centre: website
 
-The public website for Radda MCH-FP Centre, Mirpur, Dhaka. It is plain HTML, CSS and JavaScript with no build step, so it can be hosted free on GitHub Pages.
+The public website for Radda MCH-FP Centre, Mirpur, Dhaka, in English and Bangla.
 
-## Pages
+Live site: https://rafijahiin.github.io/radda-website/ (Bangla: https://rafijahiin.github.io/radda-website/bn/)
 
-| File | Page |
+## How it works
+
+All the words, settings and news live in a few data files. A build step ([Eleventy](https://www.11ty.dev/)) turns them into finished pages in both languages. Whenever a change is pushed to the `main` branch, GitHub builds the site and publishes it to GitHub Pages automatically, usually within two minutes. Hosting is free.
+
+| What you want to change | File to edit |
 |---|---|
-| `index.html` | Home |
-| `services.html` | Our services |
-| `about.html` | About Radda, history, Board of Trustees |
-| `visit.html` | Clinic hours, visit request form, locations, support |
+| Phone, WhatsApp number, email, Facebook, map links | `src/_data/site.json` |
+| Opening hours and government holidays | `src/_data/site.json`, under `clinic` |
+| Board of Trustees | `src/_data/site.json`, under `trustees` |
+| Any English text | `src/_data/i18n/en.json` |
+| Any Bangla text | `src/_data/i18n/bn.json` |
+| News, updates and the notice bar | `src/_data/news.json` |
+| Page layout | `src/*.njk` and `src/_includes/` |
+| Colours, fonts, spacing | `src/assets/css/site.css` (tokens at the top) |
 
-## Publish on GitHub Pages (free)
+You can edit these files in the browser on GitHub (open the file, click the pencil, then "Commit changes"). The site rebuilds by itself.
 
-1. Create a new **public** repository on GitHub, for example `radda-website`.
-2. Push this folder to it:
-   ```bash
-   git remote add origin https://github.com/<your-username>/radda-website.git
-   git push -u origin main
-   ```
-3. On GitHub, open **Settings → Pages**. Under *Build and deployment*, choose **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
-4. After a minute the site is live at `https://<your-username>.github.io/radda-website/`.
+## The two languages
 
-**Custom domain (optional).** To serve the site at `www.raddacentre.org`, add the domain under *Settings → Pages → Custom domain*, then add a `CNAME` DNS record for `www` pointing to `<your-username>.github.io` at the domain registrar.
+Every page exists twice: English at the top level (`index.html`, `services.html`, ...) and Bangla under `bn/` (`bn/index.html`, ...). The button in the top bar switches between them and keeps the reader on the same page.
+
+`en.json` and `bn.json` have exactly the same structure. When you add or change text in one, make the same change in the other, or the build will leave a gap on that page.
+
+On Bangla pages, numbers, dates and the "Open now" label are shown in Bangla automatically.
+
+## News and the notice bar
+
+Each item in `src/_data/news.json` has an English and a Bangla version.
+
+- An item with a `"url"` is a link to another site (press coverage). It appears in the news lists and opens that site.
+- An item without a `"url"` is Radda's own update. It gets its own page at `news/<id>.html`, with the text from `"body"`.
+- An item with `"notice": true` also appears in the bar at the top of the home page. Set `"notice_until": "2027-01-31"` and the bar hides itself after that date. Leave it empty to show the bar until you set `"notice"` to `false`.
+
+The first three items in the file appear on the home page, so put the newest first.
+
+## Clinic hours and the "Open now" label
+
+The site works out whether the clinic is open, in Dhaka time. The settings are in `src/_data/site.json`:
+
+- `hours`: opening and closing time for each weekday (0 is Sunday), in minutes from midnight (540 is 9:00 AM, 1020 is 5:00 PM, 840 is 2:00 PM). `null` means closed.
+- `holidays`: government holidays as `"YYYY-MM-DD"`. **Add each year's holidays here.** On those dates the site shows the clinic as closed and the visit form will not accept them. If the list is empty, the site cannot know about holidays.
+
+The hours also appear as plain text in the top bar, the footer and the Visit page. Those lines are in `en.json` and `bn.json`: search both for `9 AM` and `৯টা`.
+
+## Search
+
+The search box (the magnifying glass, or press `/`) searches services, vaccines, locations, news and contact details in the current language. Its index is rebuilt from the data files on every build, so it never needs separate upkeep.
 
 ## Photos and illustrations
 
-Every photo space shows a Radda illustration by default, so the site looks finished without any photos. When a real photo is added, it fades in over the illustration automatically. Nothing else needs to change.
+Every photo space shows a Radda illustration by default. When a real photo is added, it fades in over the illustration automatically.
 
-To add a photo, put a JPG in `assets/photos/` with one of these exact names:
+To add a photo, put a JPG in `src/assets/photos/` with one of these exact names:
 
 | File | Where it appears | Suggested subject |
 |---|---|---|
@@ -40,38 +68,39 @@ To add a photo, put a JPG in `assets/photos/` with one of these exact names:
 | `centre.jpg` | About, history | The centre building |
 | `support.jpg` | Visit, "Support Radda" | A health worker with a mother and baby |
 
-Use photos about 1600 to 2400 px wide (the hero is a tall arch, so a portrait photo works best there), compressed to under 400 KB each, for example with squoosh.app. Only use photos Radda owns, with consent from the people shown.
+Use photos about 1600 to 2400 px wide, compressed to under 400 KB each, for example with squoosh.app. Only use photos Radda owns, with consent from the people shown.
 
-The illustrations are the `art-*.svg` files in `assets/img/`. They are built from one shape, an arch with a head above it, taken from the Radda mark.
-
-## Clinic hours and the "Open now" label
-
-The site works out whether the clinic is open, in Dhaka time, and shows it in the top bar, on the home page and on the Visit page. The hours are set once, at the top of `assets/js/site.js`, in the `CLINIC` settings:
-
-- `hours`: opening and closing time for each weekday, in minutes from midnight (540 is 9:00 AM, 1020 is 5:00 PM, 840 is 2:00 PM).
-- `holidays`: a list of government holidays as `"YYYY-MM-DD"`. **Add each year's holidays here.** On those dates the site shows the clinic as closed and the visit form will not accept them. If the list is empty, the site cannot know about holidays.
-
-The hours also appear as plain text in the top bar, the footer and the table on `visit.html`. If the hours change, search all files for `9 AM` to find every copy.
+The illustrations are the `art-*.svg` files in `src/assets/img/`. `node tools/make-art.js src/assets/img` redraws them if their colours or figures need to change.
 
 ## How visit requests work
 
-GitHub Pages cannot store form data, so the visit form does not save anything. When a patient submits it, WhatsApp opens with a ready-written message addressed to the clinic (+880 1335-097710). There is also an SMS option. The clinic replies to confirm.
+The site stores nothing. When a patient submits the visit form, WhatsApp opens with a ready-written message addressed to the clinic, in the language of the page they are on. There is also an SMS option. The clinic replies to confirm.
 
-To change the WhatsApp number, edit `whatsapp:` at the top of `assets/js/site.js` (digits only, with country code 880).
+## Working on the site on your own computer
 
-## Editing content
+You need [Node.js](https://nodejs.org/) 20 or newer.
 
-- The header and footer are repeated in each of the four pages, between the `<!-- header:start -->` and `<!-- footer:end -->` comments. Edit them in `index.html`, then run `node tools/sync-partials.js .` to copy them to the other three pages (or copy by hand).
-- `node tools/make-art.js assets/img` redraws the illustrations if their colours or figures need to change. Both tools are optional and need Node.js; the site itself needs nothing.
-- Phone, email and Facebook appear in the header, the footer, the bar at the bottom of phone screens, and `visit.html`. Search all files for `1335` to find every copy of the phone number.
-- The update notice at the top of the home page is the `<div class="notice">` block in `index.html`. Delete it when it is no longer needed.
-- Colours and fonts are set at the top of `assets/css/site.css` (`--blue` is the main brand colour, `--sun` is the warm accent).
-- The logo is `assets/img/logo-mark.svg` (also inlined in each page's header and footer). Replace it with Radda's official logo if there is one.
+```bash
+npm install
+```
+
+```bash
+npm start
+```
+
+`npm start` builds the site and serves it at http://localhost:8101, rebuilding as you edit. `npm run build` builds once into `_site/`. `npm run check` then confirms that every link, anchor and search entry in the built site resolves.
+
+## Custom domain (optional)
+
+To serve the site at `www.raddacentre.org`: add the domain under *Settings → Pages → Custom domain* on GitHub, add a `CNAME` DNS record for `www` pointing to `rafijahiin.github.io`, and change `"url"` in `src/_data/site.json` to the new address.
 
 ## Details to confirm with the centre
 
+- The Bangla text: it was drafted alongside the English and should be read through by the centre.
+- Trustee names are shown in English on both versions until their Bangla spellings are confirmed.
 - Full street addresses for the Mirpur-10 and Mirpur-1 centres.
 - Whether morning and afternoon session times on the form match the clinic's practice.
 - Spellings of trustee names and current board membership.
 - Donation details (bank, bKash, Nagad) if the centre wants them published.
-- The list of government holidays for the year, for the "Open now" label.
+- The list of government holidays for the year.
+- Radda's official logo, to replace the placeholder mark in `src/_includes/base.njk` and `src/assets/img/`.

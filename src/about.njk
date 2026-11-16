@@ -1,0 +1,88 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}about.html"
+layout: base.njk
+key: about
+file: about.html
+depth: 0
+---
+{%- set a = t.about %}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.about }}</div>
+    <h1>{{ a.h1 }}</h1>
+    <p>{{ a.lead }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ a.who_eyebrow }}</span>
+      <blockquote class="pull">{{ a.pull }}</blockquote>
+    </div>
+    <div class="prose" data-reveal style="--d:1">
+      <p class="lede">{{ a.lede }}</p>
+      {%- for p in a.who %}
+      <p>{{ p }}</p>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section tint feature reverse" aria-labelledby="history-h">
+  <div class="container">
+    <div class="feature-media" data-reveal>
+      <div class="photo" data-art="centre"><img src="{{ root }}assets/photos/centre.jpg" alt="{{ a.centre_alt }}" loading="lazy"></div>
+    </div>
+    <div class="body" data-reveal style="--d:1">
+      <span class="eyebrow">{{ a.history_eyebrow }}</span>
+      <h2 id="history-h">{{ a.history_title }}</h2>
+      <ol class="timeline">
+        {%- for step in a.timeline %}
+        <li><div class="yr">{{ step.yr }}</div><h3>{{ step.title }}</h3><p>{{ step.body }}</p></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reach" aria-labelledby="reach-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ a.reach_eyebrow }}</span>
+        <h2 id="reach-h">{{ a.reach_title }}</h2>
+        <p>{{ a.reach_intro }}</p>
+      </div>
+    </div>
+    <div class="cards four">
+      {%- for place in a.places %}
+      <div class="place" data-reveal style="--d:{{ loop.index0 }}">
+        <span class="pin">{% icon "pin" %}</span>
+        <span class="label">{{ place.label }}</span><h3>{{ place.title }}</h3><p>{{ place.body }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section tint" id="trustees" aria-labelledby="trustees-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ a.gov_eyebrow }}</span>
+      <h2 id="trustees-h">{{ a.trustees_title }}</h2>
+      <p class="note trustees-note">{{ a.trustees_note }}</p>
+    </div>
+    <div class="people" data-reveal style="--d:1">
+      {%- for person in site.trustees %}
+      <div class="person"><i aria-hidden="true" lang="en">{{ person.initials }}</i><div><strong lang="en">{{ person.name }}</strong><span>{{ a.roles[person.role] }}</span></div></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{%- set bandTitle = a.band_title %}{% set bandBody = a.band_body %}{% set bandCta = a.band_cta %}{% set bandHref = up + "visit.html#support" %}{% set bandFlush = true %}
+{% include "band.njk" %}
+</main>

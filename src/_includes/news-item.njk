@@ -1,0 +1,13 @@
+{#- One row in a news list. Expects "item" (from news.json). -#}
+{%- set n = item[lng.code] %}
+<article class="news-item" data-type="{{ item.type }}" data-reveal>
+  <div class="meta"><span class="news-type">{{ t.news.types[item.type] }}</span>{{ n.source }}{% if n.date %} · {{ n.date }}{% endif %}</div>
+  <div>
+    <h3>
+      {%- if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ n.title }}</a>
+      {%- else %}<a href="{{ up }}news/{{ item.id }}.html">{{ n.title }}</a>{% endif -%}
+    </h3>
+    <p>{{ n.summary }}</p>
+  </div>
+  <span class="go" aria-hidden="true">{% icon "arrow", 2.2 %}</span>
+</article>

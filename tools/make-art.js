@@ -1,4 +1,4 @@
-// Generates the Radda photo-slot illustrations. Usage: node make-art.js <output-dir>
+// Generates the Radda photo-slot illustrations. Usage: node tools/make-art.js src/assets/img
 "use strict";
 const fs = require("fs");
 const path = require("path");

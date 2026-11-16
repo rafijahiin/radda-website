@@ -1,0 +1,7 @@
+{
+  "maternal": { "icon": "heart", "art": "maternal", "tile": "sun-100", "request": "maternal" },
+  "child": { "icon": "shield", "art": "child", "vaccines": true, "request": "child" },
+  "family-planning": { "icon": "family", "art": "family-planning", "tile": "mint-100", "request": "family-planning" },
+  "laboratory": { "icon": "flask", "request": "laboratory" },
+  "training": { "icon": "cap", "tile": "sun-100" }
+}

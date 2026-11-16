@@ -1,0 +1,44 @@
+---
+pagination: { data: newsPages, size: 1, alias: entry }
+permalink: "{{ entry.lang.dir }}news/{{ entry.item.id }}.html"
+layout: base.njk
+key: news
+depth: 1
+eleventyComputed:
+  file: "news/{{ entry.item.id }}.html"
+  title: "{{ entry.item[entry.lang.code].title }}"
+  desc: "{{ entry.item[entry.lang.code].summary }}"
+---
+{%- set a = entry.item[lng.code] %}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span><a href="{{ up }}news.html">{{ t.nav.news }}</a></div>
+    <h1 class="article-title">{{ a.title }}</h1>
+    <p>{{ t.news.types[entry.item.type] }}{% if a.date %} · {{ a.date }}{% endif %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container article">
+    <div class="prose">
+      {%- for p in a.body %}
+      <p{% if loop.first %} class="lede"{% endif %}>{{ p }}</p>
+      {%- endfor %}
+      <p class="note">{{ t.news.questions | replace("{phone}", site.phone_display) }}</p>
+      <p><a class="more back" href="{{ up }}news.html">{{ t.news.back }}</a></p>
+    </div>
+    <aside class="coverage" aria-labelledby="coverage-h">
+      <h2 id="coverage-h">{{ t.news.coverage_title }}</h2>
+      <ul>
+        {%- for item in news %}{% if item.url %}
+        <li><a href="{{ item.url }}" target="_blank" rel="noopener">{{ item[lng.code].title }}</a><span>{{ item[lng.code].source }}{% if item[lng.code].date %} · {{ item[lng.code].date }}{% endif %}</span></li>
+        {%- endif %}{% endfor %}
+      </ul>
+    </aside>
+  </div>
+</section>
+
+{%- set bandTitle = t.home.band_title %}{% set bandBody = t.home.band_body %}
+{% include "band.njk" %}
+</main>
