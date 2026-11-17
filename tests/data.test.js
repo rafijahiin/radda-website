@@ -8,17 +8,25 @@ const path = require("node:path");
 const DATA = path.join(__dirname, "..", "src", "_data");
 const file = (name) => require.resolve(path.join(DATA, name));
 
+// The data modules read each other (the clinic description reads site.js), so all of
+// them are forgotten between tests; otherwise one test's stand-in files leak into the next.
+function forgetDataModules() {
+  for (const key of Object.keys(require.cache)) {
+    if (key.startsWith(DATA) && key.endsWith(".js")) delete require.cache[key];
+  }
+}
+
 // Loads a data module with stand-in contents for the JSON files it reads.
 function load(moduleName, stubs) {
   for (const name of Object.keys(stubs)) {
     require.cache[file(name)] = { id: file(name), filename: file(name), loaded: true, exports: stubs[name] };
   }
-  delete require.cache[file(moduleName)];
+  forgetDataModules();
   try {
     return require(file(moduleName));
   } finally {
     for (const name of Object.keys(stubs)) delete require.cache[file(name)];
-    delete require.cache[file(moduleName)];
+    forgetDataModules();
   }
 }
 
@@ -153,4 +161,23 @@ test("works out trustee initials and tolerates an unknown role", () => {
 
   assert.deepEqual(site.trustees.map((person) => person.initials), ["AK", "AQ"]);
   assert.equal(site.trustees[1].role, "member");
+});
+
+test("groups weekdays with the same hours for search engines", () => {
+  const schema = load("clinicSchema.js", { "contact.json": goodContact, "holidays.json": [], "trustees.json": [] });
+
+  const hours = schema.en.openingHoursSpecification;
+  assert.deepEqual(hours[0], { "@type": "OpeningHoursSpecification", dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"], opens: "09:00", closes: "17:00" });
+  assert.deepEqual(hours[1].dayOfWeek, ["Saturday"]);
+  assert.equal(hours[1].closes, "14:00");
+  assert.equal(hours.some((entry) => entry.dayOfWeek.includes("Friday")), false);
+});
+
+test("tells search engines about holidays and uses each language's own name", () => {
+  const schema = load("clinicSchema.js", { "contact.json": goodContact, "holidays.json": [{ date: "2027-03-26" }], "trustees.json": [] });
+
+  assert.equal(schema.en.specialOpeningHoursSpecification[0].validFrom, "2027-03-26");
+  assert.equal(schema.en.telephone, "+8801335097710");
+  assert.notEqual(schema.en.name, schema.bn.name);
+  assert.match(schema.bn.url, /\/bn\/$/);
 });

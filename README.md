@@ -70,9 +70,18 @@ The hours also appear as plain text in the top bar, the footer and the Visit pag
 
 The search box (the magnifying glass, or press `/`) searches services, vaccines, locations, news and contact details in the current language. Its index is rebuilt from the data files on every build, so it never needs separate upkeep.
 
+## Being found and shared
+
+- **Share image.** When someone pastes a link to the site into Facebook, WhatsApp or a message, a picture with the centre's name and headline appears. There is one per language (`src/assets/img/share-en.jpg`, `share-bn.jpg`). If the headline or the centre's name changes, redraw them with `python tools/make_share_images.py` (needs Google Chrome and the Pillow package).
+- **Sitemap.** `sitemap.xml` lists every page in both languages and is rebuilt automatically.
+- **Clinic details for Google.** Every page carries the centre's name, phone, opening hours and holidays in a form search engines read (`src/_data/clinicSchema.js`). It updates itself from the same settings as the pages.
+- **Page not found.** A mistyped address shows a friendly page in both languages (`src/404.njk`).
+
+**One step only the site owner can do:** tell Google the site exists. Go to https://search.google.com/search-console, add the site's address as a "URL prefix" property, verify it with the HTML file method (put the file Google gives you in `src/` and add it to the passthrough list in `.eleventy.js`, or ask whoever maintains the site), then submit `sitemap.xml` under Sitemaps.
+
 ## Photos and illustrations
 
-Every photo space shows a Radda illustration by default. When a real photo is added, it fades in over the illustration automatically.
+Every photo space shows a Radda illustration by default. When a real photo is added, the next build puts it in place of the illustration automatically. Until then the pages do not ask the browser for any photo, so nothing is wasted on slow connections.
 
 To add a photo, put a JPG in `src/assets/photos/` with one of these exact names:
 

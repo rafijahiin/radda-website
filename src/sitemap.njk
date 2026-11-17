@@ -1,0 +1,25 @@
+---
+permalink: sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- for file in ["index.html", "services.html", "about.html", "news.html", "visit.html"] %}
+{%- for lang in langs %}
+  <url>
+    <loc>{{ site.url }}{{ lang.dir }}{{ file }}</loc>
+    {%- for other in langs %}
+    <xhtml:link rel="alternate" hreflang="{{ other.code }}" href="{{ site.url }}{{ other.dir }}{{ file }}"/>
+    {%- endfor %}
+  </url>
+{%- endfor %}
+{%- endfor %}
+{%- for entry in newsPages %}
+  <url>
+    <loc>{{ site.url }}{{ entry.lang.dir }}news/{{ entry.item.id }}.html</loc>
+    {%- for other in langs %}
+    <xhtml:link rel="alternate" hreflang="{{ other.code }}" href="{{ site.url }}{{ other.dir }}news/{{ entry.item.id }}.html"/>
+    {%- endfor %}
+  </url>
+{%- endfor %}
+</urlset>

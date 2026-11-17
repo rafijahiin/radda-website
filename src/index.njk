@@ -30,7 +30,7 @@ depth: 0
       </div>
     </div>
     <div class="hero-art">
-      <div class="photo hero-photo" data-art="hero"><img src="{{ root }}assets/photos/hero.jpg" alt="{{ h.hero_alt }}"></div>
+      <div class="photo hero-photo" data-art="hero">{% photo root, "hero", h.hero_alt, "eager" %}</div>
       <div class="chip chip-a"><b>{{ h.chip_a_n }}</b><span>{{ h.chip_a }}</span></div>
       <div class="chip chip-b"><b>{{ h.chip_b_n }}</b><span>{{ h.chip_b }}</span></div>
     </div>
@@ -103,7 +103,7 @@ depth: 0
     <div class="cards">
       {%- for card in h.cards %}
       <a class="card" href="{{ up }}services.html#{{ card.id }}" data-reveal style="--d:{{ loop.index0 }}">
-        <div class="photo" data-art="{{ card.id }}"><img src="{{ root }}assets/photos/{{ card.id }}.jpg" alt="{{ card.alt }}" loading="lazy"></div>
+        <div class="photo" data-art="{{ card.id }}">{% photo root, card.id, card.alt %}</div>
         <div class="body">
           <span class="label">{{ card.label }}</span>
           <h3>{{ card.title }}</h3>
@@ -135,7 +135,7 @@ depth: 0
 <section class="section feature" aria-labelledby="story-h">
   <div class="container">
     <div class="feature-media" data-reveal>
-      <div class="photo" data-art="about"><img src="{{ root }}assets/photos/about.jpg" alt="{{ h.story_alt }}" loading="lazy"></div>
+      <div class="photo" data-art="about">{% photo root, "about", h.story_alt %}</div>
     </div>
     <div class="body" data-reveal style="--d:1">
       <span class="eyebrow">{{ h.story_eyebrow }}</span>

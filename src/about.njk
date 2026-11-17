@@ -34,7 +34,7 @@ depth: 0
 <section class="section tint feature reverse" aria-labelledby="history-h">
   <div class="container">
     <div class="feature-media" data-reveal>
-      <div class="photo" data-art="centre"><img src="{{ root }}assets/photos/centre.jpg" alt="{{ a.centre_alt }}" loading="lazy"></div>
+      <div class="photo" data-art="centre">{% photo root, "centre", a.centre_alt %}</div>
     </div>
     <div class="body" data-reveal style="--d:1">
       <span class="eyebrow">{{ a.history_eyebrow }}</span>

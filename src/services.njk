@@ -34,7 +34,7 @@ depth: 0
           <div><span class="label">{{ svc.label }}</span><h2>{{ svc.title }}</h2></div>
         </div>
         {%- if meta.art %}
-        <div class="photo" data-art="{{ meta.art }}"><img src="{{ root }}assets/photos/{{ meta.art }}.jpg" alt="{{ svc.alt }}" loading="lazy"></div>
+        <div class="photo" data-art="{{ meta.art }}">{% photo root, meta.art, svc.alt %}</div>
         {%- endif %}
         <p>{{ svc.body }}</p>
         {%- if svc.items %}

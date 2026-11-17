@@ -10,6 +10,12 @@
 <meta property="og:title" content="{{ pageTitle }}">
 <meta property="og:description" content="{{ pageDesc }}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="{{ site.url }}{{ lng.dir }}{{ file }}">
+<meta property="og:site_name" content="{{ t.meta.org }}">
+<meta property="og:image" content="{{ site.url }}assets/img/share-{{ lng.code }}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="{{ lng.og }}">
 <meta name="theme-color" content="#06306f">
 <link rel="canonical" href="{{ site.url }}{{ lng.dir }}{{ file }}">
@@ -17,10 +23,13 @@
 <link rel="alternate" hreflang="{{ l.code }}" href="{{ site.url }}{{ l.dir }}{{ file }}">
 {%- endfor %}
 <link rel="icon" href="{{ root }}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ root }}assets/img/icon-180.png">
+<link rel="manifest" href="{{ root }}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800&amp;family=Source+Sans+3:wght@400..700{% if lng.code == 'bn' %}&amp;family=Hind+Siliguri:wght@400;500;600;700{% endif %}&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800{% if lng.code == 'bn' %}&amp;family=Hind+Siliguri:wght@400;600{% else %}&amp;family=Source+Sans+3:wght@400..700{% endif %}&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ root }}assets/css/site.css">
+<script type="application/ld+json">{{ clinicSchema[lng.code] | dump | safe }}</script>
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>

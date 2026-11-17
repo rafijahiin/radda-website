@@ -819,6 +819,9 @@ html:lang(bn) {
   --font-display: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", sans-serif;
   --font-body: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", sans-serif;
 }
+/* Only two Bangla weights are loaded (400 and 600) to keep pages light. Bolder
+   requests use the 600 file as it is, without the browser faking extra boldness. */
+html:lang(bn) { font-synthesis: none; }
 html:lang(bn) body { line-height: 1.75; }
 html:lang(bn) :is(h1, h2, h3) { letter-spacing: 0; line-height: 1.32; font-weight: 700; }
 html:lang(bn) .hero h1 { font-size: clamp(2.1rem, 3.7vw, 3.3rem); }
@@ -852,3 +855,18 @@ html:lang(bn) [lang="en"] { font-family: "Archivo", "Segoe UI", Helvetica, Arial
 @media (max-width: 420px) {
   .finder-chips { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* 16. Page not found ------------------------------------------------------ */
+.notfound { background: var(--blue-700); }
+.notfound .page-hero { min-height: 100vh; display: grid; align-items: center; }
+.notfound .logo { margin-bottom: 44px; }
+.notfound .logo-text strong { color: #fff; }
+.notfound .logo-text span { color: var(--blue-200); }
+.notfound .actions { margin-top: 26px; }
+.notfound .bn-text { margin-top: 48px; padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, .18); }
+.notfound .bn-text h2 { color: #fff; margin-bottom: 14px; }
+.bn-text { font-family: "Hind Siliguri", "Noto Sans Bengali", "Nirmala UI", sans-serif; line-height: 1.75; }
+.bn-text :is(h2, .btn) { font-family: inherit; letter-spacing: 0; line-height: 1.4; font-weight: 600; }
+.notfound-call { margin-top: 40px !important; }
+.notfound-call a { color: #fff; font: 700 1.3rem/1.3 var(--font-display); text-decoration: none; }
+.notfound-call a:hover { text-decoration: underline; }
