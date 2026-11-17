@@ -31,11 +31,11 @@ depth: 0
   </div>
 </section>
 
-<section class="section tint feature reverse" aria-labelledby="history-h">
+<section class="section tint feature reverse{% if not ("centre" | hasPhoto) %} no-media{% endif %}" aria-labelledby="history-h">
   <div class="container">
-    <div class="feature-media" data-reveal>
-      <div class="photo" data-art="centre">{% photo root, "centre", a.centre_alt %}</div>
-    </div>
+    {%- if "centre" | hasPhoto %}
+    <div class="feature-media" data-reveal><div class="photo">{% photo root, "centre", a.centre_alt %}</div></div>
+    {%- endif %}
     <div class="body" data-reveal style="--d:1">
       <span class="eyebrow">{{ a.history_eyebrow }}</span>
       <h2 id="history-h">{{ a.history_title }}</h2>

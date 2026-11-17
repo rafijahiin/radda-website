@@ -30,11 +30,11 @@ depth: 0
       {%- set meta = serviceMeta[svc.id] %}
       <article class="svc-block" id="{{ svc.id }}" data-reveal>
         <div class="svc-head">
-          <span class="svc-ico"{% if meta.tile %} style="--tile:var(--{{ meta.tile }})"{% endif %}>{% icon meta.icon, 1.8 %}</span>
+          <span class="svc-ico">{% icon meta.icon, 1.8 %}</span>
           <div><span class="label">{{ svc.label }}</span><h2>{{ svc.title }}</h2></div>
         </div>
-        {%- if meta.art %}
-        <div class="photo" data-art="{{ meta.art }}">{% photo root, meta.art, svc.alt %}</div>
+        {%- if meta.art and (meta.art | hasPhoto) %}
+        <div class="photo">{% photo root, meta.art, svc.alt %}</div>
         {%- endif %}
         <p>{{ svc.body }}</p>
         {%- if svc.items %}

@@ -8,7 +8,13 @@ const PHOTO_DIR = path.join(__dirname, "src", "assets", "photos");
 const escapeHtml = (text) =>
   String(text).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+const photoExists = (name) =>
+  /^[a-z0-9-]+$/.test(String(name)) && fs.existsSync(path.join(PHOTO_DIR, String(name) + ".jpg"));
+
 module.exports = function (eleventyConfig) {
+  // {% if "hero" | hasPhoto %} lets a page leave out a photo area until the photo exists.
+  eleventyConfig.addFilter("hasPhoto", photoExists);
+
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
 
   // {% icon "phone" %} prints an inline SVG icon from src/_data/icons.json.
@@ -20,10 +26,10 @@ module.exports = function (eleventyConfig) {
   });
 
   // {% photo root, "hero", "Alt text" %} prints the photo only if src/assets/photos/hero.jpg exists.
-  // Until then the slot shows its illustration and the browser asks for nothing.
+  // Until then nothing is printed and the browser asks for nothing.
   eleventyConfig.addShortcode("photo", function (root, name, alt, loading) {
     const file = String(name);
-    if (!/^[a-z0-9-]+$/.test(file) || !fs.existsSync(path.join(PHOTO_DIR, file + ".jpg"))) return "";
+    if (!photoExists(file)) return "";
     return '<img src="' + root + "assets/photos/" + file + '.jpg" alt="' + escapeHtml(alt || "") + '"' +
       (loading === "eager" ? "" : ' loading="lazy"') + ">";
   });

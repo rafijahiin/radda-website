@@ -18,7 +18,7 @@ depth: 0
 {%- endif %}{% endfor %}
 
 <main id="main">
-<section class="hero">
+<section class="hero{% if "hero" | hasPhoto %} has-photo{% endif %}">
   <div class="container">
     <div class="hero-copy">
       <span class="kicker"><i aria-hidden="true"></i>{{ h.kicker }}</span>
@@ -29,11 +29,9 @@ depth: 0
         <a class="btn btn-line-white" href="{{ up }}services.html">{{ h.explore }}</a>
       </div>
     </div>
-    <div class="hero-art">
-      <div class="photo hero-photo" data-art="hero">{% photo root, "hero", h.hero_alt, "eager" %}</div>
-      <div class="chip chip-a"><b>{{ h.chip_a_n }}</b><span>{{ h.chip_a }}</span></div>
-      <div class="chip chip-b"><b>{{ h.chip_b_n }}</b><span>{{ h.chip_b }}</span></div>
-    </div>
+    {%- if "hero" | hasPhoto %}
+    <div class="hero-art"><div class="photo hero-photo">{% photo root, "hero", h.hero_alt, "eager" %}</div></div>
+    {%- endif %}
   </div>
 </section>
 
@@ -103,8 +101,13 @@ depth: 0
     <div class="cards">
       {%- for card in h.cards %}
       <a class="card" href="{{ up }}services.html#{{ card.id }}" data-reveal style="--d:{{ loop.index0 }}">
-        <div class="photo" data-art="{{ card.id }}">{% photo root, card.id, card.alt %}</div>
+        {%- if card.id | hasPhoto %}
+        <div class="photo">{% photo root, card.id, card.alt %}</div>
+        {%- endif %}
         <div class="body">
+          {%- if not (card.id | hasPhoto) %}
+          <span class="card-ico">{% icon serviceMeta[card.id].icon, 1.8 %}</span>
+          {%- endif %}
           <span class="label">{{ card.label }}</span>
           <h3>{{ card.title }}</h3>
           <p>{{ card.body }}</p>
@@ -132,11 +135,11 @@ depth: 0
   </div>
 </section>
 
-<section class="section feature" aria-labelledby="story-h">
+<section class="section feature{% if not ("about" | hasPhoto) %} no-media{% endif %}" aria-labelledby="story-h">
   <div class="container">
-    <div class="feature-media" data-reveal>
-      <div class="photo" data-art="about">{% photo root, "about", h.story_alt %}</div>
-    </div>
+    {%- if "about" | hasPhoto %}
+    <div class="feature-media" data-reveal><div class="photo">{% photo root, "about", h.story_alt %}</div></div>
+    {%- endif %}
     <div class="body" data-reveal style="--d:1">
       <span class="eyebrow">{{ h.story_eyebrow }}</span>
       <h2 id="story-h">{{ h.story_title }}</h2>

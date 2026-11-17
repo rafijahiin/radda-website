@@ -37,7 +37,7 @@ Open **Government holidays**, press **Add an item**, pick the date and press **S
 
 ## Adding photos
 
-Open **Media**, press **Upload** and choose a JPG. A photo replaces one of the drawings on the site only if it has one of these exact file names:
+Open **Media**, press **Upload** and choose a JPG. A photo appears on the site only if it has one of these exact file names:
 
 `hero.jpg`, `maternal.jpg`, `child.jpg`, `family-planning.jpg`, `about.jpg`, `centre.jpg`, `support.jpg`
 
@@ -94,7 +94,7 @@ Nothing you do here can break the website. If a save contains a mistake the site
 
 ## ছবি যোগ করা
 
-**Media** খুলে **Upload** চেপে একটি JPG ছবি বেছে নিন। ছবির ফাইলের নাম ঠিক নিচের যেকোনো একটি হলে তবেই সেটি সাইটের আঁকা ছবির জায়গায় বসবে:
+**Media** খুলে **Upload** চেপে একটি JPG ছবি বেছে নিন। ছবির ফাইলের নাম ঠিক নিচের যেকোনো একটি হলে তবেই সেটি সাইটে দেখাবে:
 
 `hero.jpg`, `maternal.jpg`, `child.jpg`, `family-planning.jpg`, `about.jpg`, `centre.jpg`, `support.jpg`
 

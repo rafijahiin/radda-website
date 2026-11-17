@@ -30,6 +30,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800{% if lng.code == 'bn' %}&amp;family=Hind+Siliguri:wght@400;600{% else %}&amp;family=Source+Sans+3:wght@400..700{% endif %}&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ root }}assets/css/site.css">
 <script type="application/ld+json">{{ clinicSchema[lng.code] | dump | safe }}</script>
+{#- Browsers that support it fetch a page as the pointer rests on its link, so it opens at once. #}
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>

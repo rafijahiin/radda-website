@@ -44,27 +44,23 @@ CARD_HTML = """<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800&family=Hind+Siliguri:wght@400;600;700&display=block" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; }
-  body { width: 1200px; height: 630px; overflow: hidden; background: #06306f; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #0a3f7f; }
   .card { position: relative; width: 1200px; height: 630px; overflow: hidden; color: #fff; padding: 64px 72px;
     font-family: __FONT__;
-    background: radial-gradient(60% 90% at 90% 10%, #1a76dd 0%, transparent 62%), linear-gradient(120deg, #06306f 0%, #0a5cb8 100%); }
+    background: #0a3f7f; }
   .rings { position: absolute; right: -150px; top: 50%; width: 720px; height: 720px; transform: translateY(-50%); }
   .brand { display: flex; align-items: center; gap: 20px; }
   .brand svg { width: 84px; height: 84px; }
   .brand b { display: block; font-size: 44px; line-height: 1.1; letter-spacing: __TRACK__; font-weight: __BOLD__; }
   .brand span { display: block; font-size: 21px; line-height: 1.3; color: #b9d4f6; font-weight: 600; margin-top: 4px; }
   h1 { position: absolute; left: 72px; bottom: 150px; width: 760px; font-size: __SIZE__; line-height: __LEAD__; letter-spacing: __HTRACK__; font-weight: __BOLD__; }
-  h1 em { font-style: normal; box-shadow: inset 0 -0.13em 0 #ffb22e; }
+  h1 em { font-style: normal; box-shadow: inset 0 -0.09em 0 #ffb22e; }
   .foot { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 600; color: #dbe9fb; }
   .foot i { width: 12px; height: 12px; border-radius: 50%; background: #ffb22e; }
 </style></head><body>
 <div class="card">
   <svg class="rings" viewBox="0 0 600 600" fill="none" stroke="#fff">
-    <circle cx="300" cy="300" r="110" fill="#fff" fill-opacity=".06" stroke-opacity=".3" stroke-width="1.5"/>
-    <circle cx="300" cy="300" r="176" stroke-opacity=".32" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
-    <circle cx="300" cy="300" r="240" stroke-opacity=".16" stroke-width="1.5"/>
-    <circle cx="300" cy="300" r="298" stroke-opacity=".1" stroke-width="1.5"/>
-    <circle cx="470" cy="130" r="17" fill="#ffb22e" stroke="none"/>
+    <circle cx="300" cy="300" r="150" fill="#0a5cb8" stroke="none"/>
     <g transform="translate(180 176) scale(5)" stroke="none">__MARK__</g>
   </svg>
   <div class="brand">

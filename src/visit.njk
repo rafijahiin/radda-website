@@ -131,11 +131,11 @@ depth: 0
   </div>
 </section>
 
-<section class="section tint feature" id="support" aria-labelledby="support-h">
+<section class="section tint feature{% if not ("support" | hasPhoto) %} no-media{% endif %}" id="support" aria-labelledby="support-h">
   <div class="container">
-    <div class="feature-media" data-reveal>
-      <div class="photo" data-art="support">{% photo root, "support", v.support_alt %}</div>
-    </div>
+    {%- if "support" | hasPhoto %}
+    <div class="feature-media" data-reveal><div class="photo">{% photo root, "support", v.support_alt %}</div></div>
+    {%- endif %}
     <div class="body" data-reveal style="--d:1">
       <span class="eyebrow">{{ v.support_eyebrow }}</span>
       <h2 id="support-h">{{ v.support_title }}</h2>

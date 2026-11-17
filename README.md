@@ -85,19 +85,20 @@ The search box (the magnifying glass, or press `/`) searches services, vaccines,
 - **Share image.** When someone pastes a link to the site into Facebook, WhatsApp or a message, a picture with the centre's name and headline appears. There is one per language (`src/assets/img/share-en.jpg`, `share-bn.jpg`). If the headline or the centre's name changes, redraw them with `python tools/make_share_images.py` (needs Google Chrome and the Pillow package).
 - **Sitemap.** `sitemap.xml` lists every page in both languages and is rebuilt automatically.
 - **Clinic details for Google.** Every page carries the centre's name, phone, opening hours and holidays in a form search engines read (`src/_data/clinicSchema.js`). It updates itself from the same settings as the pages.
+- **Smooth page changes.** Moving between pages cross-fades and, in browsers that support it, the next page is fetched as the pointer rests on its link. Both are a few lines in `src/assets/css/site.css` and `src/_includes/base.njk`; no framework is involved.
 - **Page not found.** A mistyped address shows a friendly page in both languages (`src/404.njk`).
 
 **One step only the site owner can do:** tell Google the site exists. Go to https://search.google.com/search-console, add the site's address as a "URL prefix" property, verify it with the HTML file method (put the file Google gives you in `src/` and add it to the passthrough list in `.eleventy.js`, or ask whoever maintains the site), then submit `sitemap.xml` under Sitemaps.
 
-## Photos and illustrations
+## Photos
 
-Every photo space shows a Radda illustration by default. When a real photo is added, the next build puts it in place of the illustration automatically. Until then the pages do not ask the browser for any photo, so nothing is wasted on slow connections.
+The site shows no stand-in pictures. A photo area appears only when its photo exists; until then the page simply leaves that space out. The pages do not ask the browser for any photo that is not there.
 
-To add a photo, put a JPG in `src/assets/photos/` with one of these exact names:
+To add a photo, put a JPG in `src/assets/photos/` (or upload it under Media in the staff editing screen) with one of these exact names:
 
 | File | Where it appears | Suggested subject |
 |---|---|---|
-| `hero.jpg` | Home, the arch at the top | A mother and baby at the centre (portrait, at least 1000 px wide) |
+| `hero.jpg` | Home, beside the headline | A mother and baby at the centre (portrait, at least 1000 px wide) |
 | `maternal.jpg` | Home card, Services | An antenatal check-up |
 | `child.jpg` | Home card, Services | A child being vaccinated |
 | `family-planning.jpg` | Home card, Services | A counselling session |
@@ -106,8 +107,6 @@ To add a photo, put a JPG in `src/assets/photos/` with one of these exact names:
 | `support.jpg` | Visit, "Support Radda" | A health worker with a mother and baby |
 
 Use photos about 1600 to 2400 px wide, compressed to under 400 KB each, for example with squoosh.app. Only use photos Radda owns, with consent from the people shown.
-
-The illustrations are the `art-*.svg` files in `src/assets/img/`. `node tools/make-art.js src/assets/img` redraws them if their colours or figures need to change.
 
 ## How visit requests work
 

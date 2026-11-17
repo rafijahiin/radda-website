@@ -12,7 +12,6 @@
   var IS_BANGLA = cfg.lang === "bn";
 
   var REVEAL_CLEANUP_MS = 1600;
-  var COUNT_DURATION_MS = 1400;
   var LOOKAHEAD_DAYS = 14;
   var MAX_RESULTS = 8;
   var SNIPPET_LENGTH = 110;
@@ -151,21 +150,8 @@
   setInterval(paintStatus, 60000);
 
   /* ------------------------------------------------------------------
-     Scroll reveals and number count-up
+     Scroll reveals
      ------------------------------------------------------------------ */
-  function countUp(el) {
-    var target = Number(el.getAttribute("data-count"));
-    if (!target || reduceMotion) return;
-    var start = null;
-    function frame(time) {
-      if (start === null) start = time;
-      var p = Math.min((time - start) / COUNT_DURATION_MS, 1);
-      el.textContent = num(Math.round(target * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) requestAnimationFrame(frame);
-    }
-    el.textContent = num(0);
-    requestAnimationFrame(frame);
-  }
   var revealEls = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
@@ -174,7 +160,6 @@
         var el = entry.target;
         io.unobserve(el);
         el.classList.add("in");
-        each(el.querySelectorAll("[data-count]"), countUp);
         // Drop the reveal styles afterwards so they never delay a hover effect.
         setTimeout(function () { el.removeAttribute("data-reveal"); el.classList.remove("in"); }, REVEAL_CLEANUP_MS);
       });
