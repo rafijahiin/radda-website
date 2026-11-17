@@ -155,3 +155,53 @@ content:
         type: string
         required: true
         description: The full address, starting with https://
+
+  - name: appeal
+    label: Rebuild appeal
+    type: file
+    path: src/_data/appealSettings.json
+    format: json
+    fields:
+      - name: published
+        label: Show the "Help rebuild Radda" page
+        type: boolean
+        description: Switch this off to remove the page and every link to it.
+      - name: bank_account_name
+        label: Bank account name
+        type: string
+        description: The bank details appear on the page only when the account name, bank and account number are all filled in.
+      - name: bank_name
+        label: Bank
+        type: string
+      - name: bank_branch
+        label: Branch
+        type: string
+      - name: bank_account_number
+        label: Bank account number
+        type: string
+      - name: bank_routing_number
+        label: Routing number (optional)
+        type: string
+      - name: bkash_number
+        label: bKash number
+        type: string
+        description: Digits only, for example 01712345678. Leave empty if there is none.
+        pattern:
+          regex: "^([0-9]{11,14})?$"
+          message: "Digits only, or leave this empty"
+      - name: bkash_kind
+        label: Kind of bKash account
+        type: select
+        options:
+          values:
+            - name: merchant
+              label: Merchant (givers use Payment)
+            - name: personal
+              label: Personal (givers use Send Money)
+      - name: nagad_number
+        label: Nagad number
+        type: string
+        description: Digits only. Leave empty if there is none.
+        pattern:
+          regex: "^([0-9]{11,14})?$"
+          message: "Digits only, or leave this empty"

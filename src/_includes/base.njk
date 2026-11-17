@@ -95,6 +95,9 @@
         {%- for link in t.footer.radda_links %}
         <li><a href="{{ up }}{{ link.href }}">{{ link.label }}</a></li>
         {%- endfor %}
+        {%- if appeal.published %}
+        <li><a href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a></li>
+        {%- endif %}
       </ul>
     </div>
     <div>

@@ -14,6 +14,14 @@ eleventyExcludeFromCollections: true
   </url>
 {%- endfor %}
 {%- endfor %}
+{%- for lang in appealPages %}
+  <url>
+    <loc>{{ site.url }}{{ lang.dir }}rebuild.html</loc>
+    {%- for other in langs %}
+    <xhtml:link rel="alternate" hreflang="{{ other.code }}" href="{{ site.url }}{{ other.dir }}rebuild.html"/>
+    {%- endfor %}
+  </url>
+{%- endfor %}
 {%- for entry in newsPages %}
   <url>
     <loc>{{ site.url }}{{ entry.lang.dir }}news/{{ entry.item.id }}.html</loc>

@@ -143,7 +143,11 @@ depth: 0
       <p>{{ p }}</p>
       {%- endfor %}
       <div class="actions support-actions">
+        {%- if appeal.published %}
+        <a class="btn btn-primary" href="{{ up }}rebuild.html">{{ t.rebuild.nav }} {% icon "arrow", 2.4 %}</a>
+        {%- else %}
         <a class="btn btn-primary" href="mailto:{{ site.email }}?subject={{ v.support_subject | urlencode }}">{{ v.support_email }} {% icon "arrow", 2.4 %}</a>
+        {%- endif %}
         <a class="btn btn-line" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
       </div>
     </div>

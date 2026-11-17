@@ -14,6 +14,7 @@ All the words, settings and news live in a few data files. A build step ([Eleven
 | Government holidays | `src/_data/holidays.json` (staff editing screen) |
 | Board of Trustees | `src/_data/trustees.json` (staff editing screen) |
 | Phone, WhatsApp number, email, Facebook | `src/_data/contact.json` (staff editing screen) |
+| Rebuild appeal: on or off, bank and mobile banking details | `src/_data/appealSettings.json` (staff editing screen) |
 | Opening hours, map links, the site's web address | `src/_data/siteBase.json` |
 | Any English text | `src/_data/i18n/en.json` |
 | Any Bangla text | `src/_data/i18n/bn.json` |
@@ -56,6 +57,15 @@ Each item in `src/_data/newsItems.json` has English and Bangla fields (`title_en
 - An item with `"notice": true` also appears in the bar at the top of the home page. Set `"notice_until": "2027-01-31"` and the bar hides itself after that date. Leave it empty to show the bar until you set `"notice"` to `false`.
 
 New items go at the **end** of the file. The site shows the last item first, and the three newest appear on the home page.
+
+## The rebuild appeal
+
+`rebuild.html` (and `bn/rebuild.html`) is the "Help rebuild Radda" page about the September 2026 attack on the Mirpur-1 centre.
+
+- **Giving details.** Until the centre adds its accounts, the page asks people to contact the office. Once the bank details or a bKash or Nagad number are entered under **Rebuild appeal** in the staff editing screen, they appear on the page with a copy button. Bank details show only when the account name, bank and account number are all filled in, so a half-finished form never shows a partial number.
+- **Switching it off.** Turn off "Show the Help rebuild Radda page" in the same form. The page, every link to it, and its search and sitemap entries all disappear on the next build.
+- **The facts on the page.** Every figure carries a small number pointing to a published report listed at the bottom. The wording is in `src/_data/i18n/en.json` and `bn.json` under `rebuild`. Change a fact only together with its source, and update the "Last checked" date. The situation at the centre is changing, so the "What is still missing" list in particular should be reviewed by the centre.
+- **Who can edit it.** Anyone invited to the staff editing screen can change the account numbers shown to donors. Invite only people the centre trusts with that.
 
 ## Clinic hours and the "Open now" label
 

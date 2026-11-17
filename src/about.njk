@@ -85,6 +85,6 @@ depth: 0
   </div>
 </section>
 
-{%- set bandTitle = a.band_title %}{% set bandBody = a.band_body %}{% set bandCta = a.band_cta %}{% set bandHref = up + "visit.html#support" %}{% set bandFlush = true %}
+{%- set bandTitle = a.band_title %}{% set bandBody = a.band_body %}{% set bandCta = a.band_cta %}{% set bandHref = up + ("rebuild.html" if appeal.published else "visit.html#support") %}{% set bandFlush = true %}
 {% include "band.njk" %}
 </main>

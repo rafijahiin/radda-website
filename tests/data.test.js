@@ -181,3 +181,39 @@ test("tells search engines about holidays and uses each language's own name", ()
   assert.notEqual(schema.en.name, schema.bn.name);
   assert.match(schema.bn.url, /\/bn\/$/);
 });
+
+const noChannels = { published: true, bank_account_name: "", bank_name: "", bank_branch: "", bank_account_number: "", bank_routing_number: "", bkash_number: "", bkash_kind: "merchant", nagad_number: "" };
+const loadAppeal = (overrides) => load("appeal.js", { "appealSettings.json": { ...noChannels, ...overrides } });
+
+test("shows no giving channels until the centre fills them in", () => {
+  const appeal = loadAppeal({});
+
+  assert.equal(appeal.hasChannels, false);
+  assert.equal(appeal.bank, null);
+  assert.deepEqual(appeal.mobile, []);
+});
+
+test("hides half-filled bank details", () => {
+  const appeal = loadAppeal({ bank_account_number: "1234567890", bank_name: "Example Bank" });
+
+  assert.equal(appeal.bank, null);
+});
+
+test("shows bank details once name, bank and number are all present", () => {
+  const appeal = loadAppeal({ bank_account_name: " Radda MCH-FP Centre ", bank_name: "Example Bank", bank_account_number: "1234567890" });
+
+  assert.equal(appeal.bank.account_name, "Radda MCH-FP Centre");
+  assert.equal(appeal.hasChannels, true);
+});
+
+test("ignores a mobile banking number that is too short and tidies a good one", () => {
+  const appeal = loadAppeal({ bkash_number: "0171", nagad_number: "01712-345678" });
+
+  assert.deepEqual(appeal.mobile, [{ service: "nagad", number: "01712345678", kind: "" }]);
+});
+
+test("publishes the appeal only when the switch is truly on", () => {
+  assert.equal(loadAppeal({ published: "yes" }).published, false);
+  assert.equal(load("appealPages.js", { "appealSettings.json": { ...noChannels, published: false } }).length, 0);
+  assert.equal(load("appealPages.js", { "appealSettings.json": noChannels }).length, 2);
+});

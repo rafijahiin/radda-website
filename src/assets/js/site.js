@@ -16,6 +16,7 @@
   var LOOKAHEAD_DAYS = 14;
   var MAX_RESULTS = 8;
   var SNIPPET_LENGTH = 110;
+  var DONE_LABEL_MS = 2000;
   var PHONE_PATTERN = /^(?:88)?01[3-9]\d{8}$/;   // Bangladeshi mobile, with or without 88
   var BANGLA_DIGITS = "০১২৩৪৫৬৭৮৯";
 
@@ -319,6 +320,33 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
+
+  /* ------------------------------------------------------------------
+     Copy and share buttons (appeal page)
+     ------------------------------------------------------------------ */
+  var canCopy = Boolean(navigator.clipboard && navigator.clipboard.writeText);
+  function flashDone(button) {
+    var label = button.textContent;
+    button.textContent = button.getAttribute("data-done") || label;
+    setTimeout(function () { button.textContent = label; }, DONE_LABEL_MS);
+  }
+  each(document.querySelectorAll("[data-copy]"), function (button) {
+    if (!canCopy) { button.hidden = true; return; }      // the number stays on the page to copy by hand
+    button.addEventListener("click", function () {
+      navigator.clipboard.writeText(button.getAttribute("data-copy")).then(function () { flashDone(button); }, function () { button.hidden = true; });
+    });
+  });
+  each(document.querySelectorAll("[data-share]"), function (button) {
+    if (!navigator.share && !canCopy) { button.hidden = true; return; }
+    button.addEventListener("click", function () {
+      var page = { title: document.title, url: location.href.split("#")[0] };
+      if (navigator.share) {
+        navigator.share(page).catch(function () { /* the reader closed the share sheet: nothing to do */ });
+        return;
+      }
+      navigator.clipboard.writeText(page.url).then(function () { flashDone(button); }, function () { button.hidden = true; });
+    });
+  });
 
   /* ------------------------------------------------------------------
      Visit registration -> WhatsApp / SMS

@@ -1,0 +1,154 @@
+---
+pagination: { data: appealPages, size: 1, alias: lang }
+permalink: "{{ lang.dir }}rebuild.html"
+layout: base.njk
+key: rebuild
+file: rebuild.html
+depth: 0
+---
+{%- set r = t.rebuild %}
+{#- Every figure on this page carries a number that points to the list of published
+    reports at the bottom. Change a fact here only together with its source. -#}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ r.nav }}</div>
+    <h1>{{ r.h1 }}</h1>
+    <p>{{ r.lead }}</p>
+    <div class="actions hero-actions">
+      <a class="btn btn-sun" href="#give">{{ r.give_cta }} {% icon "arrow", 2.4 %}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section figures-wrap" aria-labelledby="facts-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ r.facts_eyebrow }}</span>
+        <h2 id="facts-h">{{ r.facts_title }}</h2>
+      </div>
+    </div>
+    <div class="figures compact" data-reveal>
+      {%- for fact in r.facts %}
+      <div class="figure"><div class="n">{{ fact.n }}</div><div class="l">{{ fact.label }}<sup class="ref"><a href="#source-{{ fact.ref }}" aria-label="{{ r.sources_title }} {{ fact.ref }}">{{ fact.ref }}</a></sup></div></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ r.what_eyebrow }}</span>
+      <h2>{{ r.what_title }}</h2>
+    </div>
+    <div class="prose" data-reveal style="--d:1">
+      {%- for p in r.what %}
+      <p{% if loop.first %} class="lede"{% endif %}>{{ p.text }}{% for ref in p.refs %}<sup class="ref"><a href="#source-{{ ref }}" aria-label="{{ r.sources_title }} {{ ref }}">{{ ref }}</a></sup>{% endfor %}</p>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ r.after_eyebrow }}</span>
+      <h2>{{ r.after_title }}</h2>
+      <ol class="timeline">
+        {%- for step in r.timeline %}
+        <li><div class="yr">{{ step.yr }}</div><h3>{{ step.title }}</h3><p>{{ step.body }}<sup class="ref"><a href="#source-{{ step.ref }}" aria-label="{{ r.sources_title }} {{ step.ref }}">{{ step.ref }}</a></sup></p></li>
+        {%- endfor %}
+      </ol>
+    </div>
+    <div class="missing" data-reveal style="--d:1">
+      <h3>{{ r.missing_title }}</h3>
+      <p class="note">{{ r.missing_note }}<sup class="ref"><a href="#source-{{ r.missing_ref }}" aria-label="{{ r.sources_title }} {{ r.missing_ref }}">{{ r.missing_ref }}</a></sup></p>
+      <ul>
+        {%- for item in r.missing %}
+        <li>{{ item }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="give" aria-labelledby="give-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ r.give_eyebrow }}</span>
+        <h2 id="give-h">{{ r.give_title }}</h2>
+        <p>{{ r.give_direct if appeal.hasChannels else r.give_contact }}</p>
+      </div>
+    </div>
+    <div class="give" data-reveal>
+      {%- if appeal.bank %}
+      <div class="give-card">
+        <h3>{{ r.bank_title }}</h3>
+        <dl>
+          <div><dt>{{ r.account_name }}</dt><dd>{{ appeal.bank.account_name }}</dd></div>
+          <div><dt>{{ r.bank_name }}</dt><dd>{{ appeal.bank.bank_name }}{% if appeal.bank.branch %}, {{ appeal.bank.branch }}{% endif %}</dd></div>
+          <div><dt>{{ r.account_number }}</dt><dd class="copy-row"><span lang="en">{{ appeal.bank.account_number }}</span><button class="copy js-only" type="button" data-copy="{{ appeal.bank.account_number }}" data-done="{{ r.copied }}">{{ r.copy }}</button></dd></div>
+          {%- if appeal.bank.routing_number %}
+          <div><dt>{{ r.routing_number }}</dt><dd lang="en">{{ appeal.bank.routing_number }}</dd></div>
+          {%- endif %}
+        </dl>
+      </div>
+      {%- endif %}
+      {%- if appeal.mobile.length %}
+      <div class="give-card">
+        <h3>{{ r.mobile_title }}</h3>
+        <dl>
+          {%- for channel in appeal.mobile %}
+          <div><dt>{{ r.services[channel.service] }}</dt><dd class="copy-row"><span lang="en">{{ channel.number }}</span><button class="copy js-only" type="button" data-copy="{{ channel.number }}" data-done="{{ r.copied }}">{{ r.copy }}</button></dd>{% if channel.kind %}<dd class="hint">{{ r.kinds[channel.kind] }}</dd>{% endif %}</div>
+          {%- endfor %}
+        </dl>
+      </div>
+      {%- endif %}
+      <div class="give-card">
+        <h3>{{ r.contact_title }}</h3>
+        {%- if appeal.hasChannels %}
+        <p>{{ r.contact_after }}</p>
+        {%- endif %}
+        <div class="give-actions">
+          <a class="btn btn-primary" href="mailto:{{ site.email }}?subject={{ r.mail_subject | urlencode }}">{{ r.email_btn }} {% icon "arrow", 2.4 %}</a>
+          <a class="btn btn-wa" href="https://wa.me/{{ site.clinic.whatsapp }}?text={{ r.wa_text | urlencode }}" target="_blank" rel="noopener">{% icon "chat" %} {{ r.wa_btn }}</a>
+          <a class="btn btn-line" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
+        </div>
+      </div>
+      <div class="give-card share-card">
+        <h3>{{ r.share_title }}</h3>
+        <p>{{ r.share_body }}</p>
+        <div class="give-actions">
+          <button class="btn btn-line js-only" type="button" data-share data-done="{{ r.share_copied }}">{{ r.share_btn }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="sources-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ r.updates_title }}</span>
+      <ul class="updates">
+        {%- for item in news %}{% if item.type == "update" %}
+        <li><a href="{{ up }}news/{{ item.id }}.html">{{ item[lng.code].title }}</a>{% if item[lng.code].date %}<span>{{ item[lng.code].date }}</span>{% endif %}</li>
+        {%- endif %}{% endfor %}
+      </ul>
+      <p><a class="more" href="{{ up }}news.html">{{ t.home.news_all }}</a></p>
+    </div>
+    <div class="sources" data-reveal style="--d:1">
+      <h2 id="sources-h">{{ r.sources_title }}</h2>
+      <p class="note">{{ r.sources_note }}</p>
+      <ol>
+        {%- for source in r.sources %}
+        <li id="source-{{ loop.index }}"><a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.outlet }}, {{ source.date }}</a><span>{{ source.about }}</span></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </div>
+</section>
+</main>

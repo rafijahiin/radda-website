@@ -25,6 +25,9 @@ eleventyComputed:
       {%- for p in a.body %}
       <p{% if loop.first %} class="lede"{% endif %}>{{ p }}</p>
       {%- endfor %}
+      {%- if appeal.published %}
+      <p><a class="btn btn-primary" href="{{ up }}rebuild.html">{{ t.rebuild.nav }} {% icon "arrow", 2.4 %}</a></p>
+      {%- endif %}
       <p class="note">{{ t.news.questions | replace("{phone}", site.phone_display) }}</p>
       <p><a class="more back" href="{{ up }}news.html">{{ t.news.back }}</a></p>
     </div>

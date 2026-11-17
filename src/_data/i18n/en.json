@@ -33,6 +33,11 @@
       "file": "visit.html",
       "title": "Visit & contact · Radda MCH-FP Centre",
       "desc": "Clinic hours, locations and contact details for Radda MCH-FP Centre in Mirpur, Dhaka. Request a visit on WhatsApp."
+    },
+    "rebuild": {
+      "file": "rebuild.html",
+      "title": "Help rebuild Radda · Radda MCH-FP Centre",
+      "desc": "In September 2026 the Radda MCH-FP Centre at Mirpur-1, Dhaka was attacked and largely demolished. What happened, what is still missing, and how to help rebuild it."
     }
   },
   "nav": {
@@ -622,5 +627,149 @@
     "title": "This page could not be found",
     "body": "The address may be mistyped, or the page may have moved. These links will get you back on track.",
     "home": "Go to the home page"
+  },
+  "rebuild": {
+    "nav": "Help rebuild Radda",
+    "h1": "Help rebuild Radda",
+    "lead": "In the early hours of 25 September 2026 our Mirpur-1 centre was attacked, looted and largely demolished. Vaccination restarted the next day, under a tarpaulin by the road. Rebuilding the rest will take help.",
+    "give_cta": "How to give",
+    "facts_eyebrow": "What was lost",
+    "facts_title": "The damage in numbers",
+    "facts": [
+      {
+        "n": "25 Sept 2026",
+        "label": "The night the Mirpur-1 centre was attacked",
+        "ref": 4
+      },
+      {
+        "n": "4 buildings",
+        "label": "One permanent and three semi-permanent buildings demolished",
+        "ref": 2
+      },
+      {
+        "n": "Tk 1.5 crore+",
+        "label": "The loss we stated in the case filed with the police",
+        "ref": 1
+      },
+      {
+        "n": "~250 a day",
+        "label": "Mothers and children being seen again by 30 October, against about 350 before",
+        "ref": 3
+      }
+    ],
+    "what_eyebrow": "What happened",
+    "what_title": "The night of 25 September",
+    "what": [
+      {
+        "text": "Shortly after midnight on Friday 25 September 2026, a group of 200 to 250 people entered our Mirpur-1 centre. They held two security guards and spent several hours demolishing the centre with heavy machinery. One permanent and three semi-permanent buildings were brought down.",
+        "refs": [
+          2,
+          4
+        ]
+      },
+      {
+        "text": "Medical equipment, medicines, vaccines, family planning supplies and government registers were taken, along with an ultrasound machine, a generator, refrigerators and air conditioners. In the case filed with Shah Ali police station we put the loss at more than Tk 1.5 crore.",
+        "refs": [
+          1,
+          4
+        ]
+      },
+      {
+        "text": "According to reports on 28 September, police had arrested 11 people and recovered two truckloads of goods.",
+        "refs": [
+          4
+        ]
+      }
+    ],
+    "after_eyebrow": "Since then",
+    "after_title": "Care did not stop",
+    "timeline": [
+      {
+        "yr": "26 September",
+        "title": "Vaccination under a tarpaulin",
+        "body": "On Saturday, the day after the attack, staff began vaccinating children again under a tarpaulin beside the road.",
+        "ref": 2
+      },
+      {
+        "yr": "28 September",
+        "title": "Into one cleared room",
+        "body": "Services moved into a damaged room that had been cleaned out. It had no electricity, water or toilet.",
+        "ref": 2
+      },
+      {
+        "yr": "30 October",
+        "title": "Two rooms in use",
+        "body": "The boundary wall has been rebuilt and a new gate fitted. Services run from two rooms. About 250 mothers and children are seen each day, against about 350 before.",
+        "ref": 3
+      }
+    ],
+    "missing_title": "What is still missing",
+    "missing_note": "As reported on 30 October 2026.",
+    "missing_ref": 3,
+    "missing": [
+      "Ultrasound has not restarted",
+      "There is no working laboratory at the centre; samples are sent elsewhere",
+      "Repairs continue in the other rooms",
+      "The rooms in use have no fans"
+    ],
+    "give_eyebrow": "How to give",
+    "give_title": "Support the rebuilding",
+    "give_contact": "To give, or to partner with us, please contact our office. We will share bank and mobile banking details and send a receipt for every gift.",
+    "give_direct": "You can give directly using the details below. Please keep your transaction number. We send a receipt for every gift.",
+    "bank_title": "Bank transfer",
+    "account_name": "Account name",
+    "bank_name": "Bank",
+    "account_number": "Account number",
+    "routing_number": "Routing number",
+    "mobile_title": "Mobile banking",
+    "services": {
+      "bkash": "bKash",
+      "nagad": "Nagad"
+    },
+    "kinds": {
+      "merchant": "Merchant number: use the Payment option",
+      "personal": "Personal number: use Send Money"
+    },
+    "copy": "Copy",
+    "copied": "Copied",
+    "contact_title": "Contact our office",
+    "contact_after": "After you give, tell us your name and transaction number so we can send your receipt.",
+    "email_btn": "Email us about giving",
+    "mail_subject": "Supporting the rebuilding of Radda MCH-FP Centre",
+    "wa_btn": "Message us on WhatsApp",
+    "wa_text": "I would like to support the rebuilding of Radda MCH-FP Centre.",
+    "share_title": "Tell others",
+    "share_body": "If you cannot give, sharing this page helps.",
+    "share_btn": "Share this page",
+    "share_copied": "Link copied",
+    "updates_title": "Updates from Radda",
+    "sources_title": "Sources",
+    "sources_note": "The figures on this page come from these published reports. Last checked on 17 November 2026.",
+    "sources": [
+      {
+        "outlet": "Dhaka Tribune",
+        "date": "25 September 2026",
+        "about": "First report of the attack and the police case",
+        "url": "https://www.dhakatribune.com/amp/bangladesh/420670/radda-clinic-vandalized-looted-in-alleged"
+      },
+      {
+        "outlet": "Prothom Alo",
+        "date": "28 September 2026",
+        "about": "Services continuing in the damaged centre",
+        "url": "https://en.prothomalo.com/bangladesh/ys0eoq3yg1"
+      },
+      {
+        "outlet": "Dhaka Tribune",
+        "date": "30 October 2026",
+        "about": "The centre one month later",
+        "url": "https://www.dhakatribune.com/amp/bangladesh/health/423308/radda-centre-resumes-services-for-250-mothers"
+      },
+      {
+        "outlet": "The Financial Express",
+        "date": "28 September 2026",
+        "about": "Arrests and recovered goods",
+        "url": "https://thefinancialexpress.com.bd/national/mirpur-health-centre-vandalism-eleven-arrested-oc-withdrawn-goods-recovered"
+      }
+    ]
   }
 }

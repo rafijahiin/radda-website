@@ -4,6 +4,7 @@
 const langs = require("./langs.json");
 const news = require("./news.js");
 const site = require("./site.js");
+const appeal = require("./appeal.js");
 
 const join = (parts) => parts.filter(Boolean).join(" ");
 
@@ -38,7 +39,10 @@ function entriesFor(code) {
   const stories = news.map((item) => ({
     t: item[code].title, x: join([item[code].summary, item[code].source]), u: item.url || "news/" + item.id + ".html", k: "news"
   }));
-  return [].concat(services, vaccines, info, places, locations, stories, pages);
+  const appealEntries = appeal.published
+    ? [{ t: t.rebuild.nav, x: join([t.rebuild.lead, t.rebuild.give_contact]), u: "rebuild.html", k: "page" }]
+    : [];
+  return [].concat(services, vaccines, info, places, locations, appealEntries, stories, pages);
 }
 
 module.exports = Object.fromEntries(langs.map((lang) => [lang.code, entriesFor(lang.code)]));
