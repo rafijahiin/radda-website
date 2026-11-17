@@ -23,6 +23,7 @@
   --blue-100: #dceafb;
   --blue-50: #f3f6fa;
   --navy: #061a38;
+  --logo-ink: #111075;        /* the blue of the Radda logo itself */
 
   --sun: #ffb22e;             /* warm accent, used sparingly */
   --sun-100: #fff0d1;
@@ -138,9 +139,9 @@ table { border-collapse: collapse; width: 100%; }
 .site-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
 .site-header .container { display: flex; align-items: center; gap: 20px; min-height: 76px; }
 .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); flex: none; }
-.logo svg { width: 44px; height: 44px; }
+.logo img { width: 46px; height: 46px; }
 .logo-text { display: grid; line-height: 1; }
-.logo-text strong { font: 700 1.4rem/1 var(--font-display); letter-spacing: .04em; color: var(--blue); }
+.logo-text strong { font: 700 1.4rem/1 var(--font-display); letter-spacing: .04em; color: var(--logo-ink); }
 .logo-text span { font: 600 .7rem/1 var(--font-display); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
 .nav { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .nav a:not(.btn) { position: relative; padding: 10px 14px; font: 600 .98rem/1.2 var(--font-display); color: var(--ink); text-decoration: none; }
@@ -358,6 +359,7 @@ table.data td:first-child { font-weight: 600; color: var(--ink); }
 .person { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: #fff; }
 .person i { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-100); color: var(--blue-700); font: 700 .92rem/1 var(--font-display); font-style: normal; letter-spacing: .04em; }
 .person:first-child i { background: var(--blue); color: #fff; }
+.person img { flex: none; width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: var(--blue-100); }
 .person strong { display: block; font: 700 1.05rem/1.3 var(--font-display); color: var(--ink); }
 .person span { font-size: .92rem; color: var(--muted); }
 

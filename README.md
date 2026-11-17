@@ -124,6 +124,16 @@ Use photos about 1600 to 2400 px wide, compressed to under 400 KB each, for exam
 
 The centre should confirm that the people shown, especially the mothers, agreed to appear, and replace any photo where that is in doubt.
 
+## The logo
+
+The logo in the header, footer, browser tab and share images is the centre's own: a house with a mother and child inside. It was taken from the centre's earlier website, where the only copy was an 80 pixel JPEG (`images/logo.jpg`). `python tools/prepare_logo.py <logo-file>` enlarged it, smoothed the edges and separated the ink from the background; it was not redrawn. If the centre has a larger or vector version, run the script on that and then `python tools/make_share_images.py`.
+
+Note: the file called `logo.png` on that earlier website is not Radda's logo. It is a leftover from the website template ("Consultix") and must not be used.
+
+## Trustee portraits
+
+Each trustee can have a portrait, shown as a small round picture beside the name. The six current portraits came from the same earlier website and are stored as `src/assets/photos/trustee-<name>.jpg`. To add or change one, upload a square JPG under Media in the staff editing screen and type its file name in the trustee's "Portrait file name" box. If the file name does not match an uploaded photo, the trustee's initials are shown instead.
+
 ## How visit requests work
 
 The site stores nothing. When a patient submits the visit form, WhatsApp opens with a ready-written message addressed to the clinic, in the language of the page they are on. There is also an SMS option. The clinic replies to confirm.
@@ -155,4 +165,5 @@ To serve the site at `www.raddacentre.org`: add the domain under *Settings → P
 - Spellings of trustee names and current board membership.
 - Donation details (bank, bKash, Nagad) if the centre wants them published.
 - The list of government holidays for the year.
-- Radda's official logo, to replace the placeholder mark in `src/_includes/base.njk` and `src/assets/img/`.
+- A larger or vector copy of the logo. The site uses the centre's own logo, but the only copy available was 80 pixels wide (see "The logo" above).
+- Whether Mr. A. S. M. Quasem should be styled "Engr.": his portrait file on the earlier website was named "Eng_A_S_M_Quasem".

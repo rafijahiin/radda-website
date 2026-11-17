@@ -116,6 +116,10 @@ content:
         label: Name (Bangla)
         type: string
         description: Optional. Until this is filled in, the English name is shown on the Bangla page.
+      - name: photo
+        label: Portrait file name (optional)
+        type: string
+        description: Upload a square JPG under Media first, then type its exact file name here, for example trustee-rahman.jpg. Without a portrait the trustee's initials are shown.
       - name: role
         label: Role
         type: select

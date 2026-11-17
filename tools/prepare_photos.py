@@ -2,7 +2,7 @@
 
 Usage:  python tools/prepare_photos.py <folder-with-originals>
 
-Edit PHOTOS below to choose which original goes in which space. Each entry gives the
+Edit PHOTOS and PORTRAITS below to choose which original goes in which space. Each entry gives the
 original file name (or the start of it), the shape of the space as width:height, and
 where the important part of the picture is (0 to 1 across, 0 to 1 down), so the crop
 keeps faces in frame. Output goes to src/assets/photos/ at web size, under MAX_KB.
@@ -33,6 +33,18 @@ PHOTOS = {
     "support":         ("22_news_IMG_1906",             (5, 4),   (0.35, 0.5)),
 }
 
+# Trustee portraits: small squares, cropped from the top so the face stays in frame.
+PORTRAIT_SIDE = 240
+PORTRAITS = {
+    "trustee-mahbubur-rahman":        "Mr_Mahbubur_Rahman",
+    "trustee-tahrunnesa-abdullah":    "Mrs_Tahrunnesa_Abdullah",
+    "trustee-asm-quasem":             "Eng_A_S_M_Quasem",
+    "trustee-abdul-muyeed-chowdhury": "Mr_Abdul_Muyeed_Chowdhury",
+    "trustee-abdul-kader-azad":       "Mr_Abdul_Kader_Azad",
+    "trustee-abdul-karim":            "Dr_Md_Abdul_Karim",
+}
+PORTRAIT_FOCUS = (0.5, 0.15)
+
 
 def find_original(folder, prefix):
     matches = sorted(p for p in folder.iterdir() if p.name.startswith(prefix))
@@ -56,16 +68,18 @@ def main():
         sys.exit(__doc__)
     folder = Path(sys.argv[1])
     OUT.mkdir(parents=True, exist_ok=True)
-    for slot, (prefix, shape, focus) in PHOTOS.items():
+    jobs = [(slot, prefix, shape, focus, LONG_SIDE) for slot, (prefix, shape, focus) in PHOTOS.items()]
+    jobs += [(slot, prefix, (1, 1), PORTRAIT_FOCUS, PORTRAIT_SIDE) for slot, prefix in PORTRAITS.items()]
+    for slot, prefix, shape, focus, long_side in jobs:
         original = find_original(folder, prefix)
         with Image.open(original) as opened:
             upright = ImageOps.exif_transpose(opened).convert("RGB")
-        width = LONG_SIDE if shape[0] >= shape[1] else round(LONG_SIDE * shape[0] / shape[1])
+        width = long_side if shape[0] >= shape[1] else round(long_side * shape[0] / shape[1])
         height = round(width * shape[1] / shape[0])
         fitted = ImageOps.fit(upright, (width, height), method=Image.LANCZOS, centering=focus)
         data, quality = encode(fitted)
         (OUT / (slot + ".jpg")).write_bytes(data)     # written without the camera's hidden details (EXIF)
-        print("%-16s %dx%d  %3d KB  quality %d  from %s" % (slot + ".jpg", width, height, len(data) // 1024, quality, original.name))
+        print("%-36s %dx%d  %3d KB  quality %d  from %s" % (slot + ".jpg", width, height, len(data) // 1024, quality, original.name))
 
 
 if __name__ == "__main__":

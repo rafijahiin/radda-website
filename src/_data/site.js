@@ -5,12 +5,15 @@
 //   trustees.json  Board of Trustees                       (edited by staff)
 // Staff-edited values are tidied here, and the build stops with a clear message
 // if something essential is missing, so a broken edit never reaches the live site.
+const fs = require("fs");
+const path = require("path");
 const base = require("./siteBase.json");
 const contact = require("./contact.json");
 const holidays = require("./holidays.json");
 const trustees = require("./trustees.json");
 
 const ROLES = ["chair", "treasurer", "member"];
+const PHOTO_DIR = path.join(__dirname, "..", "assets", "photos");
 const TITLES = ["mr", "mrs", "ms", "miss", "dr", "md", "prof", "professor", "engr", "advocate", "barrister"];
 
 const clean = (value) => (typeof value === "string" ? value.trim() : "");
@@ -23,6 +26,13 @@ function initials(name) {
   if (!words.length) return "";
   const letters = words.length > 1 ? [words[0], words[words.length - 1]] : [words[0]];
   return letters.map((word) => word.charAt(0).toUpperCase()).join("");
+}
+
+// A portrait is shown only if the named file really is in the photos folder,
+// so a typing slip leaves the initials in place instead of a broken picture.
+function portrait(value) {
+  const file = clean(value).split(/[\\/]/).pop().toLowerCase();
+  return /^[a-z0-9-]+\.jpg$/.test(file) && fs.existsSync(path.join(PHOTO_DIR, file)) ? file : "";
 }
 
 const phone = clean(contact.phone);
@@ -42,6 +52,7 @@ const board = (Array.isArray(trustees) ? trustees : [])
     name: clean(person.name),
     name_bn: clean(person.name_bn),
     initials: initials(clean(person.name)),
+    photo: portrait(person.photo),
     role: ROLES.includes(person.role) ? person.role : "member"
   }));
 

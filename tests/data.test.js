@@ -217,3 +217,13 @@ test("publishes the appeal only when the switch is truly on", () => {
   assert.equal(load("appealPages.js", { "appealSettings.json": { ...noChannels, published: false } }).length, 0);
   assert.equal(load("appealPages.js", { "appealSettings.json": noChannels }).length, 2);
 });
+
+test("shows a trustee portrait only when the named file exists", () => {
+  const site = loadSite({ "trustees.json": [
+    { name: "Mr. Mahbubur Rahman", photo: "/assets/photos/Trustee-Mahbubur-Rahman.jpg" },
+    { name: "Someone Else", photo: "no-such-file.jpg" },
+    { name: "Third Person", photo: "../../secret.txt" }
+  ] });
+
+  assert.deepEqual(site.trustees.map((person) => person.photo), ["trustee-mahbubur-rahman.jpg", "", ""]);
+});

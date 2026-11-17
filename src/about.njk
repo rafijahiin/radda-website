@@ -79,7 +79,7 @@ depth: 0
       {%- for person in site.trustees %}
       {#- On the Bangla page a trustee's Bangla name is used once it has been filled in (trustees.json). -#}
       {%- set banglaName = person.name_bn if lng.code == "bn" else "" %}
-      <div class="person"><i aria-hidden="true" lang="en">{{ person.initials }}</i><div><strong{% if not banglaName %} lang="en"{% endif %}>{{ banglaName or person.name }}</strong><span>{{ a.roles[person.role] }}</span></div></div>
+      <div class="person">{% if person.photo %}<img src="{{ root }}assets/photos/{{ person.photo }}" alt="" width="56" height="56" loading="lazy">{% else %}<i aria-hidden="true" lang="en">{{ person.initials }}</i>{% endif %}<div><strong{% if not banglaName %} lang="en"{% endif %}>{{ banglaName or person.name }}</strong><span>{{ a.roles[person.role] }}</span></div></div>
       {%- endfor %}
     </div>
   </div>
