@@ -129,7 +129,7 @@
     "h1_em": "protected.",
     "lead": "For fifty years Radda has given the mothers and children of Mirpur good, affordable care close to home: pregnancy check-ups, vaccines, family planning and everyday health care.",
     "explore": "Explore our services",
-    "hero_alt": "A mother holding her baby during a check-up at Radda",
+    "hero_alt": "A health worker talking with a mother who holds her young child",
     "chip_a_n": "~250",
     "chip_a": "mothers and children seen on a typical day",
     "chip_b_n": "1974",
@@ -176,21 +176,21 @@
         "label": "Reproductive health",
         "title": "Pregnancy and after birth",
         "body": "Antenatal check-ups with tetanus vaccination, postnatal care with vitamin A, and nutrition advice for mothers.",
-        "alt": "An antenatal check-up"
+        "alt": "A health worker checking a woman's blood pressure"
       },
       {
         "id": "child",
         "label": "Child health",
         "title": "Vaccines and child care",
         "body": "The full government immunization schedule, plus Hepatitis, typhoid, MMR, chickenpox and other vaccines.",
-        "alt": "A child receiving a vaccine"
+        "alt": "A health worker vaccinating a baby held by its mother"
       },
       {
         "id": "family-planning",
         "label": "Community health",
         "title": "Family planning",
         "body": "Contraceptives and private counselling, with awareness on breastfeeding, STIs and HIV prevention.",
-        "alt": "A counsellor talking with a couple"
+        "alt": "A health worker counselling a mother who holds her child"
       }
     ],
     "fig_eyebrow": "Radda in numbers",
@@ -219,7 +219,7 @@
     ],
     "story_eyebrow": "Our story",
     "story_title": "Started by Rädda Barnen. Run by Bangladesh.",
-    "story_alt": "Radda health workers with mothers in the waiting area",
+    "story_alt": "Mothers and babies being seen on the centre's veranda",
     "story": [
       "Radda began in 1974 as a project of Rädda Barnen, Swedish Save the Children, to bring mother and child health care to the poorest families of Mirpur. For twenty years Rädda Barnen ran and funded the centre.",
       "In 1994, with the permission of the Ministry of Health, the centre passed into Bangladeshi hands. It has worked alongside the government ever since, under a volunteer Board of Trustees."
@@ -256,7 +256,7 @@
         "id": "maternal",
         "label": "Reproductive health",
         "title": "Pregnancy and after birth",
-        "alt": "A midwife checking a pregnant mother",
+        "alt": "A health worker checking a woman's blood pressure",
         "body": "Regular check-ups during pregnancy catch problems early and keep mother and baby safe. We see mothers through pregnancy and in the weeks after birth.",
         "items": [
           "Antenatal check-ups",
@@ -271,14 +271,14 @@
         "id": "child",
         "label": "Child health",
         "title": "Vaccines and child health",
-        "alt": "A nurse giving a child a vaccine",
+        "alt": "A health worker vaccinating a baby held by its mother",
         "body": "We give every child the government's Expanded Programme on Immunization (EPI) schedule, protecting against the main childhood diseases, including the Hepatitis B vaccine for babies under one year. We also offer additional vaccines for children and adults."
       },
       {
         "id": "family-planning",
         "label": "Community health",
         "title": "Family planning and community health",
-        "alt": "A counsellor speaking with a young couple",
+        "alt": "A health worker counselling a mother who holds her child",
         "body": "Every family has the right to decide when to have children. Our counsellors explain the options in private and help couples choose the method that suits them. Our teams also work in the community, through our static clinics and satellite clinics.",
         "items": [
           "Contraceptives and counselling",
@@ -358,7 +358,7 @@
     ],
     "history_eyebrow": "Our history",
     "history_title": "From a Swedish project to a Bangladeshi institution",
-    "centre_alt": "The Radda centre in Mirpur",
+    "centre_alt": "Mothers waiting in the courtyard of a Radda centre",
     "timeline": [
       {
         "yr": "1974",
@@ -547,7 +547,7 @@
     "map_title": "Map of Radda MCH-FP Centre, Mirpur, Dhaka",
     "support_eyebrow": "Support Radda",
     "support_title": "Help keep care within reach",
-    "support_alt": "A health worker with a mother and baby",
+    "support_alt": "Visitors and staff with a mother and her newborn at the centre",
     "support_body": [
       "Many of the families we serve could not pay for care anywhere else. Gifts from people and organisations help us keep pregnancy check-ups, vaccines and family planning affordable, and rebuild what was damaged in 2026.",
       "To give, or to partner with us, please contact our office. We will share bank and mobile banking details and send a receipt for every gift."

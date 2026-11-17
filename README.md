@@ -108,6 +108,22 @@ To add a photo, put a JPG in `src/assets/photos/` (or upload it under Media in t
 
 Use photos about 1600 to 2400 px wide, compressed to under 400 KB each, for example with squoosh.app. Only use photos Radda owns, with consent from the people shown.
 
+`python tools/prepare_photos.py <folder>` does the cropping and compressing for you: it takes the originals named at the top of the script, crops each to the shape of its space keeping faces in frame, and writes web-sized files with the camera's hidden details removed.
+
+**Where the current photos came from.** All seven were taken from the gallery on the centre's own earlier website (raddacentre.org) in November 2026:
+
+| File | Original | What it shows |
+|---|---|---|
+| `hero.jpg` | Family Planning, IMG_6826 | A health worker talking with a mother who holds her child |
+| `maternal.jpg` | Antenatal, IMG_6843 | A blood pressure check |
+| `child.jpg` | COVID-19, 30 March 2020, IMG_5083 | A baby being vaccinated |
+| `family-planning.jpg` | Family Planning, IMG_6825 | A counselling session |
+| `about.jpg` | COVID-19, 29 March 2020, IMG_5044 | Mothers and babies on the centre's veranda |
+| `centre.jpg` | COVID-19, 29 March 2020, IMG_5032 | Mothers waiting in the courtyard |
+| `support.jpg` | News, IMG_1906 | Visitors and staff with a mother and newborn |
+
+The centre should confirm that the people shown, especially the mothers, agreed to appear, and replace any photo where that is in doubt.
+
 ## How visit requests work
 
 The site stores nothing. When a patient submits the visit form, WhatsApp opens with a ready-written message addressed to the clinic, in the language of the page they are on. There is also an SMS option. The clinic replies to confirm.

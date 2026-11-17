@@ -171,7 +171,9 @@ table { border-collapse: collapse; width: 100%; }
 /* 5. Home ----------------------------------------------------------------- */
 .hero { background: var(--blue-800); color: #fff; }
 .hero .container { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; padding-block: clamp(52px, 7vw, 96px); }
-.hero.has-photo .container { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.hero.has-photo .container { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+/* Beside a photo the headline has half the width, so it is set smaller to stay on two lines. */
+.hero.has-photo h1 { font-size: clamp(2.2rem, 3.7vw, 3.2rem); line-height: 1.06; }
 .kicker { display: inline-flex; align-items: center; gap: 12px; font: 600 .8rem/1.4 var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-200); margin-bottom: 22px; }
 .kicker i { width: 28px; height: 3px; background: var(--sun); }
 .hero h1 { color: #fff; font-size: clamp(2.5rem, 5.6vw, 4.6rem); line-height: 1.03; letter-spacing: -.028em; margin-bottom: 26px; }
@@ -179,7 +181,7 @@ table { border-collapse: collapse; width: 100%; }
 .hero h1 em { font-style: normal; text-decoration: underline; text-decoration-color: var(--sun); text-decoration-thickness: .07em; text-underline-offset: .14em; }
 .lead { font-size: clamp(1.12rem, 1.5vw, 1.3rem); line-height: 1.55; max-width: 36em; }
 .hero .lead { color: #dbe9fb; margin-bottom: 32px; }
-.hero-art { position: relative; aspect-ratio: 4 / 5; }
+.hero-art { position: relative; aspect-ratio: 4 / 3; }
 .hero-art .hero-photo { position: absolute; inset: 0; }
 
 .quick { border-bottom: 1px solid var(--line); }
@@ -505,6 +507,7 @@ html:lang(bn) {
 html:lang(bn) body { line-height: 1.75; }
 html:lang(bn) :is(h1, h2, h3) { letter-spacing: 0; line-height: 1.34; }
 html:lang(bn) .hero h1 { font-size: clamp(2.2rem, 4.6vw, 3.8rem); }
+html:lang(bn) .hero.has-photo h1 { font-size: clamp(2rem, 3.1vw, 2.7rem); line-height: 1.34; }
 html:lang(bn) .page-hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.5rem); max-width: 18ch; }
 html:lang(bn) :is(.btn, .eyebrow, .label, .kicker, .tag, .q-k, .crumbs, .status, .nav a:not(.btn), .logo-text strong, .logo-text span,
   .svc-nav b, .site-footer h2, .news-item .meta, .info-panel dt, table.data th, .mbar a, .years b, .timeline .yr, .filter,
@@ -563,7 +566,6 @@ html:lang(bn) [lang="en"] { font-family: "Archivo", "Segoe UI", Helvetica, Arial
 @media (max-width: 900px) {
   html { scroll-padding-top: 132px; }
   .hero.has-photo .container, .feature .container, .split, .split.even, .article, .give { grid-template-columns: minmax(0, 1fr); }
-  .hero-art { max-width: 420px; }
   .feature.reverse .feature-media { order: 0; }
   .cards { grid-template-columns: 1fr 1fr; }
   .figures { grid-template-columns: 1fr 1fr; gap: 36px 0; }
