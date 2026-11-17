@@ -227,3 +227,157 @@ test("shows a trustee portrait only when the named file exists", () => {
 
   assert.deepEqual(site.trustees.map((person) => person.photo), ["trustee-mahbubur-rahman.jpg", "", ""]);
 });
+
+test("files a linked item under partners when staff mark it so", () => {
+  const news = loadNews([{ title_en: "Joint project", type: "partner", url: "https://example.org/partner" }]);
+
+  assert.equal(news[0].type, "partner");
+});
+
+test("treats a partner item without a link as Radda's own update", () => {
+  const news = loadNews([{ title_en: "No link yet", type: "partner" }]);
+
+  assert.equal(news[0].type, "update");
+});
+
+test("puts Radda's own newest update first on the home page", () => {
+  const picks = load("homeNews.js", { "newsItems.json": [
+    { title_en: "Own update" },
+    { title_en: "Press one", url: "https://example.org/1" },
+    { title_en: "Press two", url: "https://example.org/2" }
+  ] });
+
+  assert.deepEqual(picks.map((item) => item.en.title), ["Own update", "Press two", "Press one"]);
+});
+
+test("shows at most four news cards on the home page", () => {
+  const items = [1, 2, 3, 4, 5, 6].map((n) => ({ title_en: "Press " + n, url: "https://example.org/" + n }));
+
+  const picks = load("homeNews.js", { "newsItems.json": items });
+
+  assert.equal(picks.length, 4);
+  assert.equal(picks[0].en.title, "Press 6");
+});
+
+test("draws the longest bar of a chart at full width and the rest in proportion", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: ["2020", "2021"], series: [{ id: "total", values: [50, 200] }], funding: []
+  } });
+
+  assert.deepEqual(impact.series[0].bars, [
+    { year: "2020", value: 50, width: 25 },
+    { year: "2021", value: 200, width: 100 }
+  ]);
+});
+
+test("splits a year's income into foreign and local shares", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [{ year: "1994", foreign: 75, local: 25 }, { year: "2022", foreign: 0, local: 0 }]
+  } });
+
+  assert.equal(impact.funding[0].foreignShare, 75);
+  assert.equal(impact.funding[0].localShare, 25);
+  assert.equal(impact.funding[1].localShare, 0);
+});
+
+test("shares out exactly one hundred squares, giving the spare ones to the largest remainders", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [],
+    mix: [{ id: "a", rows: [{ id: "x", value: 361 }, { id: "y", value: 135 }] }, { id: "b", rows: [{ id: "z", value: 504 }] }]
+  } });
+
+  assert.deepEqual(impact.mix.map((family) => family.rows.map((row) => row.squares)), [[36, 14], [50]]);
+  assert.equal(impact.mix[0].squares + impact.mix[1].squares, 100);
+});
+
+test("places the target mark and the result bar on the same scale", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [], targets: [{ id: "over", target: 100, achieved: 200 }, { id: "under", target: 200, achieved: 100 }]
+  } });
+
+  assert.deepEqual(impact.targets.map((row) => [row.percent, row.width, row.mark]), [[200, 100, 50], [50, 50, 100]]);
+});
+
+test("keeps the published figures consistent with the annual report totals", () => {
+  const impact = load("impact.js", {});
+  const total = impact.series.find((entry) => entry.id === "total");
+  const mixRow = (id) => impact.mix.flatMap((family) => family.rows).find((row) => row.id === id).value;
+
+  assert.equal(total.bars[total.bars.length - 1].value, impact.contacts);
+  assert.equal(total.bars[0].value, impact.contacts_1994);
+  assert.equal(impact.mixTotal, impact.contacts);
+  assert.equal(impact.mix.reduce((squares, family) => squares + family.squares, 0), 100);
+  assert.equal(impact.vaccineTotal, mixRow("child_vaccines") + mixRow("other_vaccines"));
+  assert.equal(impact.staffTotal, impact.reach.find((f) => f.id === "staff").value);
+  assert.equal(impact.wards.north.length + impact.wards.south.length, impact.reach.find((f) => f.id === "wards").value);
+  for (const entry of impact.series) assert.equal(entry.bars.length, impact.years.length);
+});
+
+// ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
+const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
+const careSchedule = require(path.join(DATA, "careSchedule.json"));
+const day = (text) => planner.parseDay(text);
+const iso = (ms) => new Date(ms).toISOString().slice(0, 10);
+
+test("rejects text that is not a real calendar date", () => {
+  assert.ok(Number.isNaN(day("2026-02-30")));
+  assert.ok(Number.isNaN(day("17/11/2026")));
+  assert.ok(Number.isNaN(day("")));
+});
+
+test("works out every vaccine date from the date of birth", () => {
+  const dates = planner.vaccineDates(day("2026-01-01"), careSchedule.vaccines).map((visit) => iso(visit.date));
+
+  assert.deepEqual(dates, ["2026-01-01", "2026-02-12", "2026-03-12", "2026-04-09", "2026-10-01", "2027-04-01"]);
+});
+
+test("keeps a month-end birthday inside the right month when adding months", () => {
+  assert.equal(iso(planner.addMonths(day("2026-05-31"), 9)), "2027-02-28");
+  assert.equal(iso(planner.addMonths(day("2027-05-31"), 9)), "2028-02-29");
+});
+
+test("marks the first date that has not passed as the next one", () => {
+  const visits = planner.withStatus(planner.vaccineDates(day("2026-01-01"), careSchedule.vaccines), day("2026-03-12"));
+
+  assert.deepEqual(visits.map((visit) => visit.status), ["past", "past", "today", "upcoming", "upcoming", "upcoming"]);
+  assert.deepEqual(visits.filter((visit) => visit.next).map((visit) => visit.id), ["w10"]);
+});
+
+test("marks no date as next once every date has passed", () => {
+  const visits = planner.withStatus(planner.vaccineDates(day("2024-01-01"), careSchedule.vaccines), day("2026-01-01"));
+
+  assert.equal(visits.some((visit) => visit.next), false);
+});
+
+test("puts the due date 280 days after the last period and the first check-up by week 16", () => {
+  const dates = planner.pregnancy(day("2026-08-01"), day("2026-11-17"), careSchedule.pregnancy);
+
+  assert.equal(iso(dates.due), "2027-05-08");
+  assert.equal(iso(dates.firstVisitBy), "2026-11-21");
+  assert.equal(dates.weeks, 15);
+});
+
+test("explains why a date cannot be used", () => {
+  const today = day("2026-11-17");
+
+  assert.equal(planner.problemWith(NaN, today, 730), "empty");
+  assert.equal(planner.problemWith(day("2026-11-18"), today, 730), "future");
+  assert.equal(planner.problemWith(day("2024-11-01"), today, 730), "old");
+  assert.equal(planner.problemWith(today, today, 730), "");
+});
+
+test("writes a calendar file with one all-day entry per date", () => {
+  const file = planner.toCalendar([{ date: day("2026-12-31"), title: "Vaccines, second visit; bring the card" }], day("2026-11-17"));
+
+  assert.match(file, /^BEGIN:VCALENDAR\r\n/);
+  assert.match(file, /DTSTART;VALUE=DATE:20261231\r\nDTEND;VALUE=DATE:20270101\r\n/);
+  assert.match(file, /SUMMARY:Vaccines\\, second visit\\; bring the card\r\n/);
+  assert.equal(file.split("BEGIN:VEVENT").length - 1, 1);
+});
+
+test("has wording in both languages for every visit on the schedule", () => {
+  for (const code of ["en", "bn"]) {
+    const visits = require(path.join(DATA, "i18n", code + ".json")).tools.visits;
+    for (const visit of careSchedule.vaccines) assert.ok(visits[visit.id] && visits[visit.id].age && visits[visit.id].what, code + " " + visit.id);
+  }
+});

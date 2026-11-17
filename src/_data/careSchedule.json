@@ -1,0 +1,12 @@
+{
+  "vaccines": [
+    { "id": "birth", "days": 0 },
+    { "id": "w6", "days": 42 },
+    { "id": "w10", "days": 70 },
+    { "id": "w14", "days": 98 },
+    { "id": "m9", "months": 9 },
+    { "id": "m15", "months": 15 }
+  ],
+  "child_oldest_days": 730,
+  "pregnancy": { "term_days": 280, "first_visit_weeks": 16, "oldest_days": 294 }
+}

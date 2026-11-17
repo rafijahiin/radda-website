@@ -24,6 +24,16 @@
       "title": "About Radda · Radda MCH-FP Centre",
       "desc": "The history of Radda MCH-FP Centre: founded in 1974 by Rädda Barnen (Swedish Save the Children) and run in Bangladesh since 1994."
     },
+    "impact": {
+      "file": "impact.html",
+      "title": "Radda in numbers · Radda MCH-FP Centre",
+      "desc": "What Radda MCH-FP Centre delivered in a year: 525,845 service contacts through 6 permanent and 45 satellite clinics, its partners, and how it became self-funded."
+    },
+    "tools": {
+      "file": "tools.html",
+      "title": "Health tools · Radda MCH-FP Centre",
+      "desc": "Work out when your child's next vaccine is due and when your baby is expected, then request a visit at Radda MCH-FP Centre in Mirpur, Dhaka."
+    },
     "news": {
       "file": "news.html",
       "title": "News and updates · Radda MCH-FP Centre",
@@ -45,6 +55,8 @@
     "home": "Home",
     "services": "Our services",
     "about": "About Radda",
+    "impact": "Impact",
+    "tools": "Health tools",
     "news": "News",
     "visit": "Visit & contact",
     "cta": "Request a visit",
@@ -87,6 +99,10 @@
       {
         "label": "Laboratory tests",
         "href": "services.html#laboratory"
+      },
+      {
+        "label": "Vaccine and pregnancy dates",
+        "href": "tools.html"
       }
     ],
     "radda": "Radda",
@@ -102,6 +118,10 @@
       {
         "label": "Where we work",
         "href": "about.html#reach"
+      },
+      {
+        "label": "Radda in numbers",
+        "href": "impact.html"
       },
       {
         "label": "News and updates",
@@ -201,22 +221,20 @@
         "label": "The year our first clinic opened in Mirpur"
       },
       {
-        "pre": "~",
-        "n": "250",
-        "count": 250,
-        "label": "Mothers and children seen on a typical day"
+        "n": "525,845",
+        "label": "Service contacts in one year (2021-22)"
       },
       {
-        "n": "3",
-        "count": 3,
-        "label": "Permanent clinics with their own laboratories"
+        "n": "6",
+        "label": "Permanent clinics, with 45 satellite clinics"
       },
       {
-        "n": "5",
-        "count": 5,
-        "label": "Communities reached across Dhaka"
+        "n": "176",
+        "label": "Staff across our clinics and programmes"
       }
     ],
+    "fig_note": "Figures from our Annual Report 2021-22.",
+    "fig_link": "See our work in numbers",
     "story_eyebrow": "Our story",
     "story_title": "Started by Rädda Barnen. Run by Bangladesh.",
     "story_alt": "Mothers and babies being seen on the centre's veranda",
@@ -243,7 +261,50 @@
     "news_title": "Radda in the news",
     "news_all": "All news",
     "band_title": "Plan your visit",
-    "band_body": "Tell us the service you need and a day that suits you. We will confirm your visit on WhatsApp or by phone."
+    "band_body": "Tell us the service you need and a day that suits you. We will confirm your visit on WhatsApp or by phone.",
+    "read_now": "Read now",
+    "carousel": {
+      "label": "Highlights",
+      "prev": "Previous slide",
+      "next": "Next slide",
+      "pause": "Pause the slides",
+      "play": "Play the slides"
+    },
+    "slides": [
+      {
+        "photo": "hero",
+        "title": "Every pregnancy safe. Every child protected.",
+        "body": "For fifty years Radda has given the mothers and children of Mirpur good, affordable care close to home.",
+        "cta": "Request a visit",
+        "href": "visit.html#register",
+        "alt": "A health worker talking with a mother who holds her young child"
+      },
+      {
+        "photo": "maternal",
+        "title": "Care through pregnancy and after birth",
+        "body": "Regular check-ups catch problems early and keep mother and baby safe.",
+        "cta": "About this service",
+        "href": "services.html#maternal",
+        "alt": "A health worker checking a woman's blood pressure"
+      },
+      {
+        "photo": "child",
+        "title": "Vaccines for every child",
+        "body": "The full government immunization schedule, plus Hepatitis, typhoid, MMR and other vaccines.",
+        "cta": "About this service",
+        "href": "services.html#child",
+        "alt": "A health worker vaccinating a baby held by its mother"
+      },
+      {
+        "photo": "centre",
+        "appeal": true,
+        "title": "Help rebuild Radda",
+        "body": "Our Mirpur-1 centre was attacked and largely demolished in September 2026. Care has not stopped. Rebuilding will take help.",
+        "cta": "How to help",
+        "href": "rebuild.html",
+        "alt": "Mothers waiting in the courtyard of a Radda centre"
+      }
+    ]
   },
   "services": {
     "h1": "Care for every stage of family life",
@@ -418,6 +479,307 @@
     "band_body": "Your support keeps pregnancy check-ups, vaccines and family planning affordable for the families who need them most.",
     "band_cta": "Support Radda"
   },
+  "impact": {
+    "h1": "Radda in numbers",
+    "lead": "What our clinics and health workers delivered in one year, taken from our Annual Report for July 2021 to June 2022.",
+    "report_cta": "Read the annual report (PDF)",
+    "period": "July 2021 to June 2022",
+    "head_eyebrow": "At a glance",
+    "head_title": "One year of community health care",
+    "year_eyebrow": "The year in detail",
+    "year_title": "Who the care reached",
+    "groups": {
+      "mothers": "Mothers",
+      "children": "Children",
+      "family": "Family planning",
+      "clinic": "Tests and other care"
+    },
+    "stats": {
+      "antenatal": "Antenatal check-ups",
+      "postnatal": "Mothers given postnatal care with vitamin A",
+      "td": "Women given the tetanus-diphtheria vaccine",
+      "bcg": "Babies given the BCG vaccine",
+      "penta": "Children who completed three doses of pentavalent, polio and PCV vaccine",
+      "growth": "Growth checks for children under five",
+      "under5": "Treatments for children under five",
+      "fp_new": "New family planning clients",
+      "fp_revisit": "Family planning follow-up visits",
+      "lab": "Laboratory tests",
+      "ultrasound": "Ultrasound scans",
+      "physio": "Physiotherapy patients",
+      "dental": "Dental patients"
+    },
+    "trend_eyebrow": "Over the years",
+    "trend_title": "Nine years side by side",
+    "trend_intro": "Choose a service to see how it has changed. The report gives 1994, the year the centre passed into Bangladeshi hands, and then each year from 2014.",
+    "trend_aria": "Choose a service",
+    "series": {
+      "total": "All service contacts",
+      "antenatal": "Antenatal care",
+      "postnatal": "Postnatal care with vitamin A",
+      "fp": "Family planning methods and services",
+      "lab": "Laboratory tests",
+      "mr": "Measles-rubella vaccine"
+    },
+    "fund_eyebrow": "Standing on our own",
+    "fund_title": "From 9 percent self-funded to 100 percent",
+    "fund_body": [
+      "When Rädda Barnen handed the centre over in 1994, it still paid 91 percent of the costs. Its support ended completely in 2004.",
+      "Today the centre pays its own way. In 2021-22 its income was Tk 721.90 lakh, with no foreign donation. The money came from what clients pay for services and from joint projects with partners."
+    ],
+    "fund_foreign": "Foreign donation",
+    "fund_local": "Local income",
+    "fund_unit": "Tk {n} lakh",
+    "fund_none": "None",
+    "partners_eyebrow": "Working together",
+    "partners_title": "Who we work with",
+    "partners_intro": "Radda works inside the government health system and alongside national and international partners. These are the partnerships named in the 2021-22 report.",
+    "gov_title": "With the government",
+    "gov": [
+      {
+        "name": "Dhaka North and Dhaka South City Corporations",
+        "role": "Routine immunization (EPI) and national immunization days with both city corporations, and the COVID-19 vaccination campaign with Dhaka North."
+      },
+      {
+        "name": "Directorate General of Family Planning (DGFP)",
+        "role": "Family planning service delivery."
+      },
+      {
+        "name": "Directorate General of Health Services (DGHS)",
+        "role": "Vitamin A and deworming campaigns."
+      },
+      {
+        "name": "Ministry of Health and Family Welfare",
+        "role": "The Radda Paramedic Institute runs its two-year Community Paramedic course under the Ministry."
+      }
+    ],
+    "projects_title": "Joint projects",
+    "projects": [
+      {
+        "name": "Plan International Bangladesh",
+        "role": "Primary and adolescent health care in five low-income communities of Dhaka South. 1,154 sponsored children received health care in the year."
+      },
+      {
+        "name": "IDKIDS (We Act for Kids)",
+        "role": "Free primary health care, since 2018, for about 1,000 children at 25 informal schools in Dhaka's slums."
+      },
+      {
+        "name": "Swisscontact (ASTHA project)",
+        "role": "An e-learning platform for the two-year community paramedic course, piloted at the Radda Paramedic Institute from September 2021."
+      },
+      {
+        "name": "Alive & Thrive",
+        "role": "Better nutrition counselling for pregnant women, infants and young children in urban clinics."
+      },
+      {
+        "name": "icddr,b",
+        "role": "Typhoid surveillance in Dhaka."
+      },
+      {
+        "name": "MDF, supported by Nuffic",
+        "role": "A one-year training programme for Radda's staff, funded by the Dutch government."
+      },
+      {
+        "name": "Mutual Trust Bank",
+        "role": "Support for 12 students of the Radda Paramedic Institute who could not otherwise afford the course."
+      }
+    ],
+    "thanks": "The report also thanks Concern Worldwide, UNICEF, EngenderHealth, RTM International, World Vision Bangladesh, Max Foundation, Compassion International Bangladesh, BAPSA and BRAC for working with the centre.",
+    "campaigns_eyebrow": "In the community",
+    "campaigns_title": "National campaigns and health days",
+    "campaigns_body": [
+      "Radda takes part in the government's national health campaigns. In 2021-22 its teams gave deworming medicine to 12,450 schoolchildren and reached 12,298 children in the Vitamin A Plus campaign, against a target of 13,066.",
+      "The centre also marks the days that keep health in public view, among them World Population Day, World Breastfeeding Week, Global Handwashing Day and Safe Motherhood Day."
+    ],
+    "institute_eyebrow": "Training",
+    "institute_title": "Radda Paramedic Institute",
+    "institute_body": [
+      "Radda also trains community health workers. Its institute runs a two-year Community Paramedic course under the Ministry of Health and Family Welfare, approved by NIPORT. The first batch began in 2011.",
+      "In 2021-22 it had 112 students, 76 women and 36 men. They practise at Shaheed Suhrawardy Medical College and Hospital and in Radda's own clinics."
+    ],
+    "institute_link": "News from our partners",
+    "community_alt": "Radda staff and local people walk in a World Population Day rally in Dhaka in July 2019, carrying the centre's banner.",
+    "source_title": "About these figures",
+    "source_body": "Every figure on this page comes from the Radda MCH-FP Centre Annual Report 2021-22, which covers July 2021 to June 2022. It is the most recent report available on raddacentre.org. The figures do not reflect the attack on our Mirpur-1 centre in September 2026.",
+    "source_link": "Annual Report 2021-22 (PDF, raddacentre.org)",
+    "contacts_label": "service contacts in one year",
+    "then": "{times} times as many as in 1994, when the centre recorded {then}.",
+    "reach": {
+      "static": "Permanent clinics in Mirpur and Uttara",
+      "satellite": "Satellite clinics in the community",
+      "wards": "City wards in Dhaka North and Dhaka South",
+      "staff": "Staff"
+    },
+    "mix_eyebrow": "Where the care goes",
+    "mix_title": "Out of every 100 contacts",
+    "mix_intro": "Each square is one contact in a hundred. Half of all the centre's work is vaccinating children and checking how they grow.",
+    "mix_aria": "A grid of 100 squares showing the share of each kind of care. The exact numbers are in the list beside it.",
+    "in_hundred": "{n} in 100",
+    "mix_families": {
+      "children": "Children",
+      "care": "Treatment and tests",
+      "mothers": "Mothers and family planning",
+      "community": "Prevention in the community"
+    },
+    "mix_rows": {
+      "child_vaccines": "Childhood vaccines (EPI)",
+      "growth": "Growth checks for under-fives",
+      "treatment": "Treatment, all ages",
+      "tests": "Laboratory tests and ultrasound",
+      "pharmacy": "Medicines from the pharmacy",
+      "physio_dental": "Physiotherapy and dental care",
+      "mother_care": "Antenatal, postnatal and tetanus care",
+      "family_planning": "Family planning",
+      "other_vaccines": "Other vaccines",
+      "vitamin_a": "Vitamin A and deworming days",
+      "education": "Health education sessions"
+    },
+    "vaccines_eyebrow": "Immunization",
+    "vaccines_title": "{total} vaccinations, {kinds} vaccines",
+    "vaccines_intro": "Radda gives the childhood vaccines of the national programme (EPI) and offers other vaccines for all ages.",
+    "vaccine_groups": {
+      "epi": "National programme (EPI)",
+      "other": "Other vaccines"
+    },
+    "vaccine_names": {
+      "opv": "Oral polio",
+      "penta": "Pentavalent",
+      "pcv": "Pneumococcal (PCV)",
+      "ipv": "Injectable polio (IPV)",
+      "mr": "Measles-rubella",
+      "bcg": "BCG",
+      "hepb": "Hepatitis B",
+      "flu": "Seasonal flu",
+      "rota": "Rotavirus",
+      "typhoid": "Typhoid",
+      "mmr": "MMR",
+      "chickenpox": "Chickenpox",
+      "hepa": "Hepatitis A",
+      "cholera": "Cholera",
+      "pneumo": "Pneumococcal",
+      "mening": "Meningococcal",
+      "hexa": "Hexavalent",
+      "rabies": "Anti-rabies",
+      "hpv": "Cervical cancer (HPV)",
+      "td": "Tetanus-diphtheria",
+      "je": "Japanese encephalitis"
+    },
+    "targets_eyebrow": "Community health programme",
+    "targets_title": "Targets set, results delivered",
+    "targets_intro": "In the wards served by the community health programme, Radda set a target for each service in 2021-22. Most were passed; antenatal care fell short.",
+    "targets_done": "Result",
+    "targets_goal": "Target",
+    "percent": "{n}%",
+    "target_line": "{done} delivered against a target of {goal}",
+    "target_names": {
+      "bcg": "BCG vaccine",
+      "opv": "Oral polio vaccine",
+      "penta3": "Pentavalent and polio, third dose",
+      "antenatal": "Antenatal care",
+      "postnatal": "Postnatal care",
+      "bcc": "Health awareness sessions"
+    },
+    "finance_title": "Income and spending, Tk lakh",
+    "finance_income": "Income",
+    "finance_spending": "Spending",
+    "people_eyebrow": "Reach",
+    "people_title": "Where we work and who does the work",
+    "wards_title": "13 city wards",
+    "wards_intro": "Clinics and satellite clinics serve these wards of the two city corporations.",
+    "wards_north": "Dhaka North",
+    "wards_south": "Dhaka South",
+    "staff_title": "{n} staff",
+    "staff_units": {
+      "mchfp": "Mother and child health and family planning clinics",
+      "plan": "Radda-Plan joint project",
+      "community": "Community health",
+      "admin": "Administration and accounts",
+      "miycn": "Nutrition (MIYCN) joint project",
+      "training": "Training and research",
+      "institute": "Paramedic institute",
+      "idkids": "Radda-IDKIDS joint project"
+    },
+    "students_aria": "112 squares, one for each student: 76 women and 36 men.",
+    "students": {
+      "women": "{n} women",
+      "men": "{n} men"
+    }
+  },
+  "tools": {
+    "h1": "Plan your care",
+    "lead": "Two quick tools to work out the dates that matter. Nothing you enter leaves your phone.",
+    "noscript": "These tools need JavaScript. You can also call the clinic and we will work out the dates with you.",
+    "vaccine": {
+      "title": "When is my child's next vaccine?",
+      "teaser": "Enter the date of birth to see every vaccine date.",
+      "intro": "Enter your child's date of birth to see the dates of the national programme (EPI) vaccines.",
+      "label": "Child's date of birth",
+      "button": "Show the dates"
+    },
+    "pregnancy": {
+      "title": "When is my baby due?",
+      "teaser": "See your due date and when to come for a check-up.",
+      "intro": "Enter the first day of your last period to see your expected due date and when to come for your first check-up.",
+      "label": "First day of your last period",
+      "button": "Show my dates"
+    },
+    "note": "These dates are a guide based on the national schedule. Our health workers confirm the right dates at your visit. Please bring your child's vaccination card. The clinic is closed on Fridays and government holidays.",
+    "schedule_eyebrow": "The schedule",
+    "schedule_title": "Childhood vaccines of the national programme",
+    "schedule_intro": "The ages at which the national programme (EPI) gives each vaccine. The vaccine tool above uses this schedule.",
+    "visits": {
+      "birth": {
+        "age": "At birth",
+        "what": "BCG"
+      },
+      "w6": {
+        "age": "6 weeks",
+        "what": "Pentavalent 1, oral polio 1, PCV 1 and injectable polio 1"
+      },
+      "w10": {
+        "age": "10 weeks",
+        "what": "Pentavalent 2, oral polio 2 and PCV 2"
+      },
+      "w14": {
+        "age": "14 weeks",
+        "what": "Pentavalent 3, oral polio 3, PCV 3 and injectable polio 2"
+      },
+      "m9": {
+        "age": "9 months",
+        "what": "Measles-rubella 1 and typhoid (TCV)"
+      },
+      "m15": {
+        "age": "15 months",
+        "what": "Measles-rubella 2"
+      }
+    },
+    "js": {
+      "past": "Date passed",
+      "next": "Next due",
+      "today": "Due today",
+      "upcoming": "Coming up",
+      "err_empty": "Please choose a date.",
+      "err_future": "Please choose a date that is not in the future.",
+      "err_birth_old": "This tool covers children up to 2 years old. For older children, please ask at the clinic.",
+      "err_lmp_old": "That date is more than 42 weeks ago. Please check the date, or contact the clinic.",
+      "missed_hint": "If a date has passed and the vaccine was not given, please come as soon as you can.",
+      "all_done": "All the vaccines on this schedule should already have been given. If any were missed, please bring the card to the clinic.",
+      "due": "Expected due date",
+      "week": "You are about {n} weeks pregnant.",
+      "first_visit": "Come for your first check-up by {when}.",
+      "first_visit_passed": "Your first check-up should already have happened. If it has not, please come as soon as you can.",
+      "four": "Plan at least four check-ups during pregnancy. Your health worker will give you the dates.",
+      "wa": "Request this visit on WhatsApp",
+      "calendar": "Add to my calendar",
+      "print": "Print",
+      "wa_vaccine": "Hello Radda, I would like to bring my child for vaccination. Next due: {what} ({when}).",
+      "wa_vaccine_check": "Hello Radda, I would like to have my child's vaccination card checked.",
+      "wa_pregnancy": "Hello Radda, I would like to come for an antenatal check-up. My expected due date is {when}.",
+      "ics_vaccine": "Vaccination due at Radda: {what}",
+      "ics_due": "Expected due date",
+      "ics_first": "First antenatal check-up at Radda (by this date)"
+    }
+  },
   "news": {
     "h1": "News and updates",
     "lead": "Announcements from Radda and coverage of our work in the press.",
@@ -425,10 +787,12 @@
     "filters": {
       "all": "All",
       "update": "From Radda",
+      "partner": "From our partners",
       "press": "In the press"
     },
     "types": {
       "update": "From Radda",
+      "partner": "From our partners",
       "press": "In the press"
     },
     "back": "All news",

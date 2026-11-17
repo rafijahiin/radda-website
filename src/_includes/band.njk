@@ -6,9 +6,9 @@
       <p>{{ bandBody }}</p>
     </div>
     <div class="actions">
-      <a class="btn btn-sun" href="{{ bandHref or (up + 'visit.html#register') }}">{{ bandCta or t.nav.cta }} {% icon "arrow", 2.4 %}</a>
+      <a class="btn btn-white" href="{{ bandHref or (up + 'visit.html#register') }}">{{ bandCta or t.nav.cta }} {% icon "arrow", 2.4 %}</a>
       {%- if not bandCta %}
-      <a class="btn btn-line-white" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
+      <a class="btn btn-outline" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
       {%- endif %}
     </div>
   </section>

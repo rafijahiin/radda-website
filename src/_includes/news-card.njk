@@ -1,0 +1,18 @@
+{#- One news card: photo (if the item has one), type and date, title, summary, "Read now".
+    Expects "item" (from news.js). -#}
+{%- set n = item[lng.code] %}
+{%- set hasImage = item.image and (item.image | hasPhoto) %}
+<article class="card{% if not hasImage %} plain{% endif %}" data-type="{{ item.type }}" data-reveal>
+  {%- if hasImage %}
+  <div class="photo">{% photo root, item.image, "" %}</div>
+  {%- endif %}
+  <div class="body">
+    <div class="card-type"><b>{{ n.source if item.url and n.source else t.news.types[item.type] }}</b>{% if n.date %}<span>{{ n.date }}</span>{% endif %}</div>
+    <h3>
+      {%- if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ n.title }}</a>
+      {%- else %}<a href="{{ up }}news/{{ item.id }}.html">{{ n.title }}</a>{% endif -%}
+    </h3>
+    <p>{{ n.summary }}</p>
+    <span class="more" aria-hidden="true">{{ t.home.read_now }}</span>
+  </div>
+</article>

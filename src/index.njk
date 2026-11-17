@@ -18,20 +18,34 @@ depth: 0
 {%- endif %}{% endfor %}
 
 <main id="main">
-<section class="hero{% if "hero" | hasPhoto %} has-photo{% endif %}">
-  <div class="container">
-    <div class="hero-copy">
-      <span class="kicker"><i aria-hidden="true"></i>{{ h.kicker }}</span>
-      <h1><span>{{ h.h1_a }}</span> <span>{{ h.h1_b }} <em>{{ h.h1_em }}</em></span></h1>
-      <p class="lead">{{ h.lead }}</p>
-      <div class="actions">
-        <a class="btn btn-sun" href="{{ up }}visit.html#register">{{ t.nav.cta }} {% icon "arrow", 2.4 %}</a>
-        <a class="btn btn-line-white" href="{{ up }}services.html">{{ h.explore }}</a>
+{#- Hero carousel. The slides are listed in the wording files under home.slides; a slide
+    marked "appeal" is left out while the rebuild appeal is switched off. -#}
+<section class="hero" data-carousel aria-roledescription="carousel" aria-label="{{ h.carousel.label }}">
+  <div class="slides">
+    {%- set shown = 0 %}
+    {%- for s in h.slides %}{% if not s.appeal or appeal.published %}
+    {%- set shown = shown + 1 %}
+    <div class="slide{% if not (s.photo | hasPhoto) %} no-photo{% endif %}" role="group" aria-roledescription="slide">
+      {%- if s.photo | hasPhoto %}
+      <div class="photo slide-photo">{% photo root, s.photo, s.alt, "eager" if loop.first else "lazy" %}</div>
+      {%- endif %}
+      <div class="slide-panel">
+        {% if loop.first %}<h1>{{ s.title }}</h1>{% else %}<h2>{{ s.title }}</h2>{% endif %}
+        <p>{{ s.body }}</p>
+        <a class="btn btn-white" href="{{ up }}{{ s.href }}">{{ s.cta }}</a>
       </div>
     </div>
-    {%- if "hero" | hasPhoto %}
-    <div class="hero-art"><div class="photo hero-photo">{% photo root, "hero", h.hero_alt, "eager" %}</div></div>
-    {%- endif %}
+    {%- endif %}{% endfor %}
+  </div>
+  <div class="carousel-controls js-only">
+    <button class="carousel-btn" type="button" data-carousel-prev aria-label="{{ h.carousel.prev }}">{% icon "prev", 2.6 %}</button>
+    <button class="carousel-btn" type="button" data-carousel-next aria-label="{{ h.carousel.next }}">{% icon "next", 2.6 %}</button>
+    <button class="carousel-btn" type="button" data-carousel-toggle aria-pressed="true" aria-label="{{ h.carousel.pause }}" data-label-pause="{{ h.carousel.pause }}" data-label-play="{{ h.carousel.play }}"><span class="i-pause">{% icon "pause", 2.8 %}</span><span class="i-play">{% icon "play", 2.4 %}</span></button>
+    <div class="dots">
+      {%- for s in h.slides %}{% if not s.appeal or appeal.published %}
+      <button class="dot" type="button" data-slide-to aria-label="{{ s.title }}"></button>
+      {%- endif %}{% endfor %}
+    </div>
   </div>
 </section>
 
@@ -66,41 +80,44 @@ depth: 0
     </div>
     <div class="finder-chips">
       {%- for opt in t.visit.options %}
-      <a class="finder-chip" href="{{ up }}visit.html?service={{ opt.key }}#register"><strong>{{ opt.label }}</strong><small>{{ opt.sub }}</small>{% icon "arrow", 2.2 %}</a>
+      <a class="finder-chip" href="{{ up }}visit.html?service={{ opt.key }}#register"><strong>{{ opt.label }}</strong><small>{{ opt.sub }}</small>{% icon "arrow", 2.4 %}</a>
+      {%- endfor %}
+    </div>
+    <div class="tools-teaser">
+      {%- for kind in ["vaccine", "pregnancy"] %}
+      <a class="teaser" href="{{ up }}tools.html#{{ kind }}"><span class="card-ico" aria-hidden="true">{% set toolIcon = "shield" if kind == "vaccine" else "heart" %}{% icon toolIcon, 1.8 %}</span><span><strong>{{ t.tools[kind].title }}</strong><small>{{ t.tools[kind].teaser }}</small></span>{% icon "arrow", 2.4 %}</a>
       {%- endfor %}
     </div>
   </div>
 </section>
 
-<section class="commit" aria-labelledby="commit-h">
+<section class="section tint" id="news" aria-labelledby="news-h">
   <div class="container">
-    <div class="intro" data-reveal>
-      <span class="eyebrow">{{ h.commit_eyebrow }}</span>
-      <h2 id="commit-h">{{ h.commit_title }}</h2>
-      <p>{{ h.commit_intro }}</p>
+    <div class="section-head centre" data-reveal>
+      <h2 id="news-h">{{ h.news_title }}</h2>
     </div>
-    {%- for c in h.commit %}
-    <div class="item" data-reveal style="--d:{{ loop.index }}">
-      <div class="num" aria-hidden="true">0{{ loop.index }}</div>
-      <h3>{{ c.title }}</h3>
-      <p>{{ c.body }}</p>
+    <div class="news-home">
+      {%- for item in homeNews %}{% if loop.first %}
+      {% include "news-card.njk" %}
+      {%- endif %}{% endfor %}
+      <div class="news-stack">
+        {%- for item in homeNews %}{% if not loop.first %}
+        {% include "news-card.njk" %}
+        {%- endif %}{% endfor %}
+      </div>
     </div>
-    {%- endfor %}
+    <div class="section-foot"><a class="btn btn-outline" href="{{ up }}news.html">{{ h.news_all }}</a></div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="svc-h">
   <div class="container">
-    <div class="section-head" data-reveal>
-      <div>
-        <span class="eyebrow">{{ h.svc_eyebrow }}</span>
-        <h2 id="svc-h">{{ h.svc_title }}</h2>
-      </div>
-      <a class="more" href="{{ up }}services.html">{{ h.svc_all }}</a>
+    <div class="section-head centre" data-reveal>
+      <h2 id="svc-h">{{ h.svc_title }}</h2>
     </div>
     <div class="cards">
       {%- for card in h.cards %}
-      <a class="card" href="{{ up }}services.html#{{ card.id }}" data-reveal style="--d:{{ loop.index0 }}">
+      <article class="card" data-reveal style="--d:{{ loop.index0 }}">
         {%- if card.id | hasPhoto %}
         <div class="photo">{% photo root, card.id, card.alt %}</div>
         {%- endif %}
@@ -108,34 +125,36 @@ depth: 0
           {%- if not (card.id | hasPhoto) %}
           <span class="card-ico">{% icon serviceMeta[card.id].icon, 1.8 %}</span>
           {%- endif %}
-          <span class="label">{{ card.label }}</span>
-          <h3>{{ card.title }}</h3>
+          <div class="card-type"><b>{{ card.label }}</b></div>
+          <h3><a href="{{ up }}services.html#{{ card.id }}">{{ card.title }}</a></h3>
           <p>{{ card.body }}</p>
-          <span class="more">{{ h.learn_more }}</span>
+          <span class="more" aria-hidden="true">{{ h.learn_more }}</span>
         </div>
-      </a>
+      </article>
       {%- endfor %}
     </div>
+    <div class="section-foot"><a class="btn btn-outline" href="{{ up }}services.html">{{ h.svc_all }}</a></div>
   </div>
 </section>
 
 <section class="section figures-wrap" aria-labelledby="fig-h">
   <div class="container">
     <div class="section-head" data-reveal>
-      <div>
-        <span class="eyebrow">{{ h.fig_eyebrow }}</span>
-        <h2 id="fig-h">{{ h.fig_title }}</h2>
-      </div>
+      <h2 id="fig-h">{{ h.fig_title }}</h2>
     </div>
     <div class="figures" data-reveal>
       {%- for f in h.figures %}
-      <div class="figure"><div class="n">{% if f.pre %}<sup>{{ f.pre }}</sup>{% endif %}<span{% if f.count %} data-count="{{ f.count }}"{% endif %}>{{ f.n }}</span></div><div class="l">{{ f.label }}</div></div>
+      <div class="figure"><div class="n">{% if f.pre %}<sup>{{ f.pre }}</sup>{% endif %}{{ f.n }}</div><div class="l">{{ f.label }}</div></div>
       {%- endfor %}
+    </div>
+    <div class="figures-foot" data-reveal>
+      <span>{{ h.fig_note }}</span>
+      <a class="more" href="{{ up }}impact.html">{{ h.fig_link }}</a>
     </div>
   </div>
 </section>
 
-<section class="section feature{% if not ("about" | hasPhoto) %} no-media{% endif %}" aria-labelledby="story-h">
+<section class="section tint feature{% if not ("about" | hasPhoto) %} no-media{% endif %}" aria-labelledby="story-h">
   <div class="container">
     {%- if "about" | hasPhoto %}
     <div class="feature-media" data-reveal><div class="photo">{% photo root, "about", h.story_alt %}</div></div>
@@ -156,23 +175,34 @@ depth: 0
   </div>
 </section>
 
-<section class="section tint" id="news" aria-labelledby="news-h">
+<section class="section commit" aria-labelledby="commit-h">
   <div class="container">
-    <div class="section-head" data-reveal>
-      <div>
-        <span class="eyebrow">{{ h.news_eyebrow }}</span>
-        <h2 id="news-h">{{ h.news_title }}</h2>
-      </div>
-      <a class="more" href="{{ up }}news.html">{{ h.news_all }}</a>
+    <div class="intro" data-reveal>
+      <h2 id="commit-h">{{ h.commit_title }}</h2>
+      <p>{{ h.commit_intro }}</p>
     </div>
-    <div class="news">
-      {%- for item in news %}{% if loop.index <= 3 %}
-      {% include "news-item.njk" %}
-      {%- endif %}{% endfor %}
+    {%- for c in h.commit %}
+    <div class="item" data-reveal style="--d:{{ loop.index }}">
+      <div class="num" aria-hidden="true">0{{ loop.index }}</div>
+      <h3>{{ c.title }}</h3>
+      <p>{{ c.body }}</p>
     </div>
+    {%- endfor %}
   </div>
 </section>
 
-{%- set bandTitle = h.band_title %}{% set bandBody = h.band_body %}{% set bandFlush = true %}
-{% include "band.njk" %}
+{#- Closing band, the same shape as the hero: a photograph with a cyan panel. -#}
+<section class="cta-photo{% if not ("support" | hasPhoto) %} no-photo{% endif %}" aria-labelledby="cta-h">
+  {%- if "support" | hasPhoto %}
+  <div class="photo">{% photo root, "support", t.visit.support_alt %}</div>
+  {%- endif %}
+  <div class="cta-panel">
+    <h2 id="cta-h">{{ t.about.band_title }}</h2>
+    <p>{{ t.about.band_body }}</p>
+    <div class="actions">
+      <a class="btn btn-accent" href="{{ up }}{{ 'rebuild.html' if appeal.published else 'visit.html#support' }}">{{ t.rebuild.nav if appeal.published else t.about.band_cta }}</a>
+      <a class="btn btn-white" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
+    </div>
+  </div>
+</section>
 </main>

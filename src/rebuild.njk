@@ -16,7 +16,7 @@ depth: 0
     <h1>{{ r.h1 }}</h1>
     <p>{{ r.lead }}</p>
     <div class="actions hero-actions">
-      <a class="btn btn-sun" href="#give">{{ r.give_cta }} {% icon "arrow", 2.4 %}</a>
+      <a class="btn btn-white" href="#give">{{ r.give_cta }} {% icon "arrow", 2.4 %}</a>
     </div>
   </div>
 </section>
@@ -115,14 +115,14 @@ depth: 0
         <div class="give-actions">
           <a class="btn btn-primary" href="mailto:{{ site.email }}?subject={{ r.mail_subject | urlencode }}">{{ r.email_btn }} {% icon "arrow", 2.4 %}</a>
           <a class="btn btn-wa" href="https://wa.me/{{ site.clinic.whatsapp }}?text={{ r.wa_text | urlencode }}" target="_blank" rel="noopener">{% icon "chat" %} {{ r.wa_btn }}</a>
-          <a class="btn btn-line" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
+          <a class="btn btn-outline" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
         </div>
       </div>
       <div class="give-card share-card">
         <h3>{{ r.share_title }}</h3>
         <p>{{ r.share_body }}</p>
         <div class="give-actions">
-          <button class="btn btn-line js-only" type="button" data-share data-done="{{ r.share_copied }}">{{ r.share_btn }}</button>
+          <button class="btn btn-outline js-only" type="button" data-share data-done="{{ r.share_copied }}">{{ r.share_btn }}</button>
         </div>
       </div>
     </div>

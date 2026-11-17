@@ -1,0 +1,332 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}impact.html"
+layout: base.njk
+key: impact
+file: impact.html
+depth: 0
+---
+{%- set m = t.impact %}
+{%- set loc = lng.locale %}
+{#- Every number on this page comes from impactFigures.json (the Annual Report 2021-22),
+    prepared by impact.js. The wording for each number is in the "impact" part of the
+    language files. Charts are plain HTML, so they read correctly without the script. -#}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.impact }}</div>
+    <h1>{{ m.h1 }}</h1>
+    <p>{{ m.lead }}</p>
+    <div class="actions hero-actions">
+      <a class="btn btn-white" href="{{ impact.report_url }}" target="_blank" rel="noopener">{{ m.report_cta }} {% icon "arrow", 2.4 %}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="glance-h">
+  <div class="container">
+    <div class="glance" data-reveal>
+      <div class="glance-main">
+        <span class="eyebrow">{{ m.head_eyebrow }} · {{ m.period }}</span>
+        <h2 id="glance-h" class="mega"><b>{{ impact.contacts | num(loc) }}</b>{{ m.contacts_label }}</h2>
+        <p class="glance-then">{{ m.then | replace("{times}", impact.timesSince1994 | num(loc, 1)) | replace("{then}", impact.contacts_1994 | num(loc)) }}</p>
+        <div class="then-bars" aria-hidden="true">
+          <div><span>{{ "1994" | digits(lng.code) }}</span><i style="width: {{ impact.series[0].bars[0].width }}%"></i></div>
+          <div class="now"><span>{{ "2021-22" | digits(lng.code) }}</span><i style="width: 100%"></i></div>
+        </div>
+      </div>
+      <dl class="glance-side">
+        {%- for f in impact.reach %}
+        <div><dd>{{ f.value | num(loc) }}</dd><dt>{{ m.reach[f.id] }}</dt></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="mix-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ m.mix_eyebrow }}</span>
+        <h2 id="mix-h">{{ m.mix_title }}</h2>
+        <p>{{ m.mix_intro }}</p>
+      </div>
+    </div>
+    <div class="mix" data-reveal>
+      <div class="waffle" role="img" aria-label="{{ m.mix_aria }}">
+        {%- for family in impact.mix %}{% for row in family.rows %}{% for n in range(row.squares) %}<i class="fam-{{ family.id }} shade-{{ row.shade }}"></i>{% endfor %}{% endfor %}{% endfor %}
+      </div>
+      <div class="mix-legend">
+        {%- for family in impact.mix %}
+        <div class="mix-family">
+          <h3><i class="fam-{{ family.id }}" aria-hidden="true"></i>{{ m.mix_families[family.id] }}<b>{{ m.in_hundred | replace("{n}", family.squares | num(loc)) }}</b></h3>
+          <ul>
+            {%- for row in family.rows %}
+            <li><i class="fam-{{ family.id }} shade-{{ row.shade }}" aria-hidden="true"></i><span>{{ m.mix_rows[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
+            {%- endfor %}
+          </ul>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="year-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ m.year_eyebrow }}</span>
+        <h2 id="year-h">{{ m.year_title }}</h2>
+      </div>
+    </div>
+    <div class="cards four">
+      {%- for group in impact.groups %}
+      <article class="card stat-card" data-reveal style="--d:{{ loop.index0 }}">
+        {%- if group.photo | hasPhoto %}
+        <div class="photo">{% photo root, group.photo, "" %}</div>
+        {%- endif %}
+        <div class="body">
+          <h3>{{ m.groups[group.id] }}</h3>
+          <dl class="stats">
+            {%- for stat in group.stats %}
+            <div><dd>{{ stat.value | num(loc) }}</dd><dt>{{ m.stats[stat.id] }}</dt></div>
+            {%- endfor %}
+          </dl>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="vaccines-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ m.vaccines_eyebrow }}</span>
+        <h2 id="vaccines-h">{{ m.vaccines_title | replace("{total}", impact.vaccineTotal | num(loc)) | replace("{kinds}", impact.vaccineKinds | num(loc)) }}</h2>
+        <p>{{ m.vaccines_intro }}</p>
+      </div>
+    </div>
+    <div class="vaccine-groups">
+      {%- for group in impact.vaccines %}
+      <figure class="chart on-white" data-reveal style="--d:{{ loop.index0 }}">
+        <figcaption>{{ m.vaccine_groups[group.id] }}<span>{{ group.value | num(loc) }}</span></figcaption>
+        <ol class="bars wide-label{% if group.id == 'other' %} quiet{% endif %}">
+          {%- for row in group.rows %}
+          <li><span class="bar-year">{{ m.vaccine_names[row.id] }}</span><span class="bar-track"><span class="bar" style="width: {{ row.width }}%"></span></span><b>{{ row.value | num(loc) }}</b></li>
+          {%- endfor %}
+        </ol>
+      </figure>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="trend-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ m.trend_eyebrow }}</span>
+      <h2 id="trend-h">{{ m.trend_title }}</h2>
+      <p class="note">{{ m.trend_intro }}</p>
+      <div class="filters chart-tabs js-only" role="group" aria-label="{{ m.trend_aria }}">
+        {%- for s in impact.series %}
+        <button class="filter" type="button" data-chart-tab="{{ s.id }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ m.series[s.id] }}</button>
+        {%- endfor %}
+      </div>
+    </div>
+    <div class="charts" data-reveal style="--d:1">
+      {%- for s in impact.series %}
+      <figure class="chart" data-chart="{{ s.id }}">
+        <figcaption>{{ m.series[s.id] }}</figcaption>
+        <ol class="bars">
+          {%- for bar in s.bars %}
+          <li{% if loop.last %} class="latest"{% endif %}>
+            <span class="bar-year">{{ bar.year | digits(lng.code) }}</span>
+            <span class="bar-track"><span class="bar" style="width: {{ bar.width }}%"></span></span>
+            <b>{{ bar.value | num(loc) }}</b>
+          </li>
+          {%- endfor %}
+        </ol>
+      </figure>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="targets-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ m.targets_eyebrow }}</span>
+      <h2 id="targets-h">{{ m.targets_title }}</h2>
+      <p class="note">{{ m.targets_intro }}</p>
+      <p class="chart-key"><span><i class="key key-local" aria-hidden="true"></i>{{ m.targets_done }}</span><span><i class="key key-mark" aria-hidden="true"></i>{{ m.targets_goal }}</span></p>
+    </div>
+    <ol class="targets" data-reveal style="--d:1">
+      {%- for row in impact.targets %}
+      <li>
+        <div class="target-head"><span>{{ m.target_names[row.id] }}</span><b class="{{ 'met' if row.percent >= 100 else 'short' }}">{{ m.percent | replace("{n}", row.percent | num(loc)) }}</b></div>
+        <div class="target-track" aria-hidden="true"><span class="bar" style="width: {{ row.width }}%"></span><i style="left: {{ row.mark }}%"></i></div>
+        <div class="target-foot">{{ m.target_line | replace("{done}", row.achieved | num(loc)) | replace("{goal}", row.target | num(loc)) }}</div>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="fund-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ m.fund_eyebrow }}</span>
+      <h2 id="fund-h">{{ m.fund_title }}</h2>
+      <div class="prose">
+        {%- for p in m.fund_body %}
+        <p>{{ p }}</p>
+        {%- endfor %}
+      </div>
+    </div>
+    <div class="fund" data-reveal style="--d:1">
+      {%- for row in impact.funding %}
+      <div class="fund-row">
+        <div class="fund-year">{{ row.year | digits(lng.code) }}</div>
+        <div class="fund-track" aria-hidden="true">
+          {%- if row.foreign %}<span class="fund-foreign" style="width: {{ row.foreignShare }}%"></span>{% endif -%}
+          <span class="fund-local" style="width: {{ row.localShare }}%"></span>
+        </div>
+        <dl>
+          <div><dt><i class="key key-foreign" aria-hidden="true"></i>{{ m.fund_foreign }}</dt><dd>{% if row.foreign %}{{ m.fund_unit | replace("{n}", row.foreign | num(loc, 2)) }}{% else %}{{ m.fund_none }}{% endif %}</dd></div>
+          <div><dt><i class="key key-local" aria-hidden="true"></i>{{ m.fund_local }}</dt><dd>{{ m.fund_unit | replace("{n}", row.local | num(loc, 2)) }}</dd></div>
+        </dl>
+      </div>
+      {%- endfor %}
+      <figure class="chart finance">
+        <figcaption>{{ m.finance_title }}</figcaption>
+        <p class="chart-key"><span><i class="key key-local" aria-hidden="true"></i>{{ m.finance_income }}</span><span><i class="key key-ink" aria-hidden="true"></i>{{ m.finance_spending }}</span></p>
+        <ol class="pairs">
+          {%- for row in impact.finance %}
+          <li>
+            <span class="bar-year">{{ row.year | digits(lng.code) }}</span>
+            <span class="pair">
+              <span class="pair-row"><span class="bar" style="--w: {{ row.incomeWidth }}"></span><b>{{ row.income | num(loc, 2) }}</b></span>
+              <span class="pair-row spend"><span class="bar" style="--w: {{ row.spendingWidth }}"></span><b>{{ row.spending | num(loc, 2) }}</b></span>
+            </span>
+          </li>
+          {%- endfor %}
+        </ol>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="people-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ m.people_eyebrow }}</span>
+        <h2 id="people-h">{{ m.people_title }}</h2>
+      </div>
+    </div>
+    <div class="people-grid">
+      <div class="panel" data-reveal>
+        <h3>{{ m.wards_title }}</h3>
+        <p class="note">{{ m.wards_intro }}</p>
+        <div class="ward-group"><b>{{ m.wards_north }}</b><div class="wards">{% for w in impact.wards.north %}<span>{{ w | num(loc) }}</span>{% endfor %}</div></div>
+        <div class="ward-group south"><b>{{ m.wards_south }}</b><div class="wards">{% for w in impact.wards.south %}<span>{{ w | num(loc) }}</span>{% endfor %}</div></div>
+      </div>
+      <div class="panel" data-reveal style="--d:1">
+        <h3>{{ m.staff_title | replace("{n}", impact.staffTotal | num(loc)) }}</h3>
+        <div class="staff-track" aria-hidden="true">{% for row in impact.staff %}<span class="unit-{{ loop.index0 }}" style="width: {{ row.width }}%"></span>{% endfor %}</div>
+        <ul class="staff-list">
+          {%- for row in impact.staff %}
+          <li><i class="unit-{{ loop.index0 }}" aria-hidden="true"></i><span>{{ m.staff_units[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="partners-h">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div>
+        <span class="eyebrow">{{ m.partners_eyebrow }}</span>
+        <h2 id="partners-h">{{ m.partners_title }}</h2>
+        <p>{{ m.partners_intro }}</p>
+      </div>
+    </div>
+    <div class="partners">
+      <div class="partner-group" data-reveal>
+        <h3>{{ m.gov_title }}</h3>
+        <ul class="partner-list">
+          {%- for p in m.gov %}
+          <li><b>{{ p.name }}</b><span>{{ p.role }}</span></li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <div class="partner-group" data-reveal style="--d:1">
+        <h3>{{ m.projects_title }}</h3>
+        <ul class="partner-list two">
+          {%- for p in m.projects %}
+          <li><b>{{ p.name }}</b><span>{{ p.role }}</span></li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+    <p class="note thanks" data-reveal>{{ m.thanks }}</p>
+  </div>
+</section>
+
+<section class="section tint feature{% if not ("community" | hasPhoto) %} no-media{% endif %}" aria-labelledby="campaigns-h">
+  <div class="container">
+    {%- if "community" | hasPhoto %}
+    <div class="feature-media" data-reveal><div class="photo">{% photo root, "community", m.community_alt %}</div></div>
+    {%- endif %}
+    <div class="body" data-reveal style="--d:1">
+      <span class="eyebrow">{{ m.campaigns_eyebrow }}</span>
+      <h2 id="campaigns-h">{{ m.campaigns_title }}</h2>
+      {%- for p in m.campaigns_body %}
+      <p>{{ p }}</p>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="institute-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ m.institute_eyebrow }}</span>
+      <h2 id="institute-h">{{ m.institute_title }}</h2>
+      <div class="students" role="img" aria-label="{{ m.students_aria }}">
+        {%- for group in impact.students %}{% for n in range(group.value) %}<i class="student-{{ group.id }}"></i>{% endfor %}{% endfor %}
+      </div>
+      <p class="chart-key">
+        {%- for group in impact.students %}
+        <span><i class="key student-{{ group.id }}" aria-hidden="true"></i>{{ m.students[group.id] | replace("{n}", group.value | num(loc)) }}</span>
+        {%- endfor %}
+      </p>
+    </div>
+    <div class="prose" data-reveal style="--d:1">
+      {%- for p in m.institute_body %}
+      <p{% if loop.first %} class="lede"{% endif %}>{{ p }}</p>
+      {%- endfor %}
+      <p><a class="more" href="{{ up }}news.html">{{ m.institute_link }}</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section tint" aria-labelledby="source-h">
+  <div class="container narrow">
+    <div class="source-note" data-reveal>
+      <h2 id="source-h">{{ m.source_title }}</h2>
+      <p>{{ m.source_body }}</p>
+      <p><a class="more" href="{{ impact.report_url }}" target="_blank" rel="noopener">{{ m.source_link }}</a></p>
+    </div>
+  </div>
+</section>
+
+{%- set bandTitle = t.home.band_title %}{% set bandBody = t.home.band_body %}
+{% include "band.njk" %}
+</main>

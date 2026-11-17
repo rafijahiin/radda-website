@@ -4,6 +4,7 @@
 //   - if one language is left empty, the other language's text is shown instead
 //   - an entry with no title in either language is skipped
 //   - a missing or repeated web-address name is filled in automatically
+//   - an item that links to another website is "press", or "partner" when staff mark it so
 const items = require("./newsItems.json");
 
 const LOCALES = { en: "en-GB", bn: "bn-BD" };
@@ -54,8 +55,10 @@ const news = (Array.isArray(items) ? items : [])
     const isPress = Boolean(url) || item.type === "press";
     return {
       id: uniqueId(slugify(item.id) || slugify(item.title_en) || "update-" + (index + 1), taken),
-      type: isPress ? "press" : "update",
+      type: isPress ? (item.type === "partner" ? "partner" : "press") : "update",
       url,
+      // The photo's file name without ".jpg"; the page shows it only if the file exists.
+      image: clean(item.image).split(/[\\/]/).pop().toLowerCase().replace(/\.jpe?g$/, ""),
       notice: item.notice === true,
       notice_until: isoDate(item.notice_until),
       en: version(item, "en", "bn", isPress),

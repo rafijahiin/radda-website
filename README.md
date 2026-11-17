@@ -167,3 +167,15 @@ To serve the site at `www.raddacentre.org`: add the domain under *Settings → P
 - The list of government holidays for the year.
 - A larger or vector copy of the logo. The site uses the centre's own logo, but the only copy available was 80 pixels wide (see "The logo" above).
 - Whether Mr. A. S. M. Quasem should be styled "Engr.": his portrait file on the earlier website was named "Eng_A_S_M_Quasem".
+
+## Radda in numbers and the health tools
+
+- `impact.html` shows the figures of the Annual Report 2021-22 as charts. The numbers are in
+  `src/_data/impactFigures.json`; `src/_data/impact.js` works out bar lengths and shares.
+  `docs/SOURCES.md` lists the report page behind each figure.
+- `tools.html` has two calculators that run in the visitor's browser: vaccine dates from a
+  date of birth, and pregnancy dates from the last period. The schedule is in
+  `src/_data/careSchedule.json`, the date arithmetic in `src/assets/js/planner.js`.
+- News items can be of three kinds: from Radda, from a partner organisation, or in the press.
+- Brand: Atkinson Hyperlegible Next for Latin text, Noto Sans Bengali for Bangla, and the
+  blue `--blue` in `src/assets/css/site.css`.

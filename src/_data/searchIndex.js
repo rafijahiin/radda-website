@@ -10,7 +10,7 @@ const join = (parts) => parts.filter(Boolean).join(" ");
 
 function entriesFor(code) {
   const t = require("./i18n/" + code + ".json");
-  const pages = ["home", "services", "about", "news", "visit"].map((key) => ({
+  const pages = ["home", "services", "about", "impact", "tools", "news", "visit"].map((key) => ({
     t: t.nav[key], x: t.pages[key].desc, u: t.pages[key].file, k: "page"
   }));
   const services = t.services.list.map((svc) => ({

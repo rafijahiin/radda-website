@@ -16,6 +16,8 @@
   var MAX_RESULTS = 8;
   var SNIPPET_LENGTH = 110;
   var DONE_LABEL_MS = 2000;
+  var SLIDE_INTERVAL_MS = 7000;
+  var SCROLL_SETTLE_MS = 120;
   var PHONE_PATTERN = /^(?:88)?01[3-9]\d{8}$/;   // Bangladeshi mobile, with or without 88
   var BANGLA_DIGITS = "০১২৩৪৫৬৭৮৯";
 
@@ -34,7 +36,11 @@
   /* Header: shadow once the page scrolls */
   var header = document.querySelector(".site-header");
   if (header) {
-    var onScroll = function () { header.classList.toggle("scrolled", window.scrollY > 8); };
+    // The small logo joins the menu row once the cyan band above it has scrolled away.
+    var band = document.querySelector(".brand-band");
+    var onScroll = function () {
+      header.classList.toggle("scrolled", window.scrollY > (band ? band.offsetTop + band.offsetHeight : 8));
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
@@ -194,6 +200,194 @@
     }, { rootMargin: "-30% 0px -60% 0px" });
     Object.keys(byId).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
   }
+
+  /* ------------------------------------------------------------------
+     Hero carousel. The slides are a strip that scrolls sideways, so swiping
+     works on its own; this adds the buttons, the dots and the timer.
+     ------------------------------------------------------------------ */
+  var carousel = document.querySelector("[data-carousel]");
+  if (carousel) {
+    var track = carousel.querySelector(".slides");
+    var slides = track.children;
+    var dots = carousel.querySelectorAll("[data-slide-to]");
+    var toggle = carousel.querySelector("[data-carousel-toggle]");
+    var controls = carousel.querySelector(".carousel-controls");
+    var currentSlide = 0;
+    var playing = !reduceMotion;       // people who ask for less motion start paused
+    var hovering = false;
+    var slideTimer = null;
+    var settleTimer = null;
+
+    var paintSlides = function () {
+      each(slides, function (slide, i) { slide.inert = i !== currentSlide; });     // off-screen links are not reachable
+      each(dots, function (dot, i) { dot.setAttribute("aria-current", i === currentSlide ? "true" : "false"); });
+    };
+    var showSlide = function (index, smooth) {
+      currentSlide = (index + slides.length) % slides.length;
+      track.scrollTo({ left: slides[currentSlide].offsetLeft, behavior: smooth && !reduceMotion ? "smooth" : "auto" });
+      paintSlides();
+    };
+    var schedule = function () {
+      clearInterval(slideTimer);
+      if (playing && !hovering) slideTimer = setInterval(function () { showSlide(currentSlide + 1, true); }, SLIDE_INTERVAL_MS);
+    };
+    var paintToggle = function () {
+      toggle.setAttribute("aria-pressed", playing ? "true" : "false");
+      toggle.setAttribute("aria-label", toggle.getAttribute(playing ? "data-label-pause" : "data-label-play"));
+    };
+
+    if (slides.length < 2) {
+      controls.hidden = true;
+    } else {
+      carousel.querySelector("[data-carousel-prev]").addEventListener("click", function () { showSlide(currentSlide - 1, true); schedule(); });
+      carousel.querySelector("[data-carousel-next]").addEventListener("click", function () { showSlide(currentSlide + 1, true); schedule(); });
+      each(dots, function (dot, i) { dot.addEventListener("click", function () { showSlide(i, true); schedule(); }); });
+      toggle.addEventListener("click", function () { playing = !playing; paintToggle(); schedule(); });
+      // A swipe moves the strip itself; once it settles, note which slide is showing.
+      track.addEventListener("scroll", function () {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(function () {
+          if (!track.clientWidth) return;                 // not laid out yet (hidden tab)
+          currentSlide = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / track.clientWidth)));
+          paintSlides();
+        }, SCROLL_SETTLE_MS);
+      }, { passive: true });
+      ["mouseenter", "focusin"].forEach(function (type) { carousel.addEventListener(type, function () { hovering = true; schedule(); }); });
+      ["mouseleave", "focusout"].forEach(function (type) { carousel.addEventListener(type, function () { hovering = false; schedule(); }); });
+      window.addEventListener("resize", function () { showSlide(currentSlide, false); });
+      paintToggle();
+      paintSlides();
+      schedule();
+    }
+  }
+
+  /* Impact page: one chart at a time, chosen with the buttons. Without this
+     script every chart simply shows, one under the other. */
+  var chartTabs = document.querySelectorAll("[data-chart-tab]");
+  var charts = document.querySelectorAll("[data-chart]");
+  var showChart = function (wanted) {
+    each(chartTabs, function (tab) { tab.setAttribute("aria-pressed", tab.getAttribute("data-chart-tab") === wanted ? "true" : "false"); });
+    each(charts, function (chart) { chart.hidden = chart.getAttribute("data-chart") !== wanted; });
+  };
+  if (chartTabs.length && charts.length) {
+    each(chartTabs, function (tab) {
+      tab.addEventListener("click", function () { showChart(tab.getAttribute("data-chart-tab")); });
+    });
+    showChart(chartTabs[0].getAttribute("data-chart-tab"));
+  }
+
+  /* ------------------------------------------------------------------
+     Health tools: vaccine dates and pregnancy dates. The arithmetic is in
+     planner.js; this part reads the form and draws the answer. Nothing
+     the visitor types is sent anywhere.
+     ------------------------------------------------------------------ */
+  var plannerData = document.getElementById("planner-data");
+  var planner = window.RaddaPlanner;
+  if (plannerData && planner) {
+    var plan = JSON.parse(plannerData.textContent);
+    var words = plan.text;
+    var pageLocale = document.documentElement.lang === "bn" ? "bn-BD" : "en-GB";
+    var longDate = new Intl.DateTimeFormat(pageLocale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+    var showDate = function (ms) { return longDate.format(new Date(ms)); };
+    var localNumber = function (n) { return new Intl.NumberFormat(pageLocale).format(n); };
+    var fill = function (text, values) {
+      return text.replace(/\{(\w+)\}/g, function (whole, name) { return name in values ? values[name] : whole; });
+    };
+    var el = function (tag, className, text) {
+      var node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text) node.textContent = text;
+      return node;
+    };
+    var todayUtc = function () {
+      var now = new Date();   // the visitor's own calendar day, held as a UTC day number
+      return Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    };
+    var actions = function (waText, events, fileName) {
+      var row = el("div", "plan-actions");
+      var wa = el("a", "btn btn-wa", words.wa);
+      wa.href = "https://wa.me/" + CLINIC.whatsapp + "?text=" + encodeURIComponent(waText);
+      wa.target = "_blank"; wa.rel = "noopener";
+      row.appendChild(wa);
+      if (events.length && window.Blob && window.URL) {
+        var save = el("a", "btn btn-outline", words.calendar);
+        save.href = URL.createObjectURL(new Blob([planner.toCalendar(events, todayUtc())], { type: "text/calendar" }));
+        save.download = fileName;
+        row.appendChild(save);
+      }
+      var print = el("button", "btn btn-outline", words.print);
+      print.type = "button";
+      print.addEventListener("click", function () { window.print(); });
+      row.appendChild(print);
+      return row;
+    };
+
+    var drawVaccines = function (birth, today, box) {
+      var visits = planner.withStatus(planner.vaccineDates(birth, plan.schedule.vaccines), today);
+      var list = el("ol", "plan-list");
+      var next = null;
+      visits.forEach(function (visit) {
+        var label = plan.visits[visit.id];
+        var item = el("li", visit.next ? "next" : visit.status === "past" ? "past" : "");
+        var when = el("div", "plan-when");
+        when.appendChild(el("b", "", showDate(visit.date)));
+        when.appendChild(el("span", "", label.age));
+        var what = el("div", "plan-what", label.what);
+        what.appendChild(el("em", "", visit.status === "today" ? words.today : visit.next ? words.next : visit.status === "past" ? words.past : words.upcoming));
+        item.appendChild(when); item.appendChild(what);
+        list.appendChild(item);
+        if (visit.next) next = { what: label.what, when: showDate(visit.date) };
+      });
+      box.appendChild(list);
+      box.appendChild(el("p", "note", next ? words.missed_hint : words.all_done));
+      var upcoming = visits.filter(function (visit) { return visit.status !== "past"; }).map(function (visit) {
+        return { date: visit.date, title: fill(words.ics_vaccine, { what: plan.visits[visit.id].what }) };
+      });
+      box.appendChild(actions(next ? fill(words.wa_vaccine, next) : words.wa_vaccine_check, upcoming, "radda-vaccine-dates.ics"));
+    };
+
+    var drawPregnancy = function (lastPeriod, today, box) {
+      var dates = planner.pregnancy(lastPeriod, today, plan.schedule.pregnancy);
+      box.appendChild(el("h3", "", words.due));
+      box.appendChild(el("p", "tool-big", showDate(dates.due)));
+      box.appendChild(el("p", "", fill(words.week, { n: localNumber(dates.weeks) })));
+      var firstStillAhead = dates.firstVisitBy >= today;
+      box.appendChild(el("p", "", firstStillAhead ? fill(words.first_visit, { when: showDate(dates.firstVisitBy) }) : words.first_visit_passed));
+      box.appendChild(el("p", "note", words.four));
+      var events = [{ date: dates.due, title: words.ics_due }];
+      if (firstStillAhead) events.unshift({ date: dates.firstVisitBy, title: words.ics_first });
+      box.appendChild(actions(fill(words.wa_pregnancy, { when: showDate(dates.due) }), events, "radda-pregnancy-dates.ics"));
+    };
+
+    var tools = {
+      vaccine: { oldest: plan.schedule.child_oldest_days, tooOld: words.err_birth_old, draw: drawVaccines },
+      pregnancy: { oldest: plan.schedule.pregnancy.oldest_days, tooOld: words.err_lmp_old, draw: drawPregnancy }
+    };
+    each(document.querySelectorAll("[data-planner]"), function (form) {
+      var kind = form.getAttribute("data-planner");
+      var tool = tools[kind];
+      var input = form.querySelector("input[type=date]");
+      var error = form.querySelector(".tool-error");
+      var box = document.querySelector('[data-planner-result="' + kind + '"]');
+      if (!tool || !input || !error || !box) return;
+      var todayIso = new Date(todayUtc()).toISOString().slice(0, 10);
+      input.max = todayIso;
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var today = todayUtc();
+        var day = planner.parseDay(input.value);
+        var problem = planner.problemWith(day, today, tool.oldest);
+        var message = problem === "empty" ? words.err_empty : problem === "future" ? words.err_future : problem === "old" ? tool.tooOld : "";
+        error.textContent = message;
+        error.hidden = !message;
+        box.textContent = "";
+        box.hidden = Boolean(message);
+        if (!message) tool.draw(day, today, box);
+      });
+    });
+  }
+
+  /* (Kept above the visit form on purpose: that section ends the script early on pages without the form.) */
 
   /* News page: filter by type */
   var filters = document.querySelectorAll("[data-filter]");

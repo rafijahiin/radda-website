@@ -27,8 +27,8 @@
 <link rel="manifest" href="{{ root }}site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800{% if lng.code == 'bn' %}&amp;family=Hind+Siliguri:wght@400;600{% else %}&amp;family=Source+Sans+3:wght@400..700{% endif %}&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ root }}assets/css/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700{% if lng.code == 'bn' %}&amp;family=Noto+Sans+Bengali:wght@400;700{% endif %}&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}assets/css/site.css?v={{ assetVersion.css }}">
 <script type="application/ld+json">{{ clinicSchema[lng.code] | dump | safe }}</script>
 {#- Browsers that support it fetch a page as the pointer rests on its link, so it opens at once. #}
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
@@ -43,27 +43,41 @@
       <span class="u-hours">{{ t.meta.hours_short }}</span>
     </div>
     <div class="u-right">
-      <a class="u-extra" href="tel:{{ site.phone_tel }}">{{ site.phone_display }}</a>
       <a class="u-extra" href="mailto:{{ site.email }}">{{ site.email }}</a>
       <a class="lang-switch" href="{{ root }}{{ otherLang.dir }}{{ file }}" lang="{{ otherLang.code }}" hreflang="{{ otherLang.code }}" aria-label="{{ t.nav.switch_aria }}" data-lang="{{ otherLang.code }}">{{ t.nav.switch_to }}</a>
     </div>
   </div>
 </div>
-<header class="site-header">
+<div class="brand-band">
   <div class="container">
     <a class="logo" href="{{ up }}index.html" aria-label="{{ t.meta.home_aria }}">
-      <img src="{{ root }}assets/img/logo-radda.png" alt="" width="46" height="46">
+      <img src="{{ root }}assets/img/logo-radda-white.png" alt="" width="62" height="62">
       <span class="logo-text"><strong>{{ t.meta.logo_name }}</strong><span>{{ t.meta.logo_sub }}</span></span>
     </a>
+    <div class="brand-actions">
+      <a class="btn btn-outline" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
+      {%- if appeal.published %}
+      <a class="btn btn-outline" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>
+      {%- endif %}
+      <a class="btn btn-accent" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
+    </div>
+    <button class="search-btn band-search" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="{{ t.nav.open_menu }}"><span></span><span></span></button>
+  </div>
+</div>
+<header class="site-header">
+  <div class="container">
+    <a class="logo nav-logo" href="{{ up }}index.html" aria-label="{{ t.meta.home_aria }}">
+      <img src="{{ root }}assets/img/logo-radda.png" alt="" width="40" height="40">
+      <span class="logo-text"><strong>{{ t.meta.logo_name }}</strong></span>
+    </a>
     <nav class="nav" id="nav" aria-label="{{ t.nav.aria }}">
-      {%- for item in ["home", "services", "about", "news", "visit"] %}
+      {%- for item in ["services", "about", "impact", "tools", "news", "visit"] %}
       <a href="{{ up }}{{ t.pages[item].file }}"{% if key == item %} aria-current="page"{% endif %}>{{ t.nav[item] }}</a>
       {%- endfor %}
       <a class="btn btn-primary nav-cta" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
     </nav>
-    <button class="search-btn" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.2 %}</button>
-    <a class="btn btn-primary header-cta" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
+    <button class="search-btn" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
   </div>
 </header>
 
@@ -139,6 +153,6 @@
 
 {%- set config = { lang: lng.code, locale: lng.locale, up: up, phone: site.phone_display, clinic: site.clinic, t: t.js } %}
 <script>window.RADDA = {{ config | dump | safe }};</script>
-<script src="{{ root }}assets/js/site.js" onerror="document.documentElement.classList.remove('js')"></script>
+<script src="{{ root }}assets/js/site.js?v={{ assetVersion.js }}" onerror="document.documentElement.classList.remove('js')"></script>
 </body>
 </html>

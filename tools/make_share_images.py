@@ -36,24 +36,24 @@ CHROME_CANDIDATES = [
 
 CARD_HTML = """<!DOCTYPE html>
 <html lang="__LANG__"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500..800&family=Hind+Siliguri:wght@400;600;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Noto+Sans+Bengali:wght@400;700&display=block" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; }
-  body { width: 1200px; height: 630px; overflow: hidden; background: #0a3f7f; }
-  .card { position: relative; width: 1200px; height: 630px; overflow: hidden; color: #fff; padding: 64px 72px; font-family: __FONT__; background: #0a3f7f; }
-  .disc { position: absolute; right: 64px; top: 50%; width: 320px; height: 320px; margin-top: -160px; border-radius: 50%; background: #0a5cb8; display: grid; place-items: center; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #0087c5; }
+  .card { position: relative; width: 1200px; height: 630px; overflow: hidden; color: #111; padding: 64px 72px; font-family: __FONT__; background: #0087c5; }
+  .disc { position: absolute; right: 64px; top: 50%; width: 320px; height: 320px; margin-top: -160px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
   .disc img { width: 230px; height: 230px; }
   .brand { display: flex; align-items: center; gap: 18px; }
   .brand img { width: 84px; height: 84px; }
-  .brand b { display: block; font-size: 44px; line-height: 1.1; letter-spacing: __TRACK__; font-weight: __BOLD__; }
-  .brand span { display: block; font-size: 21px; line-height: 1.3; color: #b9d4f6; font-weight: 600; margin-top: 4px; }
+  .brand b { display: block; font-size: 44px; line-height: 1.1; letter-spacing: __TRACK__; font-weight: __BOLD__; color: #fff; }
+  .brand span { display: block; font-size: 21px; line-height: 1.3; color: #111; margin-top: 4px; }
   h1 { position: absolute; left: 72px; bottom: 150px; width: 700px; font-size: __SIZE__; line-height: __LEAD__; letter-spacing: __HTRACK__; font-weight: __BOLD__; }
-  h1 em { font-style: normal; box-shadow: inset 0 -0.09em 0 #ffb22e; }
-  .foot { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 600; color: #dbe9fb; }
-  .foot i { width: 28px; height: 4px; background: #ffb22e; }
+  h1 em { font-style: normal; }
+  .foot { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 700; color: #111; }
+  .foot i { width: 28px; height: 5px; background: #111; }
 </style></head><body>
 <div class="card">
-  <div class="disc"><img src="__LOGO__" alt=""></div>
+  <div class="disc"><img src="__LOGO_INK__" alt=""></div>
   <div class="brand">
     <img src="__LOGO__" alt="">
     <div><b>__NAME__</b><span>__SUB__</span></div>
@@ -65,8 +65,8 @@ CARD_HTML = """<!DOCTYPE html>
 """
 
 STYLE = {
-    "en": {"FONT": '"Archivo", Arial, sans-serif', "BOLD": "700", "SIZE": "64px", "LEAD": "1.06", "TRACK": ".04em", "HTRACK": "-.025em"},
-    "bn": {"FONT": '"Hind Siliguri", "Nirmala UI", sans-serif', "BOLD": "600", "SIZE": "56px", "LEAD": "1.34", "TRACK": "0", "HTRACK": "0"},
+    "en": {"FONT": '"Atkinson Hyperlegible Next", Arial, sans-serif', "BOLD": "700", "SIZE": "60px", "LEAD": "1.15", "TRACK": ".02em", "HTRACK": "0"},
+    "bn": {"FONT": '"Atkinson Hyperlegible Next", "Noto Sans Bengali", "Nirmala UI", sans-serif', "BOLD": "700", "SIZE": "52px", "LEAD": "1.4", "TRACK": "0", "HTRACK": "0"},
 }
 
 
@@ -109,9 +109,10 @@ def main():
         sys.exit("Missing %s. Run tools/prepare_logo.py first." % LOGO.relative_to(ROOT))
     chrome = find_chrome()
     logo = "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode("ascii")
+    logo_ink = "data:image/png;base64," + base64.b64encode((OUT / "logo-radda.png").read_bytes()).decode("ascii")
     for code in ("en", "bn"):
         text = json.loads((ROOT / "src" / "_data" / "i18n" / (code + ".json")).read_text(encoding="utf-8"))
-        values = dict(STYLE[code], LANG=code, LOGO=logo, NAME=text["meta"]["logo_name"], SUB=text["meta"]["logo_sub"],
+        values = dict(STYLE[code], LANG=code, LOGO=logo, LOGO_INK=logo_ink, NAME=text["meta"]["logo_name"], SUB=text["meta"]["logo_sub"],
                       LINE1=text["home"]["h1_a"], LINE2=text["home"]["h1_b"], LINE3=text["home"]["h1_em"],
                       KICKER=text["home"]["kicker"])
         render(chrome, fill(CARD_HTML, values), CARD_SIZE, OUT / ("share-%s.jpg" % code))

@@ -33,10 +33,12 @@ content:
               label: From Radda (gets its own page on the site)
             - name: press
               label: In the press (links to another website)
+            - name: partner
+              label: From a partner organisation (links to their website)
       - name: url
         label: Link to the article
         type: string
-        description: Only for press items. Paste the full address, starting with https://
+        description: Only for press and partner items. Paste the full address, starting with https://
       - name: summary_en
         label: Summary (English)
         type: text
@@ -61,6 +63,10 @@ content:
         label: Date (Bangla)
         type: string
         description: For example "১৬ নভেম্বর ২০২৬". If empty, the English date is shown.
+      - name: image
+        label: Photo file name (optional)
+        type: string
+        description: Upload a JPG under Media first, then type its exact file name here, for example clinic-day.jpg. It appears on the news card.
       - name: source_en
         label: Source (English)
         type: string

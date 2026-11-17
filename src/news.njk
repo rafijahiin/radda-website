@@ -19,7 +19,7 @@ depth: 0
 <section class="section">
   <div class="container">
     <div class="filters" role="group" aria-label="{{ n.filter_aria }}">
-      {%- for name in ["all", "update", "press"] %}
+      {%- for name in ["all", "update", "partner", "press"] %}
       <button class="filter" type="button" data-filter="{{ name }}" aria-pressed="{{ 'true' if name == 'all' else 'false' }}">{{ n.filters[name] }}</button>
       {%- endfor %}
     </div>

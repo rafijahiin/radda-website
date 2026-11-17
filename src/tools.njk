@@ -1,0 +1,68 @@
+---
+pagination: { data: langs, size: 1, alias: lang }
+permalink: "{{ lang.dir }}tools.html"
+layout: base.njk
+key: tools
+file: tools.html
+depth: 0
+---
+{%- set m = t.tools %}
+{#- The two tools work entirely in the visitor's browser (assets/js/planner.js does the
+    date arithmetic, site.js draws the result). Nothing typed here is sent anywhere.
+    The schedule itself is in src/_data/careSchedule.json; the centre's doctors should
+    confirm it whenever the national schedule changes. -#}
+<main id="main">
+<section class="page-hero">
+  <div class="container">
+    <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.tools }}</div>
+    <h1>{{ m.h1 }}</h1>
+    <p>{{ m.lead }}</p>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="container">
+    <noscript><p class="note">{{ m.noscript }}</p></noscript>
+    <div class="tools-grid">
+      {%- for kind in ["vaccine", "pregnancy"] %}
+      <article class="tool panel" id="{{ kind }}" data-reveal style="--d:{{ loop.index0 }}">
+        <span class="card-ico" aria-hidden="true">{% set toolIcon = "shield" if kind == "vaccine" else "heart" %}{% icon toolIcon, 1.8 %}</span>
+        <h2>{{ m[kind].title }}</h2>
+        <p>{{ m[kind].intro }}</p>
+        <form class="tool-form js-only" data-planner="{{ kind }}" novalidate>
+          <label for="{{ kind }}-date">{{ m[kind].label }}</label>
+          <div class="tool-row">
+            <input type="date" id="{{ kind }}-date" name="date" required aria-describedby="{{ kind }}-error">
+            <button class="btn btn-primary" type="submit">{{ m[kind].button }}</button>
+          </div>
+          <p class="tool-error" id="{{ kind }}-error" role="alert" hidden></p>
+        </form>
+        <div class="tool-result" data-planner-result="{{ kind }}" aria-live="polite" hidden></div>
+      </article>
+      {%- endfor %}
+    </div>
+    <p class="note tool-note" data-reveal>{{ m.note }}</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="schedule-h">
+  <div class="container split even">
+    <div data-reveal>
+      <span class="eyebrow">{{ m.schedule_eyebrow }}</span>
+      <h2 id="schedule-h">{{ m.schedule_title }}</h2>
+      <p class="note">{{ m.schedule_intro }}</p>
+    </div>
+    <ol class="plan-list static" data-reveal style="--d:1">
+      {%- for visit in careSchedule.vaccines %}
+      <li><div class="plan-when"><b>{{ m.visits[visit.id].age }}</b></div><div class="plan-what">{{ m.visits[visit.id].what }}</div></li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<script type="application/json" id="planner-data">{{ { schedule: careSchedule, visits: m.visits, text: m.js } | dump | safe }}</script>
+<script src="{{ root }}assets/js/planner.js?v={{ assetVersion.planner }}"></script>
+
+{%- set bandTitle = t.home.band_title %}{% set bandBody = t.home.band_body %}
+{% include "band.njk" %}
+</main>

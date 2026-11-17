@@ -31,6 +31,8 @@ PHOTOS = {
     "about":           ("09_gallery_A-COVID_19",        (5, 4),   (0.45, 0.5)),
     "centre":          ("08_gallery_A-COVID_19",        (5, 4),   (0.55, 0.5)),
     "support":         ("22_news_IMG_1906",             (5, 4),   (0.35, 0.5)),
+    "community":       ("21_news_20190711",             (5, 4),   (0.45, 0.6)),
+    "physio":          ("19_gallery_A-Physiotherapy",   (3, 2),   (0.5, 0.5)),
 }
 
 # Trustee portraits: small squares, cropped from the top so the face stays in frame.
