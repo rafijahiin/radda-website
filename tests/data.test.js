@@ -334,6 +334,17 @@ test("keeps the two annual reports consistent where they overlap", () => {
   assert.equal(impact.compare.rows.find((r) => r.id === "satellite").after, impact.reach.find((f) => f.id === "satellite").value);
 });
 
+test("offers only annual report files that exist and are PDFs", () => {
+  const impact = load("impact.js", {});
+
+  assert.ok(impact.reports.length >= 1);
+  for (const report of impact.reports) {
+    const file = path.join(__dirname, "..", "src", report.file);
+    assert.equal(require("node:fs").readFileSync(file).subarray(0, 4).toString("latin1"), "%PDF", report.file);
+    assert.ok(report.sizeMb > 0 && report.pages > 0, report.file);
+  }
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

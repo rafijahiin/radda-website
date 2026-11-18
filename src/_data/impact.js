@@ -3,7 +3,12 @@
 // 2019-20 (the page of the report behind each one is listed in docs/SOURCES.md). This file only
 // does the arithmetic the charts need (bar lengths, shares, totals), so the page
 // template never calculates anything.
+const fs = require("fs");
+const path = require("path");
 const figures = require("./impactFigures.json");
+
+const SRC = path.join(__dirname, "..");
+const BYTES_IN_MB = 1024 * 1024;
 
 const FULL = 100;
 const ONE_DECIMAL = 10;
@@ -64,6 +69,14 @@ const compareRows = ((figures.compare || {}).rows || []).map((row) => {
   };
 });
 
+// The annual reports offered for download, with the size of each file worked out
+// from the file itself so the page never states a wrong size.
+const reports = (figures.reports || []).map((report) => {
+  const file = path.join(SRC, report.file);
+  if (!fs.existsSync(file)) throw new Error("Annual report file is missing: src/" + report.file);
+  return { ...report, sizeMb: Math.round((fs.statSync(file).size / BYTES_IN_MB) * ONE_DECIMAL) / ONE_DECIMAL };
+});
+
 const staffTotal = sum((figures.staff || []).map((row) => row.value));
 const staff = (figures.staff || []).map((row) => ({ ...row, width: share(row.value, staffTotal) }));
 
@@ -86,6 +99,7 @@ module.exports = {
   vaccineTotal: sum(allVaccines.map((row) => row.value)),
   vaccineKinds: allVaccines.length,
   series,
+  reports,
   targets,
   compare: { ...(figures.compare || {}), rows: compareRows },
   staff,

@@ -1,5 +1,11 @@
 {
-  "report_url": "https://www.raddacentre.org/pdf/report-2021-22.pdf",
+  "reports": [
+    {
+      "year": "2021-22",
+      "file": "assets/reports/radda-annual-report-2021-22.pdf",
+      "pages": 32
+    }
+  ],
   "contacts": 525845,
   "contacts_1994": 169917,
   "reach": [

@@ -30,7 +30,7 @@ depth: 0
     <h1>{{ m.h1 }}</h1>
     <p>{{ m.lead }}</p>
     <div class="actions hero-actions">
-      <a class="btn btn-white" href="{{ impact.report_url }}" target="_blank" rel="noopener">{{ m.report_cta }} {% icon "arrow", 2.4 %}</a>
+      <a class="btn btn-white" href="{{ root }}{{ impact.reports[0].file }}" target="_blank" rel="noopener">{{ m.report_cta }} {% icon "arrow", 2.4 %}</a>
     </div>
   </div>
 </section>
@@ -357,7 +357,18 @@ depth: 0
     <div class="source-note" data-reveal>
       <h2 id="source-h">{{ m.source_title }}</h2>
       <p>{{ m.source_body }}</p>
-      <p><a class="more" href="{{ impact.report_url }}" target="_blank" rel="noopener">{{ m.source_link }}</a></p>
+    </div>
+    <div class="reports" id="reports" data-reveal>
+      <h2>{{ m.reports_title }}</h2>
+      <ul>
+        {%- for report in impact.reports %}
+        <li>
+          <span class="card-ico" aria-hidden="true">{% icon "file", 1.8 %}</span>
+          <span class="report-name"><strong>{{ m.report_name | replace("{year}", report.year | digits(lng.code)) }}</strong><small>{{ m.report_meta | replace("{pages}", report.pages | num(loc)) | replace("{size}", report.sizeMb | num(loc, 1)) }}</small></span>
+          <a class="btn btn-outline" href="{{ root }}{{ report.file }}" target="_blank" rel="noopener">{{ m.report_open }} {% icon "download", 2.2 %}</a>
+        </li>
+        {%- endfor %}
+      </ul>
     </div>
   </div>
 </section>

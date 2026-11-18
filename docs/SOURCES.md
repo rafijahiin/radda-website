@@ -1,7 +1,8 @@
 # Where the figures and facts come from
 
 Every number on the "Radda in numbers" page is copied from the centre's
-**Annual Report 2021-22** (July 2021 to June 2022):
+**Annual Report 2021-22** (July 2021 to June 2022). The file is served from this site
+(`src/assets/reports/radda-annual-report-2021-22.pdf`) and is the same file as
 https://www.raddacentre.org/pdf/report-2021-22.pdf
 
 The numbers are kept in `src/_data/impactFigures.json`. Change a number there only

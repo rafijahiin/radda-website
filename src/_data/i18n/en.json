@@ -604,7 +604,6 @@
     "community_alt": "Radda staff and local people walk in a World Population Day rally in Dhaka in July 2019, carrying the centre's banner.",
     "source_title": "About these figures",
     "source_body": "Every figure on this page comes from Radda MCH-FP Centre's own annual reports: the report for 2021-22 (July 2021 to June 2022), which is the most recent, and the report for 2019-20 for the comparison with two years earlier. The figures do not reflect the attack on our Mirpur-1 centre in September 2026.",
-    "source_link": "Annual Report 2021-22 (PDF, raddacentre.org)",
     "contacts_label": "service contacts in one year",
     "then": "{times} times as many as in 1994, when the centre recorded {then}.",
     "reach": {
@@ -720,7 +719,11 @@
       "satellite": "Satellite clinics",
       "staff": "Staff"
     },
-    "target_previous": "In 2019-20: {n}%"
+    "target_previous": "In 2019-20: {n}%",
+    "reports_title": "Annual reports",
+    "report_name": "Annual Report {year}",
+    "report_meta": "PDF in English, {pages} pages, {size} MB",
+    "report_open": "Open the PDF"
   },
   "tools": {
     "h1": "Plan your care",

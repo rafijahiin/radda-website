@@ -36,13 +36,14 @@ function entriesFor(code) {
     { t: t.visit.support_title, x: t.visit.support_body.join(" "), u: "visit.html#support", k: "info" },
     { t: t.visit.urgent_title, x: join([t.visit.urgent_before, "999", t.visit.urgent_after]), u: "visit.html#contact", k: "info" }
   ];
+  const reports = [{ t: t.impact.reports_title, x: join([t.impact.h1, t.impact.lead]), u: "impact.html#reports", k: "info" }];
   const stories = news.map((item) => ({
     t: item[code].title, x: join([item[code].summary, item[code].source]), u: item.url || "news/" + item.id + ".html", k: "news"
   }));
   const appealEntries = appeal.published
     ? [{ t: t.rebuild.nav, x: join([t.rebuild.lead, t.rebuild.give_contact]), u: "rebuild.html", k: "page" }]
     : [];
-  return [].concat(services, vaccines, info, places, locations, appealEntries, stories, pages);
+  return [].concat(services, vaccines, info, places, locations, reports, appealEntries, stories, pages);
 }
 
 module.exports = Object.fromEntries(langs.map((lang) => [lang.code, entriesFor(lang.code)]));
