@@ -46,7 +46,7 @@
     },
     "rebuild": {
       "file": "rebuild.html",
-      "title": "Help rebuild Radda · Radda MCH-FP Centre",
+      "title": "Donate · Radda MCH-FP Centre",
       "desc": "In September 2026 the Radda MCH-FP Centre at Mirpur-1, Dhaka was attacked and largely demolished. What happened, what is still missing, and how to help rebuild it."
     }
   },
@@ -298,9 +298,9 @@
       {
         "photo": "centre",
         "appeal": true,
-        "title": "Help rebuild Radda",
+        "title": "Donate to rebuild Radda",
         "body": "Our Mirpur-1 centre was attacked and largely demolished in September 2026. Care has not stopped. Rebuilding will take help.",
-        "cta": "How to help",
+        "cta": "Donate",
         "href": "rebuild.html",
         "alt": "Mothers waiting in the courtyard of a Radda centre"
       }
@@ -477,7 +477,7 @@
     },
     "band_title": "Help us keep care within reach",
     "band_body": "Your support keeps pregnancy check-ups, vaccines and family planning affordable for the families who need them most.",
-    "band_cta": "Support Radda"
+    "band_cta": "Donate"
   },
   "impact": {
     "h1": "Radda in numbers",
@@ -993,8 +993,8 @@
     "home": "Go to the home page"
   },
   "rebuild": {
-    "nav": "Help rebuild Radda",
-    "h1": "Help rebuild Radda",
+    "nav": "Donate",
+    "h1": "Donate to rebuild Radda",
     "lead": "In the early hours of 25 September 2026 our Mirpur-1 centre was attacked, looted and largely demolished. Vaccination restarted the next day, under a tarpaulin by the road. Rebuilding the rest will take help.",
     "give_cta": "How to give",
     "facts_eyebrow": "What was lost",

@@ -1,4 +1,4 @@
-// The "Help rebuild Radda" appeal, as the pages use it. Staff edit appealSettings.json
+// The "Donate" appeal, as the pages use it. Staff edit appealSettings.json
 // through the editing screen. A giving channel only appears on the page once its
 // details are complete, so a half-filled form never shows a partial account number.
 const settings = require("./appealSettings.json");

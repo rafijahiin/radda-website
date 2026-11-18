@@ -60,10 +60,10 @@ New items go at the **end** of the file. The site shows the last item first, and
 
 ## The rebuild appeal
 
-`rebuild.html` (and `bn/rebuild.html`) is the "Help rebuild Radda" page about the September 2026 attack on the Mirpur-1 centre.
+`rebuild.html` (and `bn/rebuild.html`) is the "Donate" page about the September 2026 attack on the Mirpur-1 centre.
 
 - **Giving details.** Until the centre adds its accounts, the page asks people to contact the office. Once the bank details or a bKash or Nagad number are entered under **Rebuild appeal** in the staff editing screen, they appear on the page with a copy button. Bank details show only when the account name, bank and account number are all filled in, so a half-finished form never shows a partial number.
-- **Switching it off.** Turn off "Show the Help rebuild Radda page" in the same form. The page, every link to it, and its search and sitemap entries all disappear on the next build.
+- **Switching it off.** Turn off "Show the Donate page" in the same form. The page, every link to it, and its search and sitemap entries all disappear on the next build.
 - **The facts on the page.** Every figure carries a small number pointing to a published report listed at the bottom. The wording is in `src/_data/i18n/en.json` and `bn.json` under `rebuild`. Change a fact only together with its source, and update the "Last checked" date. The situation at the centre is changing, so the "What is still missing" list in particular should be reviewed by the centre.
 - **Who can edit it.** Anyone invited to the staff editing screen can change the account numbers shown to donors. Invite only people the centre trusts with that.
 

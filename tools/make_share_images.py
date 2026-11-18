@@ -39,18 +39,18 @@ CARD_HTML = """<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Noto+Sans+Bengali:wght@400;700&display=block" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; }
-  body { width: 1200px; height: 630px; overflow: hidden; background: #0087c5; }
-  .card { position: relative; width: 1200px; height: 630px; overflow: hidden; color: #111; padding: 64px 72px; font-family: __FONT__; background: #0087c5; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #007bb8; }
+  .card { position: relative; width: 1200px; height: 630px; overflow: hidden; color: #fff; padding: 64px 72px; font-family: __FONT__; background: #007bb8; }
   .disc { position: absolute; right: 64px; top: 50%; width: 320px; height: 320px; margin-top: -160px; border-radius: 50%; background: #fff; display: grid; place-items: center; }
   .disc img { width: 230px; height: 230px; }
   .brand { display: flex; align-items: center; gap: 18px; }
   .brand img { width: 84px; height: 84px; }
   .brand b { display: block; font-size: 44px; line-height: 1.1; letter-spacing: __TRACK__; font-weight: __BOLD__; color: #fff; }
-  .brand span { display: block; font-size: 21px; line-height: 1.3; color: #111; margin-top: 4px; }
+  .brand span { display: block; font-size: 21px; line-height: 1.3; color: #fff; margin-top: 4px; }
   h1 { position: absolute; left: 72px; bottom: 150px; width: 700px; font-size: __SIZE__; line-height: __LEAD__; letter-spacing: __HTRACK__; font-weight: __BOLD__; }
   h1 em { font-style: normal; }
-  .foot { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 700; color: #111; }
-  .foot i { width: 28px; height: 5px; background: #111; }
+  .foot { position: absolute; left: 72px; bottom: 64px; display: flex; align-items: center; gap: 14px; font-size: 25px; font-weight: 700; color: #fff; }
+  .foot i { width: 28px; height: 5px; background: #fff; }
 </style></head><body>
 <div class="card">
   <div class="disc"><img src="__LOGO_INK__" alt=""></div>

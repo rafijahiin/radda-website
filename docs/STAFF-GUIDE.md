@@ -45,9 +45,9 @@ Use only photos that belong to Radda, and only where the people in them have agr
 
 ## Adding the centre's bank or bKash details
 
-Open **Rebuild appeal**. Type the bank account name, bank, branch and account number, and the bKash or Nagad number if there is one, then press **Save**. They appear on the "Help rebuild Radda" page. Check every digit twice before saving: donors will send money to exactly what is written here.
+Open **Rebuild appeal**. Type the bank account name, bank, branch and account number, and the bKash or Nagad number if there is one, then press **Save**. They appear on the "Donate" page. Check every digit twice before saving: donors will send money to exactly what is written here.
 
-To take the appeal page down, switch off **Show the "Help rebuild Radda" page** and press **Save**.
+To take the appeal page down, switch off **Show the "Donate" page** and press **Save**.
 
 ## If something looks wrong
 
@@ -104,7 +104,7 @@ Nothing you do here can break the website. If a save contains a mistake the site
 
 **Rebuild appeal** খুলুন। ব্যাংক হিসাবের নাম, ব্যাংক, শাখা ও হিসাব নম্বর লিখুন, আর বিকাশ বা নগদ নম্বর থাকলে সেটিও লিখুন। এরপর **Save** চাপুন। তথ্যগুলো "রাড্ডা আবার গড়তে সাহায্য করুন" পাতায় দেখাবে। সেভ করার আগে প্রতিটি সংখ্যা দুবার মিলিয়ে নিন: এখানে যা লেখা থাকবে, দাতারা ঠিক সেখানেই টাকা পাঠাবেন।
 
-পাতাটি সরিয়ে নিতে চাইলে **Show the "Help rebuild Radda" page** বন্ধ করে **Save** চাপুন।
+পাতাটি সরিয়ে নিতে চাইলে **Show the "Donate" page** বন্ধ করে **Save** চাপুন।
 
 ## কিছু ভুল মনে হলে
 

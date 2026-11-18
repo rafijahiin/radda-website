@@ -57,9 +57,9 @@
     <div class="brand-actions">
       <a class="btn btn-outline" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
       {%- if appeal.published %}
-      <a class="btn btn-outline" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>
+      <a class="btn btn-accent" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>
       {%- endif %}
-      <a class="btn btn-accent" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
+      <a class="btn btn-white" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
     </div>
     <button class="search-btn band-search" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="{{ t.nav.open_menu }}"><span></span><span></span></button>

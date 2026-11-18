@@ -173,7 +173,7 @@ content:
     format: json
     fields:
       - name: published
-        label: Show the "Help rebuild Radda" page
+        label: Show the "Donate" page
         type: boolean
         description: Switch this off to remove the page and every link to it.
       - name: bank_account_name
