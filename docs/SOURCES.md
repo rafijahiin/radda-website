@@ -15,7 +15,7 @@ printed ones ("Page | 15"), not the PDF's own page count.
 | Staff by department | page 9 |
 | Antenatal, postnatal, immunization, family planning, physiotherapy and dental figures | pages 12 and 13 |
 | Community health programme: target against achievement | page 14 |
-| Every service by year, 1994 and 2014 to 2021-22 (all charts, the 100-square grid, vaccine counts) | page 15, "Performance at a glance" |
+| Every service by year, 1994 and 2014 to 2021-22 (all charts, the 100-figure pictogram, vaccine counts) | page 15, "Performance at a glance" |
 | Radda Paramedic Institute: course, first batch 2011, 112 students (76 women, 36 men) | page 18 |
 | Joint projects (Plan, IDKIDS, MDF and Nuffic, Swisscontact, Alive & Thrive, Mutual Trust Bank) | pages 21 to 23 |
 | National days and campaigns (Vitamin A Plus, school deworming) | page 25 |
@@ -24,7 +24,7 @@ printed ones ("Page | 15"), not the PDF's own page count.
 
 Notes on how the figures are used:
 
-- The "Out of every 100 contacts" grid groups the rows of the page 15 table. The
+- The "Out of every 100 contacts" pictogram groups the rows of the page 15 table. The
   groups add up to the report's own total of 525,845 service contacts; `npm test`
   checks this.
 - Percentages in the targets chart are worked out from the two numbers shown. The

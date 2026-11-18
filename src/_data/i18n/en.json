@@ -612,8 +612,8 @@
     },
     "mix_eyebrow": "Where the care goes",
     "mix_title": "Out of every 100 contacts",
-    "mix_intro": "Each square is one contact in a hundred. Half of all the centre's work is vaccinating children and checking how they grow.",
-    "mix_aria": "A grid of 100 squares showing the share of each kind of care. The exact numbers are in the list beside it.",
+    "mix_intro": "Each figure is one contact in a hundred. Half of all the centre's work is vaccinating children and checking how they grow.",
+    "mix_aria": "One hundred small figures showing the share of each kind of care. The exact numbers are in the list beside them.",
     "in_hundred": "{n} in 100",
     "mix_families": {
       "children": "Children",
@@ -699,7 +699,7 @@
       "institute": "Paramedic institute",
       "idkids": "Radda-IDKIDS joint project"
     },
-    "students_aria": "112 squares, one for each student: 76 women and 36 men.",
+    "students_aria": "112 figures, one for each student: 76 women and 36 men.",
     "students": {
       "women": "{n} women",
       "men": "{n} men"

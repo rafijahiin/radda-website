@@ -444,6 +444,48 @@ a.card:hover { color: inherit; }
 .teaser > svg { width: 22px; height: 22px; }
 .pair-row .bar { width: calc(var(--w) * .8%); max-width: none; }
 
+/* Pictograms: flat figures as counting marks (one figure = one person, or one
+   contact in a hundred). On the impact page the charts sit straight on the page,
+   under a rule, with no card behind them. */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.pic { display: block; width: 100%; aspect-ratio: 1; fill: currentColor; }
+.tone-children, .tone-u0, .tone-women { color: var(--blue); }
+.tone-care, .tone-u1, .tone-men { color: var(--ink); }
+.tone-mothers, .tone-u2 { color: var(--accent); }
+.tone-community, .tone-u3 { color: var(--green); }
+.tone-u4 { color: #5aa9d6; }
+.tone-u5 { color: #777; }
+.tone-u6 { color: #e08a66; }
+.tone-u7 { color: #7fbf9c; }
+.pictogram { display: grid; gap: 6px 2px; }
+.pictogram.hundred { grid-template-columns: repeat(10, 1fr); max-width: 400px; gap: 8px 0; }
+.pictogram.staff { grid-template-columns: repeat(22, 1fr); margin: 14px 0 12px; }
+.pictogram.students { grid-template-columns: repeat(16, 1fr); max-width: 440px; margin-top: 22px; }
+.mix-family h3 .pic { flex: none; width: 30px; }
+.mix-family li, .staff-list li { grid-template-columns: 20px minmax(0, 1fr) auto; }
+.mix-family li .pic, .staff-list li .pic { width: 20px; align-self: center; }
+.key-pic { width: 22px; }
+.key { border-radius: 50%; }
+.key-mark { border-radius: 0; }
+.glance-side dd { display: flex; align-items: center; gap: 14px; }
+.glance-side .card-ico { margin: 0; width: 46px; height: 46px; }
+.glance-side .card-ico svg { width: 24px; height: 24px; }
+.cap-ico { display: inline-grid; place-items: center; width: 36px; height: 36px; margin-right: 10px; border-radius: 50%; background: var(--blue); color: var(--ink); vertical-align: middle; }
+.cap-ico svg { width: 19px; height: 19px; }
+.target-head span { display: inline-flex; align-items: center; gap: 10px; }
+.mark { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: #fff; }
+.mark.short { background: var(--accent); }
+.mark svg { width: 14px; height: 14px; }
+.wards { gap: 10px 12px; padding-bottom: 8px; }
+.wards span { width: 44px; height: 44px; margin-bottom: 8px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+.wards span b { transform: rotate(45deg); }
+.infographic .chart, .infographic .panel, .infographic .targets li, .infographic .fund-row { background: none; box-shadow: none; border-radius: 0; padding: 0; }
+.infographic .chart, .infographic .panel { padding-top: 18px; border-top: 2px solid var(--ink); }
+.infographic .targets li { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.infographic .targets li:first-child { border-top: 2px solid var(--ink); }
+.infographic .fund-row { padding: 18px 0 6px; border-top: 2px solid var(--ink); }
+.infographic .bar-track, .infographic .bars.wide-label .bar-track, .infographic .fund-track, .infographic .target-track { background: rgba(17, 17, 17, .1); }
+
 .news-item .go { width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); }
 .news-item .go svg { width: 22px; height: 22px; }
 .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
@@ -760,7 +802,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .mix-legend { grid-template-columns: minmax(0, 1fr); }
   .plan-list li { grid-template-columns: minmax(0, 1fr); }
   .plan-actions .btn { width: 100%; }
-  .wards span { width: 44px; height: 44px; font-size: 1rem; }
+  .wards span { width: 40px; height: 40px; font-size: 1rem; }
+  .pictogram.staff { grid-template-columns: repeat(16, 1fr); }
   .fund-row dl { grid-template-columns: minmax(0, 1fr); }
   .u-extra, .u-hours { display: none; }
   .notice { font-size: .9375rem; }

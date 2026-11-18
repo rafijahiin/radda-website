@@ -11,7 +11,19 @@ depth: 0
 {#- Every number on this page comes from impactFigures.json (the Annual Report 2021-22),
     prepared by impact.js. The wording for each number is in the "impact" part of the
     language files. Charts are plain HTML, so they read correctly without the script. -#}
-<main id="main">
+<main id="main" class="infographic">
+{#- Flat figures used as counting marks in the charts below. Each is drawn once here
+    and reused by name, so a chart of 176 people stays a few bytes per person. -#}
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="pic-person" viewBox="0 0 24 24"><circle cx="12" cy="4.2" r="2.7"/><path d="M8.2 8h7.6a2 2 0 0 1 2 2v6.2a1.1 1.1 0 0 1-2.2 0V11h-.6v11a1.3 1.3 0 0 1-2.6 0v-6h-.8v6a1.3 1.3 0 0 1-2.6 0V11h-.6v5.2a1.1 1.1 0 0 1-2.2 0V10a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="pic-woman" viewBox="0 0 24 24"><circle cx="12" cy="4.2" r="2.7"/><path d="M9.3 8h5.4a2 2 0 0 1 1.9 1.4l1.9 6a1.05 1.05 0 0 1-2 .7L15.2 12l2.3 6.5h-2.3V22a1.2 1.2 0 0 1-2.4 0v-3.5h-1.6V22a1.2 1.2 0 0 1-2.4 0v-3.5H6.5L8.8 12l-1.3 4.1a1.05 1.05 0 0 1-2-.7l1.9-6A2 2 0 0 1 9.3 8z"/></symbol>
+  <symbol id="pic-child" viewBox="3 4.6 18 18"><circle cx="12" cy="8.2" r="3.1"/><path d="M8.9 12.4h6.2a1.9 1.9 0 0 1 1.9 1.9v3.2a1 1 0 0 1-2 0v-2.3h-.4V21a1.15 1.15 0 0 1-2.3 0v-3.1h-.6V21a1.15 1.15 0 0 1-2.3 0v-5.8H9v2.3a1 1 0 0 1-2 0v-3.2a1.9 1.9 0 0 1 1.9-1.9z"/></symbol>
+  <symbol id="pic-cross" viewBox="0 0 24 24"><path d="M9.6 4.5h4.8a1 1 0 0 1 1 1v4.1h4.1a1 1 0 0 1 1 1v4.8a1 1 0 0 1-1 1h-4.1v4.1a1 1 0 0 1-1 1H9.6a1 1 0 0 1-1-1v-4.1H4.5a1 1 0 0 1-1-1v-4.8a1 1 0 0 1 1-1h4.1V5.5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="pic-drop" viewBox="0 0 24 24"><path d="M12 3.2c3 4 5.8 7.3 5.8 11a5.8 5.8 0 0 1-11.6 0c0-3.7 2.8-7 5.8-11z"/></symbol>
+</svg>
+{%- set familyPics = { children: "child", care: "cross", mothers: "woman", community: "drop" } %}
+{%- set studentPics = { women: "woman", men: "person" } %}
+{%- set reachIcons = { static: "clinic", satellite: "pin", wards: "map", staff: "family" } %}
 <section class="page-hero">
   <div class="container">
     <div class="crumbs"><a href="{{ up }}index.html">{{ t.nav.home }}</a><span aria-hidden="true">/</span>{{ t.nav.impact }}</div>
@@ -37,7 +49,7 @@ depth: 0
       </div>
       <dl class="glance-side">
         {%- for f in impact.reach %}
-        <div><dd>{{ f.value | num(loc) }}</dd><dt>{{ m.reach[f.id] }}</dt></div>
+        <div><dd><span class="card-ico" aria-hidden="true">{% icon reachIcons[f.id], 1.8 %}</span>{{ f.value | num(loc) }}</dd><dt>{{ m.reach[f.id] }}</dt></div>
         {%- endfor %}
       </dl>
     </div>
@@ -54,16 +66,16 @@ depth: 0
       </div>
     </div>
     <div class="mix" data-reveal>
-      <div class="waffle" role="img" aria-label="{{ m.mix_aria }}">
-        {%- for family in impact.mix %}{% for row in family.rows %}{% for n in range(row.squares) %}<i class="fam-{{ family.id }} shade-{{ row.shade }}"></i>{% endfor %}{% endfor %}{% endfor %}
+      <div class="pictogram hundred" role="img" aria-label="{{ m.mix_aria }}">
+        {%- for family in impact.mix %}{% for row in family.rows %}{% for n in range(row.squares) %}<svg class="pic tone-{{ family.id }} shade-{{ row.shade }}"><use href="#pic-{{ familyPics[family.id] }}"/></svg>{% endfor %}{% endfor %}{% endfor %}
       </div>
       <div class="mix-legend">
         {%- for family in impact.mix %}
         <div class="mix-family">
-          <h3><i class="fam-{{ family.id }}" aria-hidden="true"></i>{{ m.mix_families[family.id] }}<b>{{ m.in_hundred | replace("{n}", family.squares | num(loc)) }}</b></h3>
+          <h3><svg class="pic tone-{{ family.id }}" aria-hidden="true"><use href="#pic-{{ familyPics[family.id] }}"/></svg>{{ m.mix_families[family.id] }}<b>{{ m.in_hundred | replace("{n}", family.squares | num(loc)) }}</b></h3>
           <ul>
             {%- for row in family.rows %}
-            <li><i class="fam-{{ family.id }} shade-{{ row.shade }}" aria-hidden="true"></i><span>{{ m.mix_rows[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
+            <li><svg class="pic tone-{{ family.id }} shade-{{ row.shade }}" aria-hidden="true"><use href="#pic-{{ familyPics[family.id] }}"/></svg><span>{{ m.mix_rows[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
             {%- endfor %}
           </ul>
         </div>
@@ -113,7 +125,7 @@ depth: 0
     <div class="vaccine-groups">
       {%- for group in impact.vaccines %}
       <figure class="chart on-white" data-reveal style="--d:{{ loop.index0 }}">
-        <figcaption>{{ m.vaccine_groups[group.id] }}<span>{{ group.value | num(loc) }}</span></figcaption>
+        <figcaption><i class="cap-ico" aria-hidden="true">{% icon "syringe", 2 %}</i>{{ m.vaccine_groups[group.id] }}<span>{{ group.value | num(loc) }}</span></figcaption>
         <ol class="bars wide-label{% if group.id == 'other' %} quiet{% endif %}">
           {%- for row in group.rows %}
           <li><span class="bar-year">{{ m.vaccine_names[row.id] }}</span><span class="bar-track"><span class="bar" style="width: {{ row.width }}%"></span></span><b>{{ row.value | num(loc) }}</b></li>
@@ -167,7 +179,7 @@ depth: 0
     <ol class="targets" data-reveal style="--d:1">
       {%- for row in impact.targets %}
       <li>
-        <div class="target-head"><span>{{ m.target_names[row.id] }}</span><b class="{{ 'met' if row.percent >= 100 else 'short' }}">{{ m.percent | replace("{n}", row.percent | num(loc)) }}</b></div>
+        <div class="target-head"><span><i class="mark {{ 'met' if row.percent >= 100 else 'short' }}" aria-hidden="true">{% set markIcon = "check" if row.percent >= 100 else "alert" %}{% icon markIcon, 3 %}</i>{{ m.target_names[row.id] }}</span><b class="{{ 'met' if row.percent >= 100 else 'short' }}">{{ m.percent | replace("{n}", row.percent | num(loc)) }}</b></div>
         <div class="target-track" aria-hidden="true"><span class="bar" style="width: {{ row.width }}%"></span><i style="left: {{ row.mark }}%"></i></div>
         <div class="target-foot">{{ m.target_line | replace("{done}", row.achieved | num(loc)) | replace("{goal}", row.target | num(loc)) }}</div>
       </li>
@@ -232,15 +244,15 @@ depth: 0
       <div class="panel" data-reveal>
         <h3>{{ m.wards_title }}</h3>
         <p class="note">{{ m.wards_intro }}</p>
-        <div class="ward-group"><b>{{ m.wards_north }}</b><div class="wards">{% for w in impact.wards.north %}<span>{{ w | num(loc) }}</span>{% endfor %}</div></div>
-        <div class="ward-group south"><b>{{ m.wards_south }}</b><div class="wards">{% for w in impact.wards.south %}<span>{{ w | num(loc) }}</span>{% endfor %}</div></div>
+        <div class="ward-group"><b>{{ m.wards_north }}</b><div class="wards">{% for w in impact.wards.north %}<span><b>{{ w | num(loc) }}</b></span>{% endfor %}</div></div>
+        <div class="ward-group south"><b>{{ m.wards_south }}</b><div class="wards">{% for w in impact.wards.south %}<span><b>{{ w | num(loc) }}</b></span>{% endfor %}</div></div>
       </div>
       <div class="panel" data-reveal style="--d:1">
         <h3>{{ m.staff_title | replace("{n}", impact.staffTotal | num(loc)) }}</h3>
-        <div class="staff-track" aria-hidden="true">{% for row in impact.staff %}<span class="unit-{{ loop.index0 }}" style="width: {{ row.width }}%"></span>{% endfor %}</div>
+        <div class="pictogram staff" aria-hidden="true">{% for row in impact.staff %}{% set unit = loop.index0 %}{% for n in range(row.value) %}<svg class="pic tone-u{{ unit }}"><use href="#pic-person"/></svg>{% endfor %}{% endfor %}</div>
         <ul class="staff-list">
           {%- for row in impact.staff %}
-          <li><i class="unit-{{ loop.index0 }}" aria-hidden="true"></i><span>{{ m.staff_units[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
+          <li><svg class="pic tone-u{{ loop.index0 }}" aria-hidden="true"><use href="#pic-person"/></svg><span>{{ m.staff_units[row.id] }}</span><b>{{ row.value | num(loc) }}</b></li>
           {%- endfor %}
         </ul>
       </div>
@@ -299,12 +311,12 @@ depth: 0
     <div data-reveal>
       <span class="eyebrow">{{ m.institute_eyebrow }}</span>
       <h2 id="institute-h">{{ m.institute_title }}</h2>
-      <div class="students" role="img" aria-label="{{ m.students_aria }}">
-        {%- for group in impact.students %}{% for n in range(group.value) %}<i class="student-{{ group.id }}"></i>{% endfor %}{% endfor %}
+      <div class="pictogram students" role="img" aria-label="{{ m.students_aria }}">
+        {%- for group in impact.students %}{% for n in range(group.value) %}<svg class="pic tone-{{ group.id }}"><use href="#pic-{{ studentPics[group.id] }}"/></svg>{% endfor %}{% endfor %}
       </div>
       <p class="chart-key">
         {%- for group in impact.students %}
-        <span><i class="key student-{{ group.id }}" aria-hidden="true"></i>{{ m.students[group.id] | replace("{n}", group.value | num(loc)) }}</span>
+        <span><svg class="pic key-pic tone-{{ group.id }}" aria-hidden="true"><use href="#pic-{{ studentPics[group.id] }}"/></svg>{{ m.students[group.id] | replace("{n}", group.value | num(loc)) }}</span>
         {%- endfor %}
       </p>
     </div>

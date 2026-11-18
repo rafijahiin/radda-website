@@ -15,5 +15,10 @@
   "prev": "<path d=\"M15 6l-6 6 6 6\"/>",
   "next": "<path d=\"M9 6l6 6-6 6\"/>",
   "pause": "<path d=\"M9 5v14M15 5v14\"/>",
-  "play": "<path d=\"M8 5l11 7-11 7z\"/>"
+  "play": "<path d=\"M8 5l11 7-11 7z\"/>",
+  "clinic": "<path d=\"M3 10.5 12 3l9 7.5V21H3z\"/><path d=\"M12 10.5v6M9 13.5h6\"/>",
+  "map": "<path d=\"M9 4 3 6.5V20l6-2.5 6 2.5 6-2.5V4l-6 2.5z\"/><path d=\"M9 4v13.5M15 6.5V20\"/>",
+  "syringe": "<path d=\"m17 3 4 4\"/><path d=\"m19 5-3.5 3.5\"/><path d=\"m13.5 6.5 4 4\"/><path d=\"m15 8-8.5 8.5v3h3L18 11\"/><path d=\"m6.5 19.5-3.5 2\"/><path d=\"m10 11 2 2\"/>",
+  "check": "<path d=\"m5 12.5 4.5 4.5L19 7.5\"/>",
+  "alert": "<path d=\"M12 5.5v8\"/><path d=\"M12 18v.5\"/>"
 }
