@@ -4,6 +4,12 @@
       "year": "2021-22",
       "file": "assets/reports/radda-annual-report-2021-22.pdf",
       "pages": 32
+    },
+    {
+      "year": "2019-20",
+      "file": "assets/reports/radda-annual-report-2019-20.pdf",
+      "pages": 37,
+      "note": "cases_left_out"
     }
   ],
   "contacts": 525845,

@@ -345,6 +345,17 @@ test("offers only annual report files that exist and are PDFs", () => {
   }
 });
 
+test("has a written note in both languages for every report that carries one", () => {
+  const impact = load("impact.js", {});
+
+  for (const report of impact.reports.filter((r) => r.note)) {
+    for (const code of ["en", "bn"]) {
+      const notes = require(path.join(DATA, "i18n", code + ".json")).impact.report_notes;
+      assert.ok(notes && notes[report.note], code + " note for " + report.year);
+    }
+  }
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

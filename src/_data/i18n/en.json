@@ -723,7 +723,10 @@
     "reports_title": "Annual reports",
     "report_name": "Annual Report {year}",
     "report_meta": "PDF in English, {pages} pages, {size} MB",
-    "report_open": "Open the PDF"
+    "report_open": "Open the PDF",
+    "report_notes": {
+      "cases_left_out": "One page of patient case studies is left out, to protect the patients' privacy."
+    }
   },
   "tools": {
     "h1": "Plan your care",

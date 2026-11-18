@@ -39,6 +39,12 @@ The comparison "From 2019-20 to 2021-22", the earlier-year line under each targe
 the 2015 and 2016-17 rows of the income chart come from the **Annual Report 2019-20**
 (a PDF supplied by the centre; it is not on raddacentre.org at the time of writing).
 
+The copy served from this site (`src/assets/reports/radda-annual-report-2019-20.pdf`) is that
+file with one page removed: printed page 35, "Case studies", which names two patients
+together with their health details. It was removed with PyMuPDF (`delete_page`, saved with
+`garbage=4` so the page's contents are not kept in the file). Do not replace this file with
+the full report unless the centre confirms the two patients agreed to be published.
+
 | What the site shows | Where in the 2019-20 report |
 |---|---|
 | 169 staff; 6 static clinics, 10 satellite clinics in Dhaka North and 5 in Dhaka South | page 1 |

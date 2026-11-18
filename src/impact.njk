@@ -364,7 +364,7 @@ depth: 0
         {%- for report in impact.reports %}
         <li>
           <span class="card-ico" aria-hidden="true">{% icon "file", 1.8 %}</span>
-          <span class="report-name"><strong>{{ m.report_name | replace("{year}", report.year | digits(lng.code)) }}</strong><small>{{ m.report_meta | replace("{pages}", report.pages | num(loc)) | replace("{size}", report.sizeMb | num(loc, 1)) }}</small></span>
+          <span class="report-name"><strong>{{ m.report_name | replace("{year}", report.year | digits(lng.code)) }}</strong><small>{{ m.report_meta | replace("{pages}", report.pages | num(loc)) | replace("{size}", report.sizeMb | num(loc, 1)) }}</small>{% if report.note %}<small>{{ m.report_notes[report.note] }}</small>{% endif %}</span>
           <a class="btn btn-outline" href="{{ root }}{{ report.file }}" target="_blank" rel="noopener">{{ m.report_open }} {% icon "download", 2.2 %}</a>
         </li>
         {%- endfor %}
