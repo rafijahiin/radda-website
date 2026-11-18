@@ -47,7 +47,7 @@
 
 /* 2. Base ----------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 108px; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 120px; }
 body { margin: 0; font-family: var(--font); font-size: 1.125rem; line-height: 1.56; color: var(--body); background: #fff; -webkit-font-smoothing: antialiased; }
 img, svg, iframe { display: block; max-width: 100%; }
 h1, h2, h3 { color: var(--ink); font-weight: 700; line-height: 1.2; margin: 0; text-wrap: balance; }
@@ -127,14 +127,14 @@ table { border-collapse: collapse; width: 100%; }
 .lang-switch { padding-left: 22px; border-left: 1px solid var(--line-strong); font-family: var(--font), "Noto Sans Bengali", "Nirmala UI", sans-serif; }
 
 /* One blue row: logo, the menu, search and the main action. It stays at the top. */
-.site-header { position: sticky; top: 0; z-index: 50; background: var(--blue); view-transition-name: site-header; }
-.site-header .container { display: flex; align-items: center; gap: clamp(10px, 1.6vw, 24px); min-height: 84px; }
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(0, 105, 160, .9); -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%); view-transition-name: site-header; }
+.site-header .container { display: flex; align-items: center; gap: clamp(10px, 1.6vw, 24px); min-height: 96px; }
 .site-header.scrolled { box-shadow: 0 2px 8px rgba(0, 0, 0, .2); }
 .logo { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); flex: none; }
-.logo img { width: 54px; height: 54px; }
+.logo img { width: 66px; height: 66px; }
 .logo-text { display: grid; line-height: 1.1; }
-.logo-text strong { font-size: 1.7rem; font-weight: 700; letter-spacing: .02em; color: #fff; }
-.logo-text span { font-size: .9375rem; color: var(--ink); margin-top: 3px; }
+.logo-text strong { font-size: 2.4rem; font-weight: 700; letter-spacing: .02em; color: #fff; }
+.logo-text span { font-size: 1rem; color: var(--ink); margin-top: 4px; }
 .nav { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .nav a:not(.btn) { padding: 10px 12px; font-weight: 700; font-size: 1rem; line-height: 1.2; color: var(--ink); text-decoration: none; border-bottom: 3px solid transparent; }
 .nav a:not(.btn):hover, .nav a[aria-current="page"] { border-bottom-color: currentColor; }
@@ -171,41 +171,44 @@ table { border-collapse: collapse; width: 100%; }
 /* Each slide is a photograph with a cyan panel beside it, as on unicef.org. The
    slides sit side by side in a strip that scrolls sideways, so a finger swipe
    works without any script; the buttons and the timer are added by site.js. */
-.hero { position: relative; background: var(--blue); overflow: hidden; }
-/* The slides lie on top of each other. The one coming in fades in above the one
-   going out, which stays in place until the fade is over, so the picture never
-   dips to the background colour in between. */
+/* Hero: the photograph fills the whole width and the words sit on a sheet of
+   frosted glass over it. Slides lie on top of each other; the one coming in fades
+   in above the one going out, so the picture never dips to a flat colour. */
+.hero { position: relative; background: var(--black); overflow: hidden; --glass: rgba(255, 255, 255, .72); --glass-edge: rgba(255, 255, 255, .65); }
 .slides { display: grid; }
-.slide { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); min-height: clamp(460px, 46vw, 660px); opacity: 0; visibility: hidden; transition: opacity 0s linear .9s, visibility 0s linear .9s; }
-.slide.is-active { z-index: 1; opacity: 1; visibility: visible; transition: opacity .9s ease; }
-.slide.no-photo { grid-template-columns: minmax(0, 1fr); }
-.slide-photo { min-height: 260px; }
-.slide-photo img { transform: scale(1.07); transition: opacity .5s ease, transform 8s ease-out; }
+.slide { position: relative; grid-area: 1 / 1; display: flex; align-items: flex-end; min-height: clamp(520px, 68vh, 760px); padding: clamp(20px, 4vw, 56px) max(var(--gutter), calc((100vw - var(--max)) / 2)); opacity: 0; visibility: hidden; transition: opacity 0s linear .7s, visibility 0s linear .7s; }
+.slide.is-active { z-index: 1; opacity: 1; visibility: visible; transition: opacity .7s ease; }
+.slide.no-photo { background: var(--blue); }
+.slide-photo { position: absolute; inset: 0; }
+.slide-photo img { object-position: center 30%; transform: scale(1.08); transition: opacity .5s ease, transform 6s ease-out; }
 .slide.is-active .slide-photo img { transform: scale(1); }
-.slide-panel { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; padding: clamp(28px, 3vw, 44px) clamp(24px, 3vw, 44px) clamp(88px, 7vw, 104px); background: var(--blue); color: var(--ink); }
-.slide.no-photo .slide-panel { padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2)); }
-.slide-panel :is(h1, h2) { font-size: clamp(1.75rem, 2.9vw, 2.625rem); line-height: 1.19; }
-.slide-panel p { margin: 0; font-size: 1.125rem; line-height: 1.5; max-width: 34ch; }
-.slide-panel .btn { margin-top: 8px; }
-.js .slide-panel > * { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
-.js .slide.is-active .slide-panel > * { opacity: 1; transform: none; }
-.js .slide.is-active .slide-panel > :nth-child(1) { transition-delay: .25s; }
-.js .slide.is-active .slide-panel > :nth-child(2) { transition-delay: .38s; }
-.js .slide.is-active .slide-panel > :nth-child(3) { transition-delay: .5s; }
-.carousel-controls { position: absolute; z-index: 2; right: 0; bottom: 0; width: calc(100% / 3); display: flex; align-items: center; gap: 8px; padding: 0 clamp(24px, 3vw, 44px) 28px; }
-.carousel-btn { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 2.5px solid var(--ink); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+.slide-panel { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; width: min(560px, 100%); padding: clamp(22px, 2.6vw, 36px); border-radius: 18px; border: 1px solid var(--glass-edge); background: var(--glass); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 10px 30px rgba(0, 0, 0, .18); color: var(--body); }
+.slide-panel :is(h1, h2) { font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.14; color: var(--ink); }
+.slide-panel p { margin: 0; font-size: clamp(1.0625rem, 1.3vw, 1.2rem); line-height: 1.5; max-width: 36ch; }
+.slide-panel .btn { margin-top: 6px; }
+/* The words of a new slide come into focus: they rise a little and sharpen. */
+.js .slide-panel > * { opacity: 0; transform: translateY(14px); filter: blur(7px); transition: opacity .45s ease, transform .45s ease, filter .45s ease; }
+.js .slide.is-active .slide-panel > * { opacity: 1; transform: none; filter: none; }
+.js .slide.is-active .slide-panel > :nth-child(1) { transition-delay: .15s; }
+.js .slide.is-active .slide-panel > :nth-child(2) { transition-delay: .25s; }
+.js .slide.is-active .slide-panel > :nth-child(3) { transition-delay: .35s; }
+.carousel-controls { position: absolute; z-index: 2; right: max(var(--gutter), calc((100vw - var(--max)) / 2)); bottom: clamp(20px, 4vw, 56px); display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; border-radius: 14px; border: 1px solid var(--glass-edge); background: var(--glass); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); }
+.carousel-btn { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 10px; background: transparent; color: var(--ink); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
 .carousel-btn:hover { background: var(--hover-bg); color: var(--hover-fg); }
 .carousel-btn svg { width: 20px; height: 20px; }
 /* While the slides are playing the button offers "pause"; while paused it offers "play". */
 .carousel-btn[aria-pressed="true"] .i-play, .carousel-btn[aria-pressed="false"] .i-pause { display: none; }
 /* Each dot is a short line; the current one fills up as the timer runs. */
-.dots { display: flex; gap: 6px; margin-left: auto; }
+.dots { display: flex; gap: 6px; margin-left: 6px; }
 .dot { position: relative; width: 30px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; }
-.dot::before, .dot::after { content: ""; position: absolute; left: 0; top: 10px; height: 4px; }
-.dot::before { width: 100%; background: rgba(255, 255, 255, .4); }
-.dot::after { width: 0; background: #fff; }
+.dot::before, .dot::after { content: ""; position: absolute; left: 0; top: 10px; height: 4px; border-radius: 2px; }
+.dot::before { width: 100%; background: rgba(17, 17, 17, .22); }
+.dot::after { width: 0; background: var(--blue); }
 .dot[aria-current="true"]::after { width: 100%; }
-.hero.is-playing .dot[aria-current="true"]::after { animation: dot-fill var(--slide-ms, 7s) linear both; }
+.hero.is-playing .dot[aria-current="true"]::after { animation: dot-fill var(--slide-ms, 5s) linear both; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero { --glass: rgba(255, 255, 255, .92); }
+}
 
 /* 6. Home sections -------------------------------------------------------- */
 .quick { border-bottom: 1px solid var(--line); }
@@ -507,7 +510,7 @@ a.card:hover { color: inherit; }
 /* White text on every blue surface. Inside one, "ink" means white, so headings,
    links, outlines and icons follow without a rule each; hovering turns a button
    white with dark text instead of black with white. */
-.site-header, .hero, .figures-wrap, .cta-photo, .band-wrap, .site-footer, .page-hero, .info-panel, .share-card, .notfound {
+.site-header, .figures-wrap, .cta-photo, .band-wrap, .site-footer, .page-hero, .info-panel, .share-card, .notfound {
   --ink: #fff; --body: #fff; --muted: rgba(255, 255, 255, .88); --link: #fff; --hover-bg: #fff; --hover-fg: var(--black);
   color: #fff;
 }
@@ -700,7 +703,7 @@ a.card:hover { color: inherit; }
 .page-hero p { font-size: clamp(1.1rem, 1.4vw, 1.25rem); max-width: 40em; margin: 0; }
 .hero-actions { margin-top: 22px; }
 
-.svc-nav { position: sticky; top: 104px; display: grid; border-left: 4px solid var(--grey); }
+.svc-nav { position: sticky; top: 116px; display: grid; border-left: 4px solid var(--grey); }
 .svc-nav b { font-size: .875rem; color: var(--muted); font-weight: 400; padding: 0 0 10px 16px; }
 .svc-nav a { margin-left: -4px; padding: 9px 16px; border-left: 4px solid transparent; font-weight: 700; font-size: 1rem; line-height: 1.3; color: var(--ink); text-decoration: none; }
 .svc-nav a:hover { text-decoration: underline; }
@@ -791,7 +794,7 @@ table.data td:first-child { font-weight: 700; color: var(--ink); }
 .preview::before { content: attr(data-label); display: block; font-size: .8125rem; font-weight: 700; color: var(--green); margin-bottom: 6px; }
 .form-small { font-size: .9375rem; color: var(--muted); margin: 18px 0 0; max-width: 62ch; }
 
-.info-panel { position: sticky; top: 104px; background: var(--blue); color: var(--ink); border-radius: var(--radius); padding: clamp(22px, 2.6vw, 30px); }
+.info-panel { position: sticky; top: 116px; background: var(--blue); color: var(--ink); border-radius: var(--radius); padding: clamp(22px, 2.6vw, 30px); }
 .info-panel h3 { margin-bottom: 14px; }
 .info-status { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #fff; border-radius: var(--radius); margin-bottom: 14px; line-height: 1.3; }
 .info-status strong { display: block; font-size: 1.0625rem; }
@@ -927,6 +930,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
      effects", for example): things still fade and charts still fill, but nothing
      slides, zooms or pops. */
   .js [data-reveal], .js .slide-panel > * { transform: none; }
+  .js .slide-panel > * { filter: none; }
   .js [data-reveal] .bubble { transform: none; opacity: 0; }
   .js [data-reveal].in .bubble { opacity: 1; animation-name: fade-in; }
   .slide-photo img, .slide.is-active .slide-photo img, .card:hover .photo img { transform: none; }
@@ -938,8 +942,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .header-actions .btn { display: none; }
   .header-actions { margin-left: auto; }
   .site-header .container { min-height: 72px; gap: 6px; }
-  .logo img { width: 46px; height: 46px; }
-  .logo-text strong { font-size: 1.5rem; }
+  .logo img { width: 52px; height: 52px; }
+  .logo-text strong { font-size: 1.9rem; }
   .logo-text span { display: block; font-size: .875rem; margin-top: 2px; }
   .menu-btn { display: block; }
   .nav { position: absolute; left: 0; right: 0; top: 100%; margin: 0; flex-direction: column; align-items: stretch; gap: 0; background: #fff; color: var(--black); --ink: var(--black); --hover-bg: var(--black); --hover-fg: #fff; padding: 4px var(--gutter) 20px; border-bottom: 1px solid var(--line); box-shadow: 0 8px 12px rgba(0, 0, 0, .14); opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility .15s; }
@@ -962,10 +966,11 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 @media (max-width: 900px) {
   .utility .container { gap: 10px; }
   .lang-switch { padding-left: 12px; }
-  .slide, .cta-photo { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-  .slide-photo, .cta-photo .photo { aspect-ratio: 16 / 10; min-height: 0; }
-  .slide-panel { padding-bottom: clamp(28px, 3vw, 44px); }
-  .carousel-controls { position: static; width: auto; padding: 0 clamp(24px, 3vw, 44px) 24px; background: var(--blue); }
+  .cta-photo { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .cta-photo .photo { aspect-ratio: 16 / 10; min-height: 0; }
+  .slide { min-height: clamp(500px, 74vh, 680px); padding: 14px; }
+  .slide-panel { border-radius: 16px; }
+  .carousel-controls { right: 14px; top: 14px; bottom: auto; }
   .feature .container, .split, .split.even, .article, .give { grid-template-columns: minmax(0, 1fr); }
   .feature .feature-media, .feature.reverse .feature-media { order: 0; border-radius: var(--radius) var(--radius) 0 0; }
   .feature .body, .feature.reverse .body { border-radius: 0 0 var(--radius) var(--radius); }

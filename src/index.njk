@@ -33,7 +33,7 @@ depth: 0
       <div class="slide-panel">
         {% if loop.first %}<h1>{{ s.title }}</h1>{% else %}<h2>{{ s.title }}</h2>{% endif %}
         <p>{{ s.body }}</p>
-        <a class="btn btn-white" href="{{ up }}{{ s.href }}">{{ s.cta }}</a>
+        <a class="btn btn-primary" href="{{ up }}{{ s.href }}">{{ s.cta }} {% icon "arrow", 2.4 %}</a>
       </div>
     </div>
     {%- endif %}{% endfor %}
