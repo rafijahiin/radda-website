@@ -3,123 +3,568 @@
   "contacts": 525845,
   "contacts_1994": 169917,
   "reach": [
-    { "id": "static", "value": 6 },
-    { "id": "satellite", "value": 45 },
-    { "id": "wards", "value": 13 },
-    { "id": "staff", "value": 176 }
+    {
+      "id": "static",
+      "value": 6
+    },
+    {
+      "id": "satellite",
+      "value": 45
+    },
+    {
+      "id": "wards",
+      "value": 13
+    },
+    {
+      "id": "staff",
+      "value": 176
+    }
   ],
   "mix": [
-    { "id": "children", "rows": [
-      { "id": "child_vaccines", "value": 189808 },
-      { "id": "growth", "value": 71002 }
-    ] },
-    { "id": "care", "rows": [
-      { "id": "treatment", "value": 53439 },
-      { "id": "tests", "value": 36471 },
-      { "id": "pharmacy", "value": 30050 },
-      { "id": "physio_dental", "value": 3090 }
-    ] },
-    { "id": "mothers", "rows": [
-      { "id": "mother_care", "value": 48354 },
-      { "id": "family_planning", "value": 32903 }
-    ] },
-    { "id": "community", "rows": [
-      { "id": "other_vaccines", "value": 24560 },
-      { "id": "vitamin_a", "value": 23517 },
-      { "id": "education", "value": 12651 }
-    ] }
+    {
+      "id": "children",
+      "rows": [
+        {
+          "id": "child_vaccines",
+          "value": 189808
+        },
+        {
+          "id": "growth",
+          "value": 71002
+        }
+      ]
+    },
+    {
+      "id": "care",
+      "rows": [
+        {
+          "id": "treatment",
+          "value": 53439
+        },
+        {
+          "id": "tests",
+          "value": 36471
+        },
+        {
+          "id": "pharmacy",
+          "value": 30050
+        },
+        {
+          "id": "physio_dental",
+          "value": 3090
+        }
+      ]
+    },
+    {
+      "id": "mothers",
+      "rows": [
+        {
+          "id": "mother_care",
+          "value": 48354
+        },
+        {
+          "id": "family_planning",
+          "value": 32903
+        }
+      ]
+    },
+    {
+      "id": "community",
+      "rows": [
+        {
+          "id": "other_vaccines",
+          "value": 24560
+        },
+        {
+          "id": "vitamin_a",
+          "value": 23517
+        },
+        {
+          "id": "education",
+          "value": 12651
+        }
+      ]
+    }
   ],
   "groups": [
-    { "id": "mothers", "photo": "maternal", "stats": [
-      { "id": "antenatal", "value": 20465 },
-      { "id": "postnatal", "value": 13239 },
-      { "id": "td", "value": 13746 }
-    ] },
-    { "id": "children", "photo": "child", "stats": [
-      { "id": "bcg", "value": 13344 },
-      { "id": "penta", "value": 13785 },
-      { "id": "growth", "value": 71002 },
-      { "id": "under5", "value": 35450 }
-    ] },
-    { "id": "family", "photo": "family-planning", "stats": [
-      { "id": "fp_new", "value": 13203 },
-      { "id": "fp_revisit", "value": 19700 }
-    ] },
-    { "id": "clinic", "photo": "physio", "stats": [
-      { "id": "lab", "value": 28526 },
-      { "id": "ultrasound", "value": 7945 },
-      { "id": "physio", "value": 2064 },
-      { "id": "dental", "value": 1026 }
-    ] }
+    {
+      "id": "mothers",
+      "photo": "maternal",
+      "stats": [
+        {
+          "id": "antenatal",
+          "value": 20465
+        },
+        {
+          "id": "postnatal",
+          "value": 13239
+        },
+        {
+          "id": "td",
+          "value": 13746
+        }
+      ]
+    },
+    {
+      "id": "children",
+      "photo": "child",
+      "stats": [
+        {
+          "id": "bcg",
+          "value": 13344
+        },
+        {
+          "id": "penta",
+          "value": 13785
+        },
+        {
+          "id": "growth",
+          "value": 71002
+        },
+        {
+          "id": "under5",
+          "value": 35450
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "photo": "family-planning",
+      "stats": [
+        {
+          "id": "fp_new",
+          "value": 13203
+        },
+        {
+          "id": "fp_revisit",
+          "value": 19700
+        }
+      ]
+    },
+    {
+      "id": "clinic",
+      "photo": "physio",
+      "stats": [
+        {
+          "id": "lab",
+          "value": 28526
+        },
+        {
+          "id": "ultrasound",
+          "value": 7945
+        },
+        {
+          "id": "physio",
+          "value": 2064
+        },
+        {
+          "id": "dental",
+          "value": 1026
+        }
+      ]
+    }
   ],
   "vaccines": [
-    { "id": "epi", "rows": [
-      { "id": "opv", "value": 41010 },
-      { "id": "penta", "value": 41010 },
-      { "id": "pcv", "value": 40917 },
-      { "id": "ipv", "value": 27361 },
-      { "id": "mr", "value": 26166 },
-      { "id": "bcg", "value": 13344 }
-    ] },
-    { "id": "other", "rows": [
-      { "id": "hepb", "value": 5867 },
-      { "id": "flu", "value": 4049 },
-      { "id": "rota", "value": 3607 },
-      { "id": "typhoid", "value": 2196 },
-      { "id": "mmr", "value": 1739 },
-      { "id": "chickenpox", "value": 1645 },
-      { "id": "hepa", "value": 1460 },
-      { "id": "cholera", "value": 1420 },
-      { "id": "pneumo", "value": 901 },
-      { "id": "mening", "value": 686 },
-      { "id": "hexa", "value": 302 },
-      { "id": "rabies", "value": 254 },
-      { "id": "hpv", "value": 178 },
-      { "id": "td", "value": 146 },
-      { "id": "je", "value": 110 }
-    ] }
+    {
+      "id": "epi",
+      "rows": [
+        {
+          "id": "opv",
+          "value": 41010
+        },
+        {
+          "id": "penta",
+          "value": 41010
+        },
+        {
+          "id": "pcv",
+          "value": 40917
+        },
+        {
+          "id": "ipv",
+          "value": 27361
+        },
+        {
+          "id": "mr",
+          "value": 26166
+        },
+        {
+          "id": "bcg",
+          "value": 13344
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "rows": [
+        {
+          "id": "hepb",
+          "value": 5867
+        },
+        {
+          "id": "flu",
+          "value": 4049
+        },
+        {
+          "id": "rota",
+          "value": 3607
+        },
+        {
+          "id": "typhoid",
+          "value": 2196
+        },
+        {
+          "id": "mmr",
+          "value": 1739
+        },
+        {
+          "id": "chickenpox",
+          "value": 1645
+        },
+        {
+          "id": "hepa",
+          "value": 1460
+        },
+        {
+          "id": "cholera",
+          "value": 1420
+        },
+        {
+          "id": "pneumo",
+          "value": 901
+        },
+        {
+          "id": "mening",
+          "value": 686
+        },
+        {
+          "id": "hexa",
+          "value": 302
+        },
+        {
+          "id": "rabies",
+          "value": 254
+        },
+        {
+          "id": "hpv",
+          "value": 178
+        },
+        {
+          "id": "td",
+          "value": 146
+        },
+        {
+          "id": "je",
+          "value": 110
+        }
+      ]
+    }
   ],
-  "years": ["1994", "2014", "2015", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22"],
+  "years": [
+    "1994",
+    "2014",
+    "2015",
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22"
+  ],
   "series": [
-    { "id": "total", "values": [169917, 479278, 434837, 421899, 518857, 498564, 473352, 456515, 525845] },
-    { "id": "mr", "values": [12907, 8930, 6888, 17654, 19053, 20474, 20631, 22511, 26166] },
-    { "id": "antenatal", "values": [38976, 27615, 29728, 29690, 22258, 23315, 20742, 19149, 20465] },
-    { "id": "postnatal", "values": [4408, 8147, 8788, 6060, 6801, 8384, 8123, 9409, 13239] },
-    { "id": "fp", "values": [37067, 26088, 23306, 17568, 18867, 23147, 22503, 26918, 32903] },
-    { "id": "lab", "values": [24971, 38633, 36138, 29186, 29527, 29114, 27630, 25798, 28526] }
+    {
+      "id": "total",
+      "values": [
+        169917,
+        479278,
+        434837,
+        421899,
+        518857,
+        498564,
+        473352,
+        456515,
+        525845
+      ]
+    },
+    {
+      "id": "mr",
+      "values": [
+        12907,
+        8930,
+        6888,
+        17654,
+        19053,
+        20474,
+        20631,
+        22511,
+        26166
+      ]
+    },
+    {
+      "id": "antenatal",
+      "values": [
+        38976,
+        27615,
+        29728,
+        29690,
+        22258,
+        23315,
+        20742,
+        19149,
+        20465
+      ]
+    },
+    {
+      "id": "postnatal",
+      "values": [
+        4408,
+        8147,
+        8788,
+        6060,
+        6801,
+        8384,
+        8123,
+        9409,
+        13239
+      ]
+    },
+    {
+      "id": "fp",
+      "values": [
+        37067,
+        26088,
+        23306,
+        17568,
+        18867,
+        23147,
+        22503,
+        26918,
+        32903
+      ]
+    },
+    {
+      "id": "lab",
+      "values": [
+        24971,
+        38633,
+        36138,
+        29186,
+        29527,
+        29114,
+        27630,
+        25798,
+        28526
+      ]
+    }
   ],
   "targets": [
-    { "id": "bcg", "target": 1613, "achieved": 1820 },
-    { "id": "opv", "target": 1613, "achieved": 1742 },
-    { "id": "penta3", "target": 1613, "achieved": 1742 },
-    { "id": "antenatal", "target": 6450, "achieved": 4542 },
-    { "id": "postnatal", "target": 1911, "achieved": 4972 },
-    { "id": "bcc", "target": 1822, "achieved": 2592 }
+    {
+      "id": "bcg",
+      "target": 1613,
+      "achieved": 1820,
+      "previous": {
+        "target": 1565,
+        "achieved": 1633
+      }
+    },
+    {
+      "id": "opv",
+      "target": 1613,
+      "achieved": 1742,
+      "previous": {
+        "target": 1565,
+        "achieved": 1528
+      }
+    },
+    {
+      "id": "penta3",
+      "target": 1613,
+      "achieved": 1742,
+      "previous": {
+        "target": 1565,
+        "achieved": 1528
+      }
+    },
+    {
+      "id": "antenatal",
+      "target": 6450,
+      "achieved": 4542,
+      "previous": {
+        "target": 6450,
+        "achieved": 4890
+      }
+    },
+    {
+      "id": "postnatal",
+      "target": 1911,
+      "achieved": 4972,
+      "previous": {
+        "target": 1911,
+        "achieved": 2345
+      }
+    },
+    {
+      "id": "bcc",
+      "target": 1822,
+      "achieved": 2592
+    }
   ],
-  "wards": { "north": [2, 3, 5, 8, 15, 52, 53, 54], "south": [1, 33, 38, 49, 59] },
+  "wards": {
+    "north": [
+      2,
+      3,
+      5,
+      8,
+      15,
+      52,
+      53,
+      54
+    ],
+    "south": [
+      1,
+      33,
+      38,
+      49,
+      59
+    ]
+  },
   "staff": [
-    { "id": "mchfp", "value": 98 },
-    { "id": "plan", "value": 24 },
-    { "id": "community", "value": 17 },
-    { "id": "admin", "value": 15 },
-    { "id": "miycn", "value": 9 },
-    { "id": "training", "value": 5 },
-    { "id": "institute", "value": 4 },
-    { "id": "idkids", "value": 4 }
+    {
+      "id": "mchfp",
+      "value": 98
+    },
+    {
+      "id": "plan",
+      "value": 24
+    },
+    {
+      "id": "community",
+      "value": 17
+    },
+    {
+      "id": "admin",
+      "value": 15
+    },
+    {
+      "id": "miycn",
+      "value": 9
+    },
+    {
+      "id": "training",
+      "value": 5
+    },
+    {
+      "id": "institute",
+      "value": 4
+    },
+    {
+      "id": "idkids",
+      "value": 4
+    }
   ],
   "students": [
-    { "id": "women", "value": 76 },
-    { "id": "men", "value": 36 }
+    {
+      "id": "women",
+      "value": 76
+    },
+    {
+      "id": "men",
+      "value": 36
+    }
   ],
   "funding": [
-    { "year": "1994", "foreign": 201.31, "local": 21.34 },
-    { "year": "2021-22", "foreign": 0, "local": 721.9 }
+    {
+      "year": "1994",
+      "foreign": 201.31,
+      "local": 21.34
+    },
+    {
+      "year": "2021-22",
+      "foreign": 0,
+      "local": 721.9
+    }
   ],
   "finance": [
-    { "year": "2017-18", "income": 682.72, "spending": 662.48 },
-    { "year": "2018-19", "income": 692.33, "spending": 662.8 },
-    { "year": "2019-20", "income": 629.42, "spending": 612.74 },
-    { "year": "2020-21", "income": 706.72, "spending": 686.37 },
-    { "year": "2021-22", "income": 721.9, "spending": 685.41 }
-  ]
+    {
+      "year": "2015",
+      "income": 622.48,
+      "spending": 601.16
+    },
+    {
+      "year": "2016-17",
+      "income": 615.99,
+      "spending": 587.54
+    },
+    {
+      "year": "2017-18",
+      "income": 682.72,
+      "spending": 662.48
+    },
+    {
+      "year": "2018-19",
+      "income": 692.33,
+      "spending": 662.8
+    },
+    {
+      "year": "2019-20",
+      "income": 629.42,
+      "spending": 612.74
+    },
+    {
+      "year": "2020-21",
+      "income": 706.72,
+      "spending": 686.37
+    },
+    {
+      "year": "2021-22",
+      "income": 721.9,
+      "spending": 685.41
+    }
+  ],
+  "compare": {
+    "from": "2019-20",
+    "to": "2021-22",
+    "rows": [
+      {
+        "id": "total",
+        "before": 473352,
+        "after": 525845
+      },
+      {
+        "id": "mr",
+        "before": 20631,
+        "after": 26166
+      },
+      {
+        "id": "growth",
+        "before": 60493,
+        "after": 71002
+      },
+      {
+        "id": "postnatal",
+        "before": 8123,
+        "after": 13239
+      },
+      {
+        "id": "fp",
+        "before": 22503,
+        "after": 32903
+      },
+      {
+        "id": "antenatal",
+        "before": 20742,
+        "after": 20465
+      },
+      {
+        "id": "satellite",
+        "before": 15,
+        "after": 45
+      },
+      {
+        "id": "staff",
+        "before": 169,
+        "after": 176
+      }
+    ]
+  }
 }

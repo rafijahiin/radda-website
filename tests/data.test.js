@@ -313,6 +313,27 @@ test("keeps the published figures consistent with the annual report totals", () 
   for (const entry of impact.series) assert.equal(entry.bars.length, impact.years.length);
 });
 
+test("works out the change between two reports and keeps each row on its own scale", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [],
+    compare: { from: "A", to: "B", rows: [{ id: "up", before: 50, after: 100 }, { id: "down", before: 200, after: 150 }] }
+  } });
+
+  assert.deepEqual(impact.compare.rows.map((row) => [row.change, row.beforeWidth, row.afterWidth]), [[100, 50, 100], [-25, 100, 75]]);
+});
+
+test("keeps the two annual reports consistent where they overlap", () => {
+  const impact = load("impact.js", {});
+  const seriesValue = (id, year) => impact.series.find((entry) => entry.id === id).bars.find((bar) => bar.year === year).value;
+
+  for (const row of impact.compare.rows.filter((r) => impact.series.some((entry) => entry.id === r.id))) {
+    assert.equal(row.before, seriesValue(row.id, impact.compare.from), row.id + " in " + impact.compare.from);
+    assert.equal(row.after, seriesValue(row.id, impact.compare.to), row.id + " in " + impact.compare.to);
+  }
+  assert.equal(impact.compare.rows.find((r) => r.id === "staff").after, impact.staffTotal);
+  assert.equal(impact.compare.rows.find((r) => r.id === "satellite").after, impact.reach.find((f) => f.id === "satellite").value);
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

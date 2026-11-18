@@ -603,7 +603,7 @@
     "institute_link": "News from our partners",
     "community_alt": "Radda staff and local people walk in a World Population Day rally in Dhaka in July 2019, carrying the centre's banner.",
     "source_title": "About these figures",
-    "source_body": "Every figure on this page comes from the Radda MCH-FP Centre Annual Report 2021-22, which covers July 2021 to June 2022. It is the most recent report available on raddacentre.org. The figures do not reflect the attack on our Mirpur-1 centre in September 2026.",
+    "source_body": "Every figure on this page comes from Radda MCH-FP Centre's own annual reports: the report for 2021-22 (July 2021 to June 2022), which is the most recent, and the report for 2019-20 for the comparison with two years earlier. The figures do not reflect the attack on our Mirpur-1 centre in September 2026.",
     "source_link": "Annual Report 2021-22 (PDF, raddacentre.org)",
     "contacts_label": "service contacts in one year",
     "then": "{times} times as many as in 1994, when the centre recorded {then}.",
@@ -706,7 +706,21 @@
     "students": {
       "women": "{n} women",
       "men": "{n} men"
-    }
+    },
+    "compare_eyebrow": "Two reports compared",
+    "compare_title": "From 2019-20 to 2021-22",
+    "compare_intro": "The 2019-20 year ended in the first months of the COVID-19 pandemic. Two years later most services had grown; antenatal care was slightly lower.",
+    "compare_rows": {
+      "total": "All service contacts",
+      "mr": "Measles-rubella vaccinations",
+      "growth": "Growth checks for under-fives",
+      "postnatal": "Postnatal care with vitamin A",
+      "fp": "Family planning methods and services",
+      "antenatal": "Antenatal care",
+      "satellite": "Satellite clinics",
+      "staff": "Staff"
+    },
+    "target_previous": "In 2019-20: {n}%"
   },
   "tools": {
     "h1": "Plan your care",

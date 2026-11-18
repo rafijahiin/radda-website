@@ -1,6 +1,6 @@
 // Prepares the figures for the "Radda in numbers" page. The numbers themselves are
-// in impactFigures.json, copied from the centre's Annual Report 2021-22 (which page
-// of the report each one comes from is listed in docs/SOURCES.md). This file only
+// in impactFigures.json, copied from the centre's Annual Reports for 2021-22 and
+// 2019-20 (the page of the report behind each one is listed in docs/SOURCES.md). This file only
 // does the arithmetic the charts need (bar lengths, shares, totals), so the page
 // template never calculates anything.
 const figures = require("./impactFigures.json");
@@ -48,7 +48,20 @@ const series = (figures.series || []).map((entry) => {
 
 const targets = (figures.targets || []).map((row) => {
   const longest = Math.max(row.target, row.achieved);
-  return { ...row, percent: Math.round(share(row.achieved, row.target)), width: share(row.achieved, longest), mark: share(row.target, longest) };
+  const previousPercent = row.previous ? Math.round(share(row.previous.achieved, row.previous.target)) : null;
+  return { ...row, previousPercent, percent: Math.round(share(row.achieved, row.target)), width: share(row.achieved, longest), mark: share(row.target, longest) };
+});
+
+// Two reports side by side: each row keeps its own scale, so a row about 45 clinics
+// is as easy to read as one about half a million contacts.
+const compareRows = ((figures.compare || {}).rows || []).map((row) => {
+  const longest = Math.max(row.before, row.after);
+  return {
+    ...row,
+    beforeWidth: share(row.before, longest),
+    afterWidth: share(row.after, longest),
+    change: row.before > 0 ? Math.round(((row.after - row.before) / row.before) * FULL) : 0
+  };
 });
 
 const staffTotal = sum((figures.staff || []).map((row) => row.value));
@@ -74,6 +87,7 @@ module.exports = {
   vaccineKinds: allVaccines.length,
   series,
   targets,
+  compare: { ...(figures.compare || {}), rows: compareRows },
   staff,
   staffTotal,
   studentTotal: sum((figures.students || []).map((row) => row.value)),

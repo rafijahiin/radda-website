@@ -407,7 +407,7 @@ a.card:hover { color: inherit; }
 .targets li { padding: 16px 20px 14px; }
 .target-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; font-weight: 700; color: var(--ink); line-height: 1.35; }
 .target-head b { font-size: 1.375rem; font-variant-numeric: tabular-nums; }
-.target-head .short { color: var(--accent); }
+.target-head b.short { color: var(--accent); }
 .target-track { position: relative; height: 16px; margin: 12px 0 10px; background: var(--grey); }
 .target-track .bar { background: var(--blue); }
 .target-track i { position: absolute; top: -5px; bottom: -5px; width: 3px; margin-left: -3px; background: var(--ink); }
@@ -523,6 +523,19 @@ a.card:hover { color: inherit; }
 .info-status { color: var(--ink); }
 :is(.figures-wrap, .cta-photo, .band-wrap, .page-hero, .share-card) .eyebrow::before { background: #fff; }
 .info-panel table.hours th, .info-panel table.hours td { border-bottom-color: rgba(255, 255, 255, .4); }
+
+/* Two reports compared: a grey bar for the earlier year, a blue one for the later. */
+.compare { margin-top: clamp(44px, 6vw, 72px); }
+.compare .section-head { align-items: flex-end; }
+.compare-list { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 clamp(24px, 4vw, 56px); border-top: 2px solid var(--ink); }
+.compare-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.compare-name { font-weight: 700; color: var(--ink); line-height: 1.35; }
+.compare-list .pair { grid-column: 1 / -1; }
+.pair-row.then .bar, .key-then { background: var(--line-strong); }
+.change { display: inline-flex; align-items: center; gap: 4px; font-size: 1.125rem; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--green); }
+.change.down { color: var(--accent); }
+.change svg { width: 18px; height: 18px; }
+.target-prev { margin-left: 14px; padding-left: 14px; border-left: 1px solid var(--line-strong); white-space: nowrap; }
 
 .news-item .go { width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); }
 .news-item .go svg { width: 22px; height: 22px; }
@@ -843,7 +856,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .feature .body, .feature.reverse .body { border-radius: 0 0 var(--radius) var(--radius); }
   .feature .feature-media .photo { aspect-ratio: 16 / 10; min-height: 0; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser { grid-template-columns: minmax(0, 1fr); }
+  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser, .compare-list { grid-template-columns: minmax(0, 1fr); }
   .waffle { max-width: 440px; }
   .figures { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 0; }
   .figure:nth-child(odd) { padding-left: 0; border-left: 0; }

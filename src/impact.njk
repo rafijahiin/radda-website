@@ -166,6 +166,29 @@ depth: 0
       {%- endfor %}
     </div>
   </div>
+  <div class="container compare" data-reveal>
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">{{ m.compare_eyebrow }}</span>
+        <h2 id="compare-h">{{ m.compare_title }}</h2>
+        <p>{{ m.compare_intro }}</p>
+      </div>
+      <p class="chart-key"><span><i class="key key-then" aria-hidden="true"></i>{{ impact.compare.from | digits(lng.code) }}</span><span><i class="key key-local" aria-hidden="true"></i>{{ impact.compare.to | digits(lng.code) }}</span></p>
+    </div>
+    <ol class="compare-list">
+      {%- for row in impact.compare.rows %}
+      {%- set rose = row.change >= 0 %}
+      <li>
+        <span class="compare-name">{{ m.compare_rows[row.id] }}</span>
+        <b class="change {{ 'up' if rose else 'down' }}">{% set changeIcon = "up" if rose else "down" %}{% icon changeIcon, 2.6 %}{{ m.percent | replace("{n}", ("+" if rose else "-") + (row.change | abs | num(loc))) }}</b>
+        <span class="pair">
+          <span class="pair-row then"><span class="bar" style="--w: {{ row.beforeWidth }}"></span><b>{{ row.before | num(loc) }}</b></span>
+          <span class="pair-row"><span class="bar" style="--w: {{ row.afterWidth }}"></span><b>{{ row.after | num(loc) }}</b></span>
+        </span>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
 </section>
 
 <section class="section tint" aria-labelledby="targets-h">
@@ -181,7 +204,7 @@ depth: 0
       <li>
         <div class="target-head"><span><i class="mark {{ 'met' if row.percent >= 100 else 'short' }}" aria-hidden="true">{% set markIcon = "check" if row.percent >= 100 else "alert" %}{% icon markIcon, 3 %}</i>{{ m.target_names[row.id] }}</span><b class="{{ 'met' if row.percent >= 100 else 'short' }}">{{ m.percent | replace("{n}", row.percent | num(loc)) }}</b></div>
         <div class="target-track" aria-hidden="true"><span class="bar" style="width: {{ row.width }}%"></span><i style="left: {{ row.mark }}%"></i></div>
-        <div class="target-foot">{{ m.target_line | replace("{done}", row.achieved | num(loc)) | replace("{goal}", row.target | num(loc)) }}</div>
+        <div class="target-foot">{{ m.target_line | replace("{done}", row.achieved | num(loc)) | replace("{goal}", row.target | num(loc)) }}{% if row.previousPercent %}<span class="target-prev">{{ m.target_previous | replace("{n}", row.previousPercent | num(loc)) }}</span>{% endif %}</div>
       </li>
       {%- endfor %}
     </ol>

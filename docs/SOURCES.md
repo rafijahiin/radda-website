@@ -32,6 +32,24 @@ Notes on how the figures are used:
 - The report gives the year of establishment as 1973 on page 1 and says operations
   began in 1974 on pages 3 and 5. The site uses 1974.
 
+## Annual Report 2019-20
+
+The comparison "From 2019-20 to 2021-22", the earlier-year line under each target and
+the 2015 and 2016-17 rows of the income chart come from the **Annual Report 2019-20**
+(a PDF supplied by the centre; it is not on raddacentre.org at the time of writing).
+
+| What the site shows | Where in the 2019-20 report |
+|---|---|
+| 169 staff; 6 static clinics, 10 satellite clinics in Dhaka North and 5 in Dhaka South | page 1 |
+| Community health programme: target against achievement, 2019-20 | page 16 |
+| Every service by year up to 2019-20 | pages 17 and 18 |
+| Income and spending for 2015 and 2016-17 | page 32 |
+
+Where the two reports overlap they agree, with one exception: spending in 2019-20 is
+Tk 609.74 lakh in the 2019-20 report (which also records a surplus of Tk 19.68 lakh, the
+difference from that year's income) and Tk 612.74 lakh in the 2021-22 report. The site
+shows the later report's figure. The centre should say which is right.
+
 ## Health tools
 
 The vaccine dates on the health tools page follow the national immunization
