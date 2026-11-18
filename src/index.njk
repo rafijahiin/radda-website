@@ -12,7 +12,7 @@ depth: 0
 <div class="notice" role="region" aria-label="{{ h.notice_aria }}"{% if item.notice_until %} data-until="{{ item.notice_until }}"{% endif %}>
   <div class="container">
     <span class="tag">{{ h.notice_tag }}</span>
-    <p>{{ item[lng.code].summary or item[lng.code].title }} {% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ h.read_more }}</a>{% else %}<a href="{{ up }}news/{{ item.id }}.html">{{ h.read_more }}</a>{% endif %}{% if appeal.published %} <a class="notice-help" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>{% endif %}</p>
+    <a class="notice-link" {% if item.url %}href="{{ item.url }}" target="_blank" rel="noopener"{% else %}href="{{ up }}news/{{ item.id }}.html"{% endif %}><span>{{ item[lng.code].title }}</span><b>{{ h.read_more }} {% icon "arrow", 2.4 %}</b></a>
   </div>
 </div>
 {%- endif %}{% endfor %}
@@ -25,7 +25,7 @@ depth: 0
     {%- set shown = 0 %}
     {%- for s in h.slides %}{% if not s.appeal or appeal.published %}
     {%- set shown = shown + 1 %}
-    <div class="slide{% if not (s.photo | hasPhoto) %} no-photo{% endif %}" role="group" aria-roledescription="slide">
+    <div class="slide{% if shown == 1 %} is-active{% endif %}{% if not (s.photo | hasPhoto) %} no-photo{% endif %}" role="group" aria-roledescription="slide">
       {%- if s.photo | hasPhoto %}
       <div class="photo slide-photo">{% photo root, s.photo, s.alt, "eager" if loop.first else "lazy" %}</div>
       {%- endif %}
@@ -144,7 +144,7 @@ depth: 0
     </div>
     <div class="figures" data-reveal>
       {%- for f in h.figures %}
-      <div class="figure"><div class="n">{% if f.pre %}<sup>{{ f.pre }}</sup>{% endif %}{{ f.n }}</div><div class="l">{{ f.label }}</div></div>
+      <div class="figure"><div class="n"{% if f.count %} data-count="{{ f.count }}"{% endif %}>{{ f.n }}</div><div class="l">{{ f.label }}</div></div>
       {%- endfor %}
     </div>
     <div class="figures-foot" data-reveal>

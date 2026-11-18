@@ -40,7 +40,7 @@ depth: 0
     <div class="glance" data-reveal>
       <div class="glance-main">
         <span class="eyebrow">{{ m.head_eyebrow }} · {{ m.period }}</span>
-        <h2 id="glance-h" class="mega"><b>{{ impact.contacts | num(loc) }}</b>{{ m.contacts_label }}</h2>
+        <h2 id="glance-h" class="mega"><b data-count="{{ impact.contacts }}">{{ impact.contacts | num(loc) }}</b>{{ m.contacts_label }}</h2>
         <p class="glance-then">{{ m.then | replace("{times}", impact.timesSince1994 | num(loc, 1)) | replace("{then}", impact.contacts_1994 | num(loc)) }}</p>
         <div class="then-bars" aria-hidden="true">
           <div><span>{{ "1994" | digits(lng.code) }}</span><i style="width: {{ impact.series[0].bars[0].width }}%"></i></div>
@@ -49,7 +49,7 @@ depth: 0
       </div>
       <dl class="glance-side">
         {%- for f in impact.reach %}
-        <div><dd><span class="card-ico" aria-hidden="true">{% icon reachIcons[f.id], 1.8 %}</span>{{ f.value | num(loc) }}</dd><dt>{{ m.reach[f.id] }}</dt></div>
+        <div><dd><span class="card-ico" aria-hidden="true">{% icon reachIcons[f.id], 1.8 %}</span><span data-count="{{ f.value }}">{{ f.value | num(loc) }}</span></dd><dt>{{ m.reach[f.id] }}</dt></div>
         {%- endfor %}
       </dl>
     </div>
@@ -103,7 +103,7 @@ depth: 0
           <h3>{{ m.groups[group.id] }}</h3>
           <dl class="stats">
             {%- for stat in group.stats %}
-            <div><dd>{{ stat.value | num(loc) }}</dd><dt>{{ m.stats[stat.id] }}</dt></div>
+            <div><dd data-count="{{ stat.value }}">{{ stat.value | num(loc) }}</dd><dt>{{ m.stats[stat.id] }}</dt></div>
             {%- endfor %}
           </dl>
         </div>

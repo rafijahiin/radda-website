@@ -161,36 +161,56 @@ table { border-collapse: collapse; width: 100%; }
 .menu-btn[aria-expanded="true"] span:first-child { top: 20px; transform: rotate(45deg); }
 .menu-btn[aria-expanded="true"] span:last-child { top: 20px; transform: rotate(-45deg); }
 
-.notice { background: var(--yellow-50); color: var(--ink); font-size: 1rem; border-bottom: 1px solid #ecd58a; }
-.notice .container { display: flex; align-items: center; gap: 14px; padding-block: 12px; }
-.notice p { margin: 0; }
-.notice a { color: var(--ink); font-weight: 700; }
-.notice-help { margin-left: 10px; white-space: nowrap; }
+.notice { background: var(--black); color: #fff; font-size: 1rem; }
+.notice .container { display: flex; align-items: center; gap: 14px; padding-block: 9px; }
+.notice-link { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 2px 14px; color: #fff; text-decoration: none; line-height: 1.4; }
+.notice-link b { display: inline-flex; align-items: center; gap: 6px; color: var(--yellow); white-space: nowrap; }
+.notice-link b svg { width: 1.05em; height: 1.05em; transition: transform .2s ease; }
+.notice-link:hover span { text-decoration: underline; }
+.notice-link:hover b svg { transform: translateX(4px); }
+.notice .tag { display: inline-flex; align-items: center; gap: 7px; }
+.notice .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--black); animation: pulse 1.8s ease-in-out infinite; }
 .tag { flex: none; font-size: .75rem; font-weight: 700; line-height: 1.4; letter-spacing: .08em; text-transform: uppercase; background: var(--yellow); color: var(--ink); padding: 3px 9px; border-radius: 3px; }
 
 /* 5. Hero carousel -------------------------------------------------------- */
 /* Each slide is a photograph with a cyan panel beside it, as on unicef.org. The
    slides sit side by side in a strip that scrolls sideways, so a finger swipe
    works without any script; the buttons and the timer are added by site.js. */
-.hero { position: relative; background: var(--blue); }
-.slides { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
-.slides::-webkit-scrollbar { display: none; }
-.slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); min-height: clamp(400px, 40vw, 580px); }
+.hero { position: relative; background: var(--blue); overflow: hidden; }
+/* The slides lie on top of each other. The one coming in fades in above the one
+   going out, which stays in place until the fade is over, so the picture never
+   dips to the background colour in between. */
+.slides { display: grid; }
+.slide { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); min-height: clamp(400px, 40vw, 580px); opacity: 0; visibility: hidden; transition: opacity 0s linear .9s, visibility 0s linear .9s; }
+.slide.is-active { z-index: 1; opacity: 1; visibility: visible; transition: opacity .9s ease; }
 .slide.no-photo { grid-template-columns: minmax(0, 1fr); }
 .slide-photo { min-height: 260px; }
+.slide-photo img { transform: scale(1.07); transition: opacity .5s ease, transform 8s ease-out; }
+.slide.is-active .slide-photo img { transform: scale(1); }
 .slide-panel { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; padding: clamp(28px, 3vw, 44px) clamp(24px, 3vw, 44px) clamp(88px, 7vw, 104px); background: var(--blue); color: var(--ink); }
 .slide.no-photo .slide-panel { padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2)); }
 .slide-panel :is(h1, h2) { font-size: clamp(1.75rem, 2.9vw, 2.625rem); line-height: 1.19; }
 .slide-panel p { margin: 0; font-size: 1.125rem; line-height: 1.5; max-width: 34ch; }
 .slide-panel .btn { margin-top: 8px; }
-.carousel-controls { position: absolute; right: 0; bottom: 0; width: calc(100% / 3); display: flex; align-items: center; gap: 8px; padding: 0 clamp(24px, 3vw, 44px) 28px; }
+.js .slide-panel > * { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.js .slide.is-active .slide-panel > * { opacity: 1; transform: none; }
+.js .slide.is-active .slide-panel > :nth-child(1) { transition-delay: .25s; }
+.js .slide.is-active .slide-panel > :nth-child(2) { transition-delay: .38s; }
+.js .slide.is-active .slide-panel > :nth-child(3) { transition-delay: .5s; }
+.carousel-controls { position: absolute; z-index: 2; right: 0; bottom: 0; width: calc(100% / 3); display: flex; align-items: center; gap: 8px; padding: 0 clamp(24px, 3vw, 44px) 28px; }
 .carousel-btn { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 2.5px solid var(--ink); border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
 .carousel-btn:hover { background: var(--hover-bg); color: var(--hover-fg); }
 .carousel-btn svg { width: 20px; height: 20px; }
-.carousel-btn[aria-pressed="true"] .i-pause, .carousel-btn[aria-pressed="false"] .i-play { display: none; }
-.dots { display: flex; gap: 8px; margin-left: auto; }
-.dot { width: 14px; height: 14px; padding: 0; border-radius: 50%; border: 2.5px solid var(--ink); background: transparent; cursor: pointer; }
-.dot[aria-current="true"] { background: var(--ink); }
+/* While the slides are playing the button offers "pause"; while paused it offers "play". */
+.carousel-btn[aria-pressed="true"] .i-play, .carousel-btn[aria-pressed="false"] .i-pause { display: none; }
+/* Each dot is a short line; the current one fills up as the timer runs. */
+.dots { display: flex; gap: 6px; margin-left: auto; }
+.dot { position: relative; width: 30px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.dot::before, .dot::after { content: ""; position: absolute; left: 0; top: 10px; height: 4px; }
+.dot::before { width: 100%; background: rgba(255, 255, 255, .4); }
+.dot::after { width: 0; background: #fff; }
+.dot[aria-current="true"]::after { width: 100%; }
+.hero.is-playing .dot[aria-current="true"]::after { animation: dot-fill var(--slide-ms, 7s) linear both; }
 
 /* 6. Home sections -------------------------------------------------------- */
 .quick { border-bottom: 1px solid var(--line); }
@@ -747,12 +767,40 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; animation-timing-function: ease; }
 .utility { view-transition-name: utility; }
-.js [data-reveal] { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; transition-delay: calc(var(--d, 0) * 60ms); }
+.js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; transition-delay: calc(var(--d, 0) * 70ms); }
 .js [data-reveal].in { opacity: 1; transform: none; }
+
+/* Charts draw themselves the first time they are seen: bars fill from the left,
+   figures and pins appear one after another, the short line above a heading grows.
+   (--i is the row's place in the queue; the script sets it.) */
+@keyframes bar-grow { from { transform: scaleX(0); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes pic-in { from { opacity: 0; transform: scale(.3); } }
+@keyframes line-grow { from { width: 0; } }
+@keyframes dot-fill { from { width: 0; } }
+@keyframes pulse { 50% { opacity: .25; } }
+.bar, .then-bars i, .fund-track span { transform-origin: left center; }
+.js [data-reveal] :is(.bar, .then-bars i, .fund-track span) { transform: scaleX(0); }
+.js [data-reveal].in :is(.bar, .then-bars i, .fund-track span) { transform: none; animation: bar-grow .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(.12s + var(--i, 0) * 45ms); }
+.chart.replay .bar { animation: bar-grow .6s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 35ms); }
+.js [data-reveal] .pictogram .pic, .js [data-reveal] .wards span { opacity: 0; }
+.js [data-reveal].in .pictogram .pic { opacity: 1; animation: pic-in .32s ease both; }
+.js [data-reveal].in .wards span { opacity: 1; animation: fade-in .4s ease both; animation-delay: calc(.1s + var(--i, 0) * 70ms); }
+.js [data-reveal].in .eyebrow::before { animation: line-grow .6s ease .15s both; }
+.card .photo img { transition: opacity .5s ease, transform .6s ease; }
+.card:hover .photo img { transform: scale(1.04); }
+.teaser > svg { transition: transform .2s ease; }
+.teaser:hover > svg { transform: translateX(4px); }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
-  .js [data-reveal] { opacity: 1; transform: none; }
+  /* Gentle mode, for devices with animation switched off (Windows "Animation
+     effects", for example): things still fade and charts still fill, but nothing
+     slides, zooms or pops. */
+  .js [data-reveal], .js .slide-panel > * { transform: none; }
+  .slide-photo img, .slide.is-active .slide-photo img, .card:hover .photo img { transform: none; }
+  .js [data-reveal].in .pictogram .pic { animation-name: fade-in; }
+  .notice .tag::before { animation: none; }
 }
 
 @media (max-width: 1080px) {
@@ -856,4 +904,5 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 @media print {
   .utility, .brand-actions, .site-header, .mbar, .band-wrap, .cta-photo, .quick, .notice, .map, .site-footer .social, .search, .carousel-controls, .tool-form, .plan-actions { display: none !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .js [data-reveal] :is(.bar, .then-bars i, .fund-track span, .pic, .wards span) { opacity: 1 !important; transform: none !important; animation: none !important; }
 }

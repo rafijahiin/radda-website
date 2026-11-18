@@ -17,7 +17,10 @@
   var SNIPPET_LENGTH = 110;
   var DONE_LABEL_MS = 2000;
   var SLIDE_INTERVAL_MS = 7000;
-  var SCROLL_SETTLE_MS = 120;
+  var SWIPE_MIN_PX = 40;
+  var COUNT_MS = 1400;
+  var COUNT_SAFETY_MS = 250;
+  var PICTOGRAM_MS = 900;
   var PHONE_PATTERN = /^(?:88)?01[3-9]\d{8}$/;   // Bangladeshi mobile, with or without 88
   var BANGLA_DIGITS = "০১২৩৪৫৬৭৮৯";
 
@@ -159,7 +162,7 @@
      Scroll reveals
      ------------------------------------------------------------------ */
   var revealEls = document.querySelectorAll("[data-reveal]");
-  if ("IntersectionObserver" in window && !reduceMotion) {
+  if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -202,63 +205,117 @@
   }
 
   /* ------------------------------------------------------------------
-     Hero carousel. The slides are a strip that scrolls sideways, so swiping
-     works on its own; this adds the buttons, the dots and the timer.
+     Hero carousel. The slides lie on top of each other and cross-fade, so
+     nothing scrolls sideways. Buttons, dots, a swipe, the arrow keys and a
+     timer change the slide. The timer waits while the pointer or the
+     keyboard is on the carousel and while the tab is in the background.
      ------------------------------------------------------------------ */
   var carousel = document.querySelector("[data-carousel]");
   if (carousel) {
-    var track = carousel.querySelector(".slides");
-    var slides = track.children;
+    var slides = carousel.querySelectorAll(".slide");
     var dots = carousel.querySelectorAll("[data-slide-to]");
     var toggle = carousel.querySelector("[data-carousel-toggle]");
     var controls = carousel.querySelector(".carousel-controls");
     var currentSlide = 0;
-    var playing = !reduceMotion;       // people who ask for less motion start paused
-    var hovering = false;
+    var playing = true;
+    var resting = false;        // the pointer or the keyboard focus is on the carousel
     var slideTimer = null;
-    var settleTimer = null;
+    var touchStartX = null;
 
-    var paintSlides = function () {
-      each(slides, function (slide, i) { slide.inert = i !== currentSlide; });     // off-screen links are not reachable
-      each(dots, function (dot, i) { dot.setAttribute("aria-current", i === currentSlide ? "true" : "false"); });
-    };
-    var showSlide = function (index, smooth) {
-      currentSlide = (index + slides.length) % slides.length;
-      track.scrollTo({ left: slides[currentSlide].offsetLeft, behavior: smooth && !reduceMotion ? "smooth" : "auto" });
-      paintSlides();
-    };
     var schedule = function () {
-      clearInterval(slideTimer);
-      if (playing && !hovering) slideTimer = setInterval(function () { showSlide(currentSlide + 1, true); }, SLIDE_INTERVAL_MS);
+      clearTimeout(slideTimer);
+      var running = playing && !resting && !document.hidden;
+      carousel.classList.toggle("is-playing", running);
+      if (running) slideTimer = setTimeout(function () { showSlide(currentSlide + 1); }, SLIDE_INTERVAL_MS);
     };
+    var showSlide = function (index) {
+      currentSlide = (index + slides.length) % slides.length;
+      each(slides, function (slide, i) {
+        slide.classList.toggle("is-active", i === currentSlide);
+        slide.inert = i !== currentSlide;
+      });
+      each(dots, function (dot, i) { dot.setAttribute("aria-current", i === currentSlide ? "true" : "false"); });
+      var nextPhoto = slides[(currentSlide + 1) % slides.length].querySelector("img");
+      if (nextPhoto) nextPhoto.loading = "eager";   // fetch the next photo before it is needed
+      schedule();
+    };
+    var rest = function (isResting) { resting = isResting; schedule(); };
     var paintToggle = function () {
       toggle.setAttribute("aria-pressed", playing ? "true" : "false");
       toggle.setAttribute("aria-label", toggle.getAttribute(playing ? "data-label-pause" : "data-label-play"));
     };
 
     if (slides.length < 2) {
-      controls.hidden = true;
+      if (controls) controls.hidden = true;
     } else {
-      carousel.querySelector("[data-carousel-prev]").addEventListener("click", function () { showSlide(currentSlide - 1, true); schedule(); });
-      carousel.querySelector("[data-carousel-next]").addEventListener("click", function () { showSlide(currentSlide + 1, true); schedule(); });
-      each(dots, function (dot, i) { dot.addEventListener("click", function () { showSlide(i, true); schedule(); }); });
+      carousel.style.setProperty("--slide-ms", SLIDE_INTERVAL_MS + "ms");
+      carousel.querySelector("[data-carousel-prev]").addEventListener("click", function () { showSlide(currentSlide - 1); });
+      carousel.querySelector("[data-carousel-next]").addEventListener("click", function () { showSlide(currentSlide + 1); });
+      each(dots, function (dot, i) { dot.addEventListener("click", function () { showSlide(i); }); });
       toggle.addEventListener("click", function () { playing = !playing; paintToggle(); schedule(); });
-      // A swipe moves the strip itself; once it settles, note which slide is showing.
-      track.addEventListener("scroll", function () {
-        clearTimeout(settleTimer);
-        settleTimer = setTimeout(function () {
-          if (!track.clientWidth) return;                 // not laid out yet (hidden tab)
-          currentSlide = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / track.clientWidth)));
-          paintSlides();
-        }, SCROLL_SETTLE_MS);
-      }, { passive: true });
-      ["mouseenter", "focusin"].forEach(function (type) { carousel.addEventListener(type, function () { hovering = true; schedule(); }); });
-      ["mouseleave", "focusout"].forEach(function (type) { carousel.addEventListener(type, function () { hovering = false; schedule(); }); });
-      window.addEventListener("resize", function () { showSlide(currentSlide, false); });
+      carousel.addEventListener("mouseenter", function () { rest(true); });
+      carousel.addEventListener("mouseleave", function () { rest(false); });
+      carousel.addEventListener("focusin", function () { rest(true); });
+      carousel.addEventListener("focusout", function (event) { if (!carousel.contains(event.relatedTarget)) rest(false); });
+      carousel.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") showSlide(currentSlide - 1);
+        if (event.key === "ArrowRight") showSlide(currentSlide + 1);
+      });
+      carousel.addEventListener("touchstart", function (event) { touchStartX = event.touches[0].clientX; }, { passive: true });
+      carousel.addEventListener("touchend", function (event) {
+        if (touchStartX === null) return;
+        var moved = event.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(moved) >= SWIPE_MIN_PX) showSlide(currentSlide + (moved < 0 ? 1 : -1));
+      });
+      document.addEventListener("visibilitychange", schedule);
       paintToggle();
-      paintSlides();
-      schedule();
+      showSlide(0);
     }
+  }
+
+  /* ------------------------------------------------------------------
+     Motion in the charts and figures
+     ------------------------------------------------------------------ */
+  /* Rows, pins and figures appear in order: each one is told its place in the queue. */
+  each(document.querySelectorAll(".bars, .pairs, .targets, .wards"), function (list) {
+    each(list.children, function (child, i) { child.style.setProperty("--i", i); });
+  });
+  each(document.querySelectorAll(".pictogram"), function (group) {
+    var gap = PICTOGRAM_MS / Math.max(1, group.children.length);
+    each(group.children, function (figure, i) { figure.style.animationDelay = Math.round(i * gap) + "ms"; });
+  });
+
+  /* A number marked data-count runs up from zero the first time it is seen, and
+     ends on exactly the text the page was built with. */
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && "IntersectionObserver" in window && window.requestAnimationFrame) {
+    var wholeNumber = new Intl.NumberFormat(cfg.locale, { maximumFractionDigits: 0 });
+    var runCounter = function (el) {
+      var target = Number(el.getAttribute("data-count"));
+      var finalText = el.textContent;
+      var startedAt = null;
+      var done = false;
+      var step = function (now) {
+        if (startedAt === null) startedAt = now;
+        var progress = Math.min(1, (now - startedAt) / COUNT_MS);
+        var eased = 1 - Math.pow(1 - progress, 3);     // quick at first, settling at the end
+        if (progress >= 1 || done) { el.textContent = finalText; return; }
+        el.textContent = wholeNumber.format(Math.round(target * eased));
+        window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+      // Whatever happens to the animation (a background tab, a print), the true number is restored.
+      setTimeout(function () { done = true; el.textContent = finalText; }, COUNT_MS + COUNT_SAFETY_MS);
+    };
+    var counterWatch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        counterWatch.unobserve(entry.target);
+        runCounter(entry.target);
+      });
+    }, { threshold: 0.4 });
+    each(counters, function (el) { if (isFinite(Number(el.getAttribute("data-count")))) counterWatch.observe(el); });
   }
 
   /* Impact page: one chart at a time, chosen with the buttons. Without this
@@ -271,7 +328,14 @@
   };
   if (chartTabs.length && charts.length) {
     each(chartTabs, function (tab) {
-      tab.addEventListener("click", function () { showChart(tab.getAttribute("data-chart-tab")); });
+      tab.addEventListener("click", function () {
+        var wanted = tab.getAttribute("data-chart-tab");
+        showChart(wanted);
+        each(charts, function (chart) {     // let the bars of the chosen chart fill again
+          chart.classList.remove("replay");
+          if (chart.getAttribute("data-chart") === wanted) { void chart.offsetWidth; chart.classList.add("replay"); }
+        });
+      });
     });
     showChart(chartTabs[0].getAttribute("data-chart-tab"));
   }

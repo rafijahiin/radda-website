@@ -222,15 +222,18 @@
       },
       {
         "n": "525,845",
-        "label": "Service contacts in one year (2021-22)"
+        "label": "Service contacts in one year (2021-22)",
+        "count": 525845
       },
       {
         "n": "6",
-        "label": "Permanent clinics, with 45 satellite clinics"
+        "label": "Permanent clinics, with 45 satellite clinics",
+        "count": 6
       },
       {
         "n": "176",
-        "label": "Staff across our clinics and programmes"
+        "label": "Staff across our clinics and programmes",
+        "count": 176
       }
     ],
     "fig_note": "Figures from our Annual Report 2021-22.",
