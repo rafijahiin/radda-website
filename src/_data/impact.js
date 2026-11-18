@@ -140,6 +140,7 @@ module.exports = {
   targetsMet: targets.filter((row) => row.percent >= TARGET_MET).length,
   journeys: figures.journeys || [],
   milestones: figures.milestones || [],
+  reachBy: Object.fromEntries((figures.reach || []).map((entry) => [entry.id, entry.value])),
   growth: { nowRadius: LARGEST_CIRCLE, thenRadius: figures.contacts > 0 ? circleRadius(figures.contacts_1994 || 0, figures.contacts) : 0 },
   timesSince1994: figures.contacts_1994 > 0 ? Math.round((figures.contacts / figures.contacts_1994) * ONE_DECIMAL) / ONE_DECIMAL : 0,
   mix,

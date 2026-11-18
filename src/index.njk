@@ -18,6 +18,7 @@ depth: 0
 {%- endif %}{% endfor %}
 
 <main id="main">
+{% include "pictograms.njk" %}
 {#- Hero carousel. The slides are listed in the wording files under home.slides; a slide
     marked "appeal" is left out while the rebuild appeal is switched off. -#}
 <section class="hero" data-carousel aria-roledescription="carousel" aria-label="{{ h.carousel.label }}">
@@ -157,10 +158,40 @@ depth: 0
         <span>{{ h.guess_answer | replace("{s}", impact.everySeconds | num(lng.locale)) }}</span>
       </div>
     </div>
-    <div class="figures" data-reveal>
-      {%- for f in h.figures %}
-      <div class="figure"><div class="n"{% if f.count %} data-count="{{ f.count }}"{% endif %}>{{ f.n }}</div><div class="l">{{ f.label }}</div></div>
-      {%- endfor %}
+    {%- set familyPics = { children: "child", care: "cross", mothers: "woman", community: "drop" } %}
+    {%- set total = impact.series[0] %}
+    <div class="home-graphics">
+      <div class="home-graphic" data-reveal>
+        <h3>{{ t.impact.mix_title }}</h3>
+        <div class="pictogram hundred" role="img" aria-label="{{ t.impact.mix_aria }}">
+          {%- for family in impact.mix %}{% for row in family.rows %}{% for n in range(row.squares) %}<svg class="pic tone-{{ family.id }}"><use href="#pic-{{ familyPics[family.id] }}"/></svg>{% endfor %}{% endfor %}{% endfor %}
+        </div>
+        <p class="graphic-key">
+          {%- for family in impact.mix %}
+          <span><svg class="pic tone-{{ family.id }}" aria-hidden="true"><use href="#pic-{{ familyPics[family.id] }}"/></svg>{{ family.squares | num(lng.locale) }} {{ t.impact.mix_families[family.id] }}</span>
+          {%- endfor %}
+        </p>
+      </div>
+      <div class="home-graphic" data-reveal style="--d:1">
+        <h3>{{ h.g_trend_title | replace("{times}", impact.timesSince1994 | num(lng.locale, 1)) }}</h3>
+        <svg class="line-chart always" viewBox="0 0 {{ total.chart.width }} {{ total.chart.height }}" aria-hidden="true" focusable="false">
+          <line class="floor" x1="0" y1="{{ total.chart.floor }}" x2="{{ total.chart.width }}" y2="{{ total.chart.floor }}"/>
+          <path class="area" d="{{ total.chart.area }}"/>
+          <path class="gap" d="{{ total.chart.gap }}"/>
+          <path class="line" d="{{ total.chart.line }}" pathLength="1"/>
+          {%- for point in total.chart.points %}
+          <g class="point{% if loop.last %} latest{% endif %}{% if loop.first %} first{% endif %}"><circle cx="{{ point.x }}" cy="{{ point.y }}" r="{{ 11 if loop.last else 7 }}"/></g>
+          {%- endfor %}
+        </svg>
+        <p>{{ h.g_trend_caption | replace("{then}", impact.contacts_1994 | num(lng.locale)) | replace("{now}", impact.contacts | num(lng.locale)) }}</p>
+      </div>
+      <div class="home-graphic" data-reveal style="--d:2">
+        <h3>{{ h.g_net_title | replace("{static}", impact.reachBy.static | num(lng.locale)) | replace("{satellite}", impact.reachBy.satellite | num(lng.locale)) }}</h3>
+        <div class="pictogram net" aria-hidden="true">
+          {%- for n in range(impact.reachBy.static) %}<span class="net-clinic">{% icon "clinic", 1.8 %}</span>{% endfor %}<i class="net-break"></i>{% for n in range(impact.reachBy.satellite) %}<span class="net-pin">{% icon "pin", 2 %}</span>{% endfor %}
+        </div>
+        <p>{{ h.g_net_caption | replace("{wards}", impact.reachBy.wards | num(lng.locale)) }}</p>
+      </div>
     </div>
     <div class="figures-foot" data-reveal>
       <span>{{ h.fig_note }}</span>
@@ -180,9 +211,10 @@ depth: 0
       {%- for p in h.story %}
       <p>{{ p }}</p>
       {%- endfor %}
+      {%- set yearIcons = ["clinic", "family", "growth"] %}
       <div class="years" aria-hidden="true">
         {%- for y in h.years %}
-        <div><b>{{ y.n }}</b><span>{{ y.label }}</span></div>{% if not loop.last %}<i></i>{% endif %}
+        <div><span class="card-ico">{% icon yearIcons[loop.index0], 1.8 %}</span><b>{{ y.n }}</b><span>{{ y.label }}</span></div>{% if not loop.last %}<i></i>{% endif %}
         {%- endfor %}
       </div>
       <a class="more" href="{{ up }}about.html">{{ h.story_link }}</a>
@@ -196,9 +228,10 @@ depth: 0
       <h2 id="commit-h">{{ h.commit_title }}</h2>
       <p>{{ h.commit_intro }}</p>
     </div>
+    {%- set commitIcons = ["heart", "shield", "family"] %}
     {%- for c in h.commit %}
     <div class="item" data-reveal style="--d:{{ loop.index }}">
-      <div class="num" aria-hidden="true">0{{ loop.index }}</div>
+      <span class="card-ico" aria-hidden="true">{% icon commitIcons[loop.index0], 1.8 %}</span>
       <h3>{{ c.title }}</h3>
       <p>{{ c.body }}</p>
     </div>

@@ -380,9 +380,9 @@ a.card:hover { color: inherit; }
 .unit-5 { background: #777; }
 .unit-6 { background: #ffe08a; }
 .unit-7 { background: #9ad3b0; }
-.shade-1 { opacity: .68; }
-.shade-2 { opacity: .46; }
-.shade-3 { opacity: .28; }
+.shade-1 { opacity: .68; --pic-o: .68; }
+.shade-2 { opacity: .46; --pic-o: .46; }
+.shade-3 { opacity: .28; --pic-o: .28; }
 .mix { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
 .waffle { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; padding: clamp(14px, 2vw, 22px); background: #fff; border-radius: var(--radius); box-shadow: var(--card-shadow); }
 .waffle i, .students i { display: block; aspect-ratio: 1; }
@@ -631,6 +631,32 @@ a.card:hover { color: inherit; }
   /* On wide screens the drawn chart shows the years; the list of bars stays for screen readers. */
   .chart[data-chart] .bars { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
+
+/* Home page: the year's numbers drawn as three graphics on the blue band */
+.home-graphics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3.4vw, 48px); }
+.home-graphic { display: grid; align-content: start; gap: 16px; }
+.home-graphic h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.25; min-height: 2.5em; }
+.home-graphic p { margin: 0; font-size: 1rem; line-height: 1.45; }
+.figures-wrap .pic { color: #fff; --pic-o: .42; opacity: .42; }
+.figures-wrap .pic.tone-children { --pic-o: 1; opacity: 1; }
+.figures-wrap .pictogram.hundred { max-width: 330px; gap: 5px 0; }
+.graphic-key { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.graphic-key span { display: inline-flex; align-items: center; gap: 6px; }
+.graphic-key .pic { width: 20px; flex: none; }
+.figures-wrap .line-chart .area { fill: #fff; opacity: .2; }
+.figures-wrap .line-chart .line { stroke: #fff; stroke-width: 6; }
+.figures-wrap .line-chart .gap { stroke: rgba(255, 255, 255, .7); stroke-width: 3.5; }
+.figures-wrap .line-chart .floor { stroke: rgba(255, 255, 255, .55); stroke-width: 2; }
+.figures-wrap .line-chart circle { fill: var(--blue); stroke: #fff; stroke-width: 5; }
+.figures-wrap .line-chart .latest circle { fill: #fff; }
+.pictogram.net { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px; }
+.net-break { flex-basis: 100%; height: 4px; }
+.net-clinic svg { display: block; width: 46px; height: 46px; }
+.net-pin { --pic-o: .85; }
+.net-pin svg { display: block; width: 21px; height: 21px; }
+.years .card-ico { width: 40px; height: 40px; margin: 0 0 6px; color: #fff; }
+.years .card-ico svg { width: 20px; height: 20px; }
+.commit .card-ico { margin: 0 0 16px; }
 
 .news-item .go { width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); }
 .news-item .go svg { width: 22px; height: 22px; }
@@ -891,8 +917,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 .js [data-reveal] :is(.bar, .then-bars i, .fund-track span) { transform: scaleX(0); }
 .js [data-reveal].in :is(.bar, .then-bars i, .fund-track span) { transform: none; animation: bar-grow .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(.12s + var(--i, 0) * 45ms); }
 .chart.replay .bar { animation: bar-grow .6s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 35ms); }
-.js [data-reveal] .pictogram .pic, .js [data-reveal] .wards span { opacity: 0; }
-.js [data-reveal].in .pictogram .pic { opacity: 1; animation: pic-in .32s ease both; }
+.js [data-reveal] .pictogram > *, .js [data-reveal] .wards span { opacity: 0; }
+.js [data-reveal].in .pictogram > * { opacity: var(--pic-o, 1); animation: pic-in .32s ease both; }
 .js [data-reveal].in .wards span { opacity: 1; animation: fade-in .4s ease both; animation-delay: calc(.1s + var(--i, 0) * 70ms); }
 .js [data-reveal].in .eyebrow::before { animation: line-grow .6s ease .15s both; }
 .card .photo img { transition: opacity .5s ease, transform .6s ease; }
@@ -909,7 +935,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .js [data-reveal] .bubble { transform: none; opacity: 0; }
   .js [data-reveal].in .bubble { opacity: 1; animation-name: fade-in; }
   .slide-photo img, .slide.is-active .slide-photo img, .card:hover .photo img { transform: none; }
-  .js [data-reveal].in .pictogram .pic { animation-name: fade-in; }
+  .js [data-reveal].in .pictogram > * { animation-name: fade-in; }
   .notice .tag::before { animation: none; }
 }
 
@@ -955,7 +981,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .feature .body, .feature.reverse .body { border-radius: 0 0 var(--radius) var(--radius); }
   .feature .feature-media .photo { aspect-ratio: 16 / 10; min-height: 0; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser { grid-template-columns: minmax(0, 1fr); }
+  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser, .home-graphics { grid-template-columns: minmax(0, 1fr); }
+  .home-graphic h3 { min-height: 0; }
   .steps, .steps.milestones { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px clamp(16px, 2.4vw, 32px); }
   .steps::before { display: none; }
   .compare-list { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -978,7 +1005,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 
 @media (max-width: 720px) {
   body { font-size: 1rem; padding-bottom: 60px; }
-  .line-chart { display: none; }
+  .line-chart:not(.always) { display: none; }
   .pair-row .bar { width: calc(var(--w) * .64%); }
   .compare-list { grid-template-columns: minmax(0, 1fr); }
   .bubbles, .circle-pair { --k: .7; }
@@ -1018,6 +1045,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 }
 
 @media (max-width: 420px) {
+  .dot { width: 20px; }
+  .dots { gap: 5px; }
   .btn { white-space: normal; text-align: center; }
   .finder-chips, .opt-grid, .opt-grid.two { grid-template-columns: minmax(0, 1fr); }
   .logo-text span { display: none; }
@@ -1026,7 +1055,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 @media print {
   .utility, .brand-actions, .site-header, .mbar, .band-wrap, .cta-photo, .quick, .notice, .map, .site-footer .social, .search, .carousel-controls, .tool-form, .plan-actions { display: none !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .js [data-reveal] :is(.bar, .then-bars i, .fund-track span, .pic, .wards span, .steps li, .bubble, .line-chart .area, .line-chart .point, .slope .now) { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .js [data-reveal] :is(.bar, .then-bars i, .fund-track span, .pic, .wards span, .steps li, .pictogram > *, .bubble, .line-chart .area, .line-chart .point, .slope .now) { opacity: 1 !important; transform: none !important; animation: none !important; }
   .js [data-reveal] :is(.line-chart .line, .slope .rise) { stroke-dashoffset: 0 !important; animation: none !important; }
   .js .guess .guess-answer { display: grid !important; }
 }

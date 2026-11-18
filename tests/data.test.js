@@ -434,6 +434,16 @@ test("has wording in both languages for every milestone", () => {
   }
 });
 
+test("has the wording for the home page graphics in both languages", () => {
+  for (const code of ["en", "bn"]) {
+    const home = require(path.join(DATA, "i18n", code + ".json")).home;
+    for (const key of ["g_trend_title", "g_trend_caption", "g_net_title", "g_net_caption"]) assert.ok(home[key], code + " " + key);
+  }
+  const impact = load("impact.js", {});
+  assert.equal(impact.reachBy.static, 6);
+  assert.equal(impact.reachBy.satellite, 45);
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

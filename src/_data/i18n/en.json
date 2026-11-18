@@ -215,27 +215,6 @@
     ],
     "fig_eyebrow": "Radda in numbers",
     "fig_title": "Half a century of community care",
-    "figures": [
-      {
-        "n": "1974",
-        "label": "The year our first clinic opened in Mirpur"
-      },
-      {
-        "n": "6",
-        "count": 6,
-        "label": "Permanent clinics in Mirpur and Uttara"
-      },
-      {
-        "n": "45",
-        "count": 45,
-        "label": "Satellite clinics in the community"
-      },
-      {
-        "n": "176",
-        "count": 176,
-        "label": "Staff across our clinics and programmes"
-      }
-    ],
     "fig_note": "Figures from our Annual Report 2021-22.",
     "fig_link": "See our work in numbers",
     "story_eyebrow": "Our story",
@@ -317,7 +296,11 @@
     ],
     "guess_right": "Right.",
     "guess_wrong": "More than that.",
-    "guess_answer": "service contacts in 2021-22. Averaged over the whole year, that is one every {s} seconds."
+    "guess_answer": "service contacts in 2021-22. Averaged over the whole year, that is one every {s} seconds.",
+    "g_trend_title": "{times} times the care of 1994",
+    "g_trend_caption": "{then} service contacts in 1994, {now} in 2021-22.",
+    "g_net_title": "{static} clinics and {satellite} satellite clinics",
+    "g_net_caption": "Permanent clinics in Mirpur and Uttara, and satellite clinics across {wards} city wards."
   },
   "services": {
     "h1": "Care for every stage of family life",
