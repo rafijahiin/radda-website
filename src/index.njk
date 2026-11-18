@@ -142,6 +142,21 @@ depth: 0
     <div class="section-head" data-reveal>
       <h2 id="fig-h">{{ h.fig_title }}</h2>
     </div>
+    {#- Guess first, then see: the answer is on the page from the start (so it works
+        without the script) and the script only keeps it out of sight until a guess. -#}
+    <div class="guess" data-guess data-reveal>
+      <p class="guess-q">{{ h.guess_q }}</p>
+      <div class="guess-options js-only" role="group" aria-label="{{ h.guess_q }}">
+        {%- for option in h.guess_options %}
+        <button class="btn btn-outline" type="button" data-guess-option{% if loop.last %} data-right{% endif %}>{{ option }}</button>
+        {%- endfor %}
+      </div>
+      <div class="guess-answer" aria-live="polite">
+        <span class="guess-verdict" data-right-text="{{ h.guess_right }}" data-wrong-text="{{ h.guess_wrong }}"></span>
+        <strong data-count="{{ impact.contacts }}">{{ impact.contacts | num(lng.locale) }}</strong>
+        <span>{{ h.guess_answer | replace("{s}", impact.everySeconds | num(lng.locale)) }}</span>
+      </div>
+    </div>
     <div class="figures" data-reveal>
       {%- for f in h.figures %}
       <div class="figure"><div class="n"{% if f.count %} data-count="{{ f.count }}"{% endif %}>{{ f.n }}</div><div class="l">{{ f.label }}</div></div>

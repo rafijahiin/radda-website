@@ -41,10 +41,16 @@ depth: 0
       <div class="glance-main">
         <span class="eyebrow">{{ m.head_eyebrow }} · {{ m.period }}</span>
         <h2 id="glance-h" class="mega"><b data-count="{{ impact.contacts }}">{{ impact.contacts | num(loc) }}</b>{{ m.contacts_label }}</h2>
+        <p class="glance-every">{{ m.every | replace("{s}", impact.everySeconds | num(loc)) }}</p>
         <p class="glance-then">{{ m.then | replace("{times}", impact.timesSince1994 | num(loc, 1)) | replace("{then}", impact.contacts_1994 | num(loc)) }}</p>
         <div class="then-bars" aria-hidden="true">
           <div><span>{{ "1994" | digits(lng.code) }}</span><i style="width: {{ impact.series[0].bars[0].width }}%"></i></div>
           <div class="now"><span>{{ "2021-22" | digits(lng.code) }}</span><i style="width: 100%"></i></div>
+        </div>
+        {%- set shareText = (m.share_text | replace("{n}", impact.contacts | num(loc)) | replace("{s}", impact.everySeconds | num(loc))) + " " + site.url + lng.dir + "impact.html" %}
+        <div class="share-row">
+          <a class="btn btn-wa" href="https://wa.me/?text={{ shareText | urlencode }}" target="_blank" rel="noopener">{% icon "chat" %} {{ m.share_wa }}</a>
+          <button class="btn btn-outline js-only" type="button" data-share data-done="{{ t.rebuild.share_copied }}">{{ t.rebuild.share_btn }}</button>
         </div>
       </div>
       <dl class="glance-side">
@@ -91,7 +97,25 @@ depth: 0
       <div>
         <span class="eyebrow">{{ m.year_eyebrow }}</span>
         <h2 id="year-h">{{ m.year_title }}</h2>
+        <p>{{ m.journey_intro }}</p>
       </div>
+    </div>
+    <div class="journeys">
+      {%- for journey in impact.journeys %}
+      <div class="journey" data-reveal>
+        <h3><svg class="pic tone-{{ journey.tone }}" aria-hidden="true"><use href="#pic-{{ journey.pic }}"/></svg>{{ m.journeys[journey.id] }}</h3>
+        <ol class="steps">
+          {%- for step in journey.steps %}
+          <li>
+            <span class="card-ico" aria-hidden="true">{% icon step.icon, 1.8 %}</span>
+            <span class="step-when">{{ m.journey_steps[step.id].when }}</span>
+            <b data-count="{{ step.value }}">{{ step.value | num(loc) }}</b>
+            <span class="step-what">{{ m.journey_steps[step.id].what }}</span>
+          </li>
+          {%- endfor %}
+        </ol>
+      </div>
+      {%- endfor %}
     </div>
     <div class="cards four">
       {%- for group in impact.groups %}
@@ -195,7 +219,7 @@ depth: 0
   <div class="container split even">
     <div data-reveal>
       <span class="eyebrow">{{ m.targets_eyebrow }}</span>
-      <h2 id="targets-h">{{ m.targets_title }}</h2>
+      <h2 id="targets-h">{{ m.targets_title | replace("{met}", impact.targetsMet | num(loc)) | replace("{all}", impact.targets | length | num(loc)) }}</h2>
       <p class="note">{{ m.targets_intro }}</p>
       <p class="chart-key"><span><i class="key key-local" aria-hidden="true"></i>{{ m.targets_done }}</span><span><i class="key key-mark" aria-hidden="true"></i>{{ m.targets_goal }}</span></p>
     </div>

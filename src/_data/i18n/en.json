@@ -221,19 +221,19 @@
         "label": "The year our first clinic opened in Mirpur"
       },
       {
-        "n": "525,845",
-        "label": "Service contacts in one year (2021-22)",
-        "count": 525845
+        "n": "6",
+        "count": 6,
+        "label": "Permanent clinics in Mirpur and Uttara"
       },
       {
-        "n": "6",
-        "label": "Permanent clinics, with 45 satellite clinics",
-        "count": 6
+        "n": "45",
+        "count": 45,
+        "label": "Satellite clinics in the community"
       },
       {
         "n": "176",
-        "label": "Staff across our clinics and programmes",
-        "count": 176
+        "count": 176,
+        "label": "Staff across our clinics and programmes"
       }
     ],
     "fig_note": "Figures from our Annual Report 2021-22.",
@@ -307,7 +307,17 @@
         "href": "rebuild.html",
         "alt": "Mothers waiting in the courtyard of a Radda centre"
       }
-    ]
+    ],
+    "guess_q": "How many times did Radda's clinics serve someone in a single year?",
+    "guess_options": [
+      "About 50,000",
+      "About 150,000",
+      "About 300,000",
+      "More than 500,000"
+    ],
+    "guess_right": "Right.",
+    "guess_wrong": "More than that.",
+    "guess_answer": "service contacts in 2021-22. Averaged over the whole year, that is one every {s} seconds."
   },
   "services": {
     "h1": "Care for every stage of family life",
@@ -490,7 +500,7 @@
     "head_eyebrow": "At a glance",
     "head_title": "One year of community health care",
     "year_eyebrow": "The year in detail",
-    "year_title": "Who the care reached",
+    "year_title": "Care at every step, from pregnancy to a child's fifth birthday",
     "groups": {
       "mothers": "Mothers",
       "children": "Children",
@@ -612,9 +622,9 @@
       "wards": "City wards in Dhaka North and Dhaka South",
       "staff": "Staff"
     },
-    "mix_eyebrow": "Where the care goes",
-    "mix_title": "Out of every 100 contacts",
-    "mix_intro": "Each figure is one contact in a hundred. Half of all the centre's work is vaccinating children and checking how they grow.",
+    "mix_eyebrow": "Out of every 100 contacts",
+    "mix_title": "Half of all care is for children",
+    "mix_intro": "Each figure is one contact in a hundred.",
     "mix_aria": "One hundred small figures showing the share of each kind of care. The exact numbers are in the list beside them.",
     "in_hundred": "{n} in 100",
     "mix_families": {
@@ -667,7 +677,7 @@
       "je": "Japanese encephalitis"
     },
     "targets_eyebrow": "Community health programme",
-    "targets_title": "Targets set, results delivered",
+    "targets_title": "{met} of {all} targets were passed",
     "targets_intro": "In the wards served by the community health programme, Radda set a target for each service in 2021-22. Most were passed; antenatal care fell short.",
     "targets_done": "Result",
     "targets_goal": "Target",
@@ -706,8 +716,8 @@
       "women": "{n} women",
       "men": "{n} men"
     },
-    "compare_eyebrow": "Two reports compared",
-    "compare_title": "From 2019-20 to 2021-22",
+    "compare_eyebrow": "2019-20 to 2021-22",
+    "compare_title": "Care grew after the pandemic year",
     "compare_intro": "The 2019-20 year ended in the first months of the COVID-19 pandemic. Two years later most services had grown; antenatal care was slightly lower.",
     "compare_rows": {
       "total": "All service contacts",
@@ -726,6 +736,48 @@
     "report_open": "Open the PDF",
     "report_notes": {
       "cases_left_out": "One page of patient case studies is left out, to protect the patients' privacy."
+    },
+    "every": "Averaged over the whole year, that is one every {s} seconds, day and night.",
+    "share_wa": "Share on WhatsApp",
+    "share_text": "Radda MCH-FP Centre's clinics in Dhaka served people {n} times in one year. That is one every {s} seconds.",
+    "journey_intro": "These are counts of the care given at each step during 2021-22, not the same families followed from one step to the next.",
+    "journeys": {
+      "mother": "A mother's path",
+      "child": "A child's path"
+    },
+    "journey_steps": {
+      "antenatal": {
+        "when": "During pregnancy",
+        "what": "antenatal check-ups"
+      },
+      "td": {
+        "when": "Women aged 15 to 49",
+        "what": "women given the tetanus-diphtheria vaccine"
+      },
+      "postnatal": {
+        "when": "After the birth",
+        "what": "mothers given postnatal care with vitamin A"
+      },
+      "fp": {
+        "when": "Planning what comes next",
+        "what": "new family planning clients"
+      },
+      "bcg": {
+        "when": "At birth",
+        "what": "babies given the BCG vaccine"
+      },
+      "three": {
+        "when": "By 14 weeks",
+        "what": "children who completed three doses of pentavalent, polio and PCV"
+      },
+      "mr": {
+        "when": "At 9 and 15 months",
+        "what": "measles-rubella vaccinations"
+      },
+      "growth": {
+        "when": "Up to five years",
+        "what": "growth checks"
+      }
     }
   },
   "tools": {

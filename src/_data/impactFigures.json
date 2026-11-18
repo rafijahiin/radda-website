@@ -578,5 +578,61 @@
         "after": 176
       }
     ]
-  }
+  },
+  "journeys": [
+    {
+      "id": "mother",
+      "pic": "woman",
+      "tone": "mothers",
+      "steps": [
+        {
+          "id": "antenatal",
+          "icon": "heart",
+          "value": 20465
+        },
+        {
+          "id": "td",
+          "icon": "syringe",
+          "value": 13746
+        },
+        {
+          "id": "postnatal",
+          "icon": "family",
+          "value": 13239
+        },
+        {
+          "id": "fp",
+          "icon": "card",
+          "value": 13203
+        }
+      ]
+    },
+    {
+      "id": "child",
+      "pic": "child",
+      "tone": "children",
+      "steps": [
+        {
+          "id": "bcg",
+          "icon": "shield",
+          "value": 13344
+        },
+        {
+          "id": "three",
+          "icon": "syringe",
+          "value": 13785
+        },
+        {
+          "id": "mr",
+          "icon": "check",
+          "value": 26166
+        },
+        {
+          "id": "growth",
+          "icon": "growth",
+          "value": 71002
+        }
+      ]
+    }
+  ]
 }

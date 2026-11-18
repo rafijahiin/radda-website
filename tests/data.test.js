@@ -356,6 +356,38 @@ test("has a written note in both languages for every report that carries one", (
   }
 });
 
+test("states how often a service contact happens, and how many targets were met", () => {
+  const impact = load("impact.js", {});
+
+  assert.equal(impact.everySeconds, 60);
+  assert.equal(impact.targetsMet, 5);
+  assert.equal(impact.targets.length, 6);
+});
+
+test("uses in the care journeys only numbers already published elsewhere on the page", () => {
+  const impact = load("impact.js", {});
+  const published = new Set([
+    ...impact.groups.flatMap((group) => group.stats.map((stat) => stat.value)),
+    ...impact.vaccines.flatMap((group) => group.rows.map((row) => row.value))
+  ]);
+
+  for (const journey of impact.journeys) {
+    for (const step of journey.steps) assert.ok(published.has(step.value), journey.id + " " + step.id + " " + step.value);
+  }
+});
+
+test("has wording in both languages for every step of the care journeys", () => {
+  const impact = load("impact.js", {});
+
+  for (const code of ["en", "bn"]) {
+    const words = require(path.join(DATA, "i18n", code + ".json")).impact;
+    for (const journey of impact.journeys) {
+      assert.ok(words.journeys[journey.id], code + " " + journey.id);
+      for (const step of journey.steps) assert.ok(words.journey_steps[step.id].when && words.journey_steps[step.id].what, code + " " + step.id);
+    }
+  }
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

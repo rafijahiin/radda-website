@@ -278,7 +278,7 @@
      Motion in the charts and figures
      ------------------------------------------------------------------ */
   /* Rows, pins and figures appear in order: each one is told its place in the queue. */
-  each(document.querySelectorAll(".bars, .pairs, .targets, .wards, .compare-list"), function (list) {
+  each(document.querySelectorAll(".bars, .pairs, .targets, .wards, .compare-list, .steps"), function (list) {
     each(list.children, function (child, i) { child.style.setProperty("--i", i); });
   });
   each(document.querySelectorAll(".pictogram"), function (group) {
@@ -316,6 +316,21 @@
       });
     }, { threshold: 0.4 });
     each(counters, function (el) { if (isFinite(Number(el.getAttribute("data-count")))) counterWatch.observe(el); });
+  }
+
+  /* Home page: guess the number before it is shown. */
+  var guess = document.querySelector("[data-guess]");
+  if (guess) {
+    var verdict = guess.querySelector(".guess-verdict");
+    var guessOptions = guess.querySelectorAll("[data-guess-option]");
+    each(guessOptions, function (option) {
+      option.addEventListener("click", function () {
+        option.classList.add("chosen");
+        verdict.textContent = verdict.getAttribute(option.hasAttribute("data-right") ? "data-right-text" : "data-wrong-text");
+        each(guessOptions, function (other) { other.disabled = true; });
+        guess.classList.add("answered");
+      });
+    });
   }
 
   /* Impact page: one chart at a time, chosen with the buttons. Without this

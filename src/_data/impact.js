@@ -9,6 +9,8 @@ const figures = require("./impactFigures.json");
 
 const SRC = path.join(__dirname, "..");
 const BYTES_IN_MB = 1024 * 1024;
+const SECONDS_IN_YEAR = 365 * 24 * 60 * 60;
+const TARGET_MET = 100;
 
 const FULL = 100;
 const ONE_DECIMAL = 10;
@@ -92,6 +94,10 @@ const finance = (figures.finance || []).map((row) => ({
 
 module.exports = {
   ...figures,
+  // One service contact every so many seconds, if the year's total were spread evenly over the year.
+  everySeconds: figures.contacts > 0 ? Math.round(SECONDS_IN_YEAR / figures.contacts) : 0,
+  targetsMet: targets.filter((row) => row.percent >= TARGET_MET).length,
+  journeys: figures.journeys || [],
   timesSince1994: figures.contacts_1994 > 0 ? Math.round((figures.contacts / figures.contacts_1994) * ONE_DECIMAL) / ONE_DECIMAL : 0,
   mix,
   mixTotal: sum(mixRows.map((row) => row.value)),
