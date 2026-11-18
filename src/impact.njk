@@ -43,9 +43,9 @@ depth: 0
         <h2 id="glance-h" class="mega"><b data-count="{{ impact.contacts }}">{{ impact.contacts | num(loc) }}</b>{{ m.contacts_label }}</h2>
         <p class="glance-every">{{ m.every | replace("{s}", impact.everySeconds | num(loc)) }}</p>
         <p class="glance-then">{{ m.then | replace("{times}", impact.timesSince1994 | num(loc, 1)) | replace("{then}", impact.contacts_1994 | num(loc)) }}</p>
-        <div class="then-bars" aria-hidden="true">
-          <div><span>{{ "1994" | digits(lng.code) }}</span><i style="width: {{ impact.series[0].bars[0].width }}%"></i></div>
-          <div class="now"><span>{{ "2021-22" | digits(lng.code) }}</span><i style="width: 100%"></i></div>
+        <div class="circle-pair" aria-hidden="true">
+          <div><span class="bubble then" style="--r: {{ impact.growth.thenRadius }}"></span><b>{{ impact.contacts_1994 | num(loc) }}</b><small>{{ "1994" | digits(lng.code) }}</small></div>
+          <div><span class="bubble" style="--r: {{ impact.growth.nowRadius }}"></span><b>{{ impact.contacts | num(loc) }}</b><small>{{ "2021-22" | digits(lng.code) }}</small></div>
         </div>
         {%- set shareText = (m.share_text | replace("{n}", impact.contacts | num(loc)) | replace("{s}", impact.everySeconds | num(loc))) + " " + site.url + lng.dir + "impact.html" %}
         <div class="share-row">
@@ -59,6 +59,19 @@ depth: 0
         {%- endfor %}
       </dl>
     </div>
+  </div>
+  <div class="container history" data-reveal>
+    <span class="eyebrow">{{ m.history_eyebrow }}</span>
+    <h2>{{ m.history_title }}</h2>
+    <ol class="steps milestones">
+      {%- for stone in impact.milestones %}
+      <li>
+        <span class="card-ico" aria-hidden="true">{% icon stone.icon, 1.8 %}</span>
+        <b>{{ stone.year | digits(lng.code) }}</b>
+        <span class="step-what">{{ m.milestones[stone.id] }}</span>
+      </li>
+      {%- endfor %}
+    </ol>
   </div>
 </section>
 
@@ -150,9 +163,9 @@ depth: 0
       {%- for group in impact.vaccines %}
       <figure class="chart on-white" data-reveal style="--d:{{ loop.index0 }}">
         <figcaption><i class="cap-ico" aria-hidden="true">{% icon "syringe", 2 %}</i>{{ m.vaccine_groups[group.id] }}<span>{{ group.value | num(loc) }}</span></figcaption>
-        <ol class="bars wide-label{% if group.id == 'other' %} quiet{% endif %}">
+        <ol class="bubbles{% if group.id == 'other' %} quiet{% endif %}">
           {%- for row in group.rows %}
-          <li><span class="bar-year">{{ m.vaccine_names[row.id] }}</span><span class="bar-track"><span class="bar" style="width: {{ row.width }}%"></span></span><b>{{ row.value | num(loc) }}</b></li>
+          <li><span class="bubble" style="--r: {{ row.radius }}" aria-hidden="true"></span><b>{{ row.value | num(loc) }}</b><span>{{ m.vaccine_names[row.id] }}</span></li>
           {%- endfor %}
         </ol>
       </figure>
@@ -177,6 +190,19 @@ depth: 0
       {%- for s in impact.series %}
       <figure class="chart" data-chart="{{ s.id }}">
         <figcaption>{{ m.series[s.id] }}</figcaption>
+        <svg class="line-chart" viewBox="0 0 {{ s.chart.width }} {{ s.chart.height }}" aria-hidden="true" focusable="false">
+          <line class="floor" x1="0" y1="{{ s.chart.floor }}" x2="{{ s.chart.width }}" y2="{{ s.chart.floor }}"/>
+          <path class="area" d="{{ s.chart.area }}"/>
+          <path class="gap" d="{{ s.chart.gap }}"/>
+          <path class="line" d="{{ s.chart.line }}" pathLength="1"/>
+          {%- for point in s.chart.points %}
+          <g class="point{% if loop.last %} latest{% endif %}{% if loop.first %} first{% endif %}">
+            <circle cx="{{ point.x }}" cy="{{ point.y }}" r="{{ 7 if loop.last else 5 }}"/>
+            <text class="val" x="{{ point.x }}" y="{{ point.y - 14 }}">{{ point.value | num(loc) }}</text>
+            <text class="yr" x="{{ point.x }}" y="{{ s.chart.floor + 24 }}">{{ point.year | digits(lng.code) }}</text>
+          </g>
+          {%- endfor %}
+        </svg>
         <ol class="bars">
           {%- for bar in s.bars %}
           <li{% if loop.last %} class="latest"{% endif %}>
@@ -197,7 +223,7 @@ depth: 0
         <h2 id="compare-h">{{ m.compare_title }}</h2>
         <p>{{ m.compare_intro }}</p>
       </div>
-      <p class="chart-key"><span><i class="key key-then" aria-hidden="true"></i>{{ impact.compare.from | digits(lng.code) }}</span><span><i class="key key-local" aria-hidden="true"></i>{{ impact.compare.to | digits(lng.code) }}</span></p>
+      <p class="chart-key"><span><i class="key key-then" aria-hidden="true"></i>{{ impact.compare.from | digits(lng.code) }}</span><span><i class="key key-ink" aria-hidden="true"></i>{{ impact.compare.to | digits(lng.code) }}</span></p>
     </div>
     <ol class="compare-list">
       {%- for row in impact.compare.rows %}
@@ -205,9 +231,15 @@ depth: 0
       <li>
         <span class="compare-name">{{ m.compare_rows[row.id] }}</span>
         <b class="change {{ 'up' if rose else 'down' }}">{% set changeIcon = "up" if rose else "down" %}{% icon changeIcon, 2.6 %}{{ m.percent | replace("{n}", ("+" if rose else "-") + (row.change | abs | num(loc))) }}</b>
-        <span class="pair">
-          <span class="pair-row then"><span class="bar" style="--w: {{ row.beforeWidth }}"></span><b>{{ row.before | num(loc) }}</b></span>
-          <span class="pair-row"><span class="bar" style="--w: {{ row.afterWidth }}"></span><b>{{ row.after | num(loc) }}</b></span>
+        <span class="slope-row">
+          <span class="slope-then">{{ row.before | num(loc) }}</span>
+          <svg class="slope" viewBox="0 0 120 70" aria-hidden="true" focusable="false">
+            <line class="floor" x1="0" y1="{{ row.slope.floor }}" x2="120" y2="{{ row.slope.floor }}"/>
+            <line class="rise" x1="{{ row.slope.x1 }}" y1="{{ row.slope.y1 }}" x2="{{ row.slope.x2 }}" y2="{{ row.slope.y2 }}" pathLength="1"/>
+            <circle class="then" cx="{{ row.slope.x1 }}" cy="{{ row.slope.y1 }}" r="6"/>
+            <circle class="now" cx="{{ row.slope.x2 }}" cy="{{ row.slope.y2 }}" r="7"/>
+          </svg>
+          <b class="slope-now">{{ row.after | num(loc) }}</b>
         </span>
       </li>
       {%- endfor %}

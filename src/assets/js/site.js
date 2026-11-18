@@ -278,7 +278,7 @@
      Motion in the charts and figures
      ------------------------------------------------------------------ */
   /* Rows, pins and figures appear in order: each one is told its place in the queue. */
-  each(document.querySelectorAll(".bars, .pairs, .targets, .wards, .compare-list, .steps"), function (list) {
+  each(document.querySelectorAll(".bars, .pairs, .targets, .wards, .compare-list, .steps, .bubbles"), function (list) {
     each(list.children, function (child, i) { child.style.setProperty("--i", i); });
   });
   each(document.querySelectorAll(".pictogram"), function (group) {

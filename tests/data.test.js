@@ -388,6 +388,52 @@ test("has wording in both languages for every step of the care journeys", () => 
   }
 });
 
+test("sizes circles by area, so a number four times as large gets twice the radius", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [], contacts: 400, contacts_1994: 100,
+    vaccines: [{ id: "g", rows: [{ id: "big", value: 400 }, { id: "small", value: 100 }] }]
+  } });
+
+  const [big, small] = impact.vaccines[0].rows;
+  assert.equal(big.radius, 72);
+  assert.equal(small.radius, 36);
+  assert.equal(impact.growth.thenRadius, 36);
+});
+
+test("draws the line chart inside its frame, with the tallest year at the top", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: ["1994", "2014", "2015", "2016"], series: [{ id: "total", values: [50, 100, 200, 150] }], funding: []
+  } });
+
+  const chart = impact.series[0].chart;
+  assert.equal(chart.points.length, 4);
+  assert.equal(Math.min(...chart.points.map((p) => p.y)), chart.points[2].y);
+  assert.equal(chart.points[2].y, 44);
+  for (const point of chart.points) assert.ok(point.x >= 0 && point.x <= chart.width && point.y >= 0 && point.y <= chart.floor);
+  assert.ok(chart.points[1].x - chart.points[0].x > chart.points[2].x - chart.points[1].x, "the first year stands apart");
+  assert.match(chart.line, /^M[\d.]+ [\d.]+( L[\d.]+ [\d.]+)+$/);
+});
+
+test("slopes rise for growth and fall for decline", () => {
+  const impact = load("impact.js", { "impactFigures.json": {
+    years: [], series: [], funding: [],
+    compare: { from: "A", to: "B", rows: [{ id: "up", before: 50, after: 100 }, { id: "down", before: 100, after: 50 }] }
+  } });
+
+  const [up, down] = impact.compare.rows;
+  assert.ok(up.slope.y2 < up.slope.y1, "a higher value is drawn higher on the page");
+  assert.ok(down.slope.y2 > down.slope.y1);
+});
+
+test("has wording in both languages for every milestone", () => {
+  const impact = load("impact.js", {});
+
+  for (const code of ["en", "bn"]) {
+    const words = require(path.join(DATA, "i18n", code + ".json")).impact.milestones;
+    for (const stone of impact.milestones) assert.ok(words[stone.id], code + " " + stone.id);
+  }
+});
+
 // ---- Health tools: date arithmetic (src/assets/js/planner.js) ----
 const planner = require(path.join(__dirname, "..", "src", "assets", "js", "planner.js"));
 const careSchedule = require(path.join(DATA, "careSchedule.json"));

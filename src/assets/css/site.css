@@ -362,7 +362,7 @@ a.card:hover { color: inherit; }
    targets, income and spending, wards, staff and students. All flat shapes. */
 .glance { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: end; }
 .mega { font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 700; line-height: 1.3; }
-.mega b { display: block; font-size: clamp(3.6rem, 10.5vw, 8rem); line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin-bottom: 10px; }
+.mega b { display: block; font-size: clamp(2.6rem, 10.5vw, 8rem); line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin-bottom: 10px; }
 .glance-then { margin: 14px 0 18px; max-width: 34em; }
 .then-bars { display: grid; gap: 8px; max-width: 560px; }
 .then-bars div { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); align-items: center; gap: 12px; font-size: .9375rem; font-weight: 700; color: var(--ink); }
@@ -386,8 +386,8 @@ a.card:hover { color: inherit; }
 .mix { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
 .waffle { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; padding: clamp(14px, 2vw, 22px); background: #fff; border-radius: var(--radius); box-shadow: var(--card-shadow); }
 .waffle i, .students i { display: block; aspect-ratio: 1; }
-.mix-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 22px clamp(20px, 3vw, 40px); }
-.mix-family h3 { display: flex; align-items: center; gap: 10px; font-size: 1.125rem; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+.mix-legend { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px clamp(20px, 3vw, 40px); }
+.mix-family h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 1.125rem; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
 .mix-family h3 i { flex: none; width: 16px; height: 16px; }
 .mix-family h3 b { margin-left: auto; white-space: nowrap; }
 .mix-family li, .staff-list li { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; align-items: baseline; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 1rem; line-height: 1.4; }
@@ -574,6 +574,63 @@ a.card:hover { color: inherit; }
 .js [data-reveal] .steps li { opacity: 0; }
 .js [data-reveal].in .steps li { opacity: 1; animation: fade-in .5s ease both; animation-delay: calc(.15s + var(--i, 0) * 160ms); }
 .js [data-reveal].in .steps::before { animation: line-across .9s ease .1s both; }
+
+/* Drawn infographics: circles whose area carries the number, a line chart of the
+   years, small slopes for the two-year comparison and a line of milestones. */
+.bubble { display: block; flex: none; width: calc(var(--r) * 2px * var(--k, 1)); aspect-ratio: 1; border-radius: 50%; background: var(--blue); }
+.bubble.then, .bubbles.quiet .bubble { background: var(--ink); }
+.bubble.then { background: var(--line-strong); }
+.circle-pair { display: flex; align-items: flex-end; gap: clamp(20px, 4vw, 48px); margin-top: 6px; }
+.circle-pair div { display: grid; justify-items: center; gap: 2px; text-align: center; }
+.circle-pair b { margin-top: 10px; font-size: 1.25rem; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; }
+.circle-pair small { font-size: .9375rem; font-weight: 700; color: var(--muted); }
+.bubbles { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 22px 18px; }
+.bubbles li { display: grid; justify-items: center; align-content: end; gap: 2px; min-width: 84px; max-width: 150px; text-align: center; font-size: .9375rem; line-height: 1.3; }
+.bubbles li b { margin-top: 8px; font-size: 1.0625rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.infographic .chart.on-white { padding-bottom: 6px; }
+.history { margin-top: clamp(44px, 6vw, 72px); }
+.history h2 { margin-bottom: clamp(22px, 3vw, 34px); }
+.steps.milestones { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0 clamp(12px, 1.8vw, 24px); }
+.steps.milestones::before { right: 8%; }
+.steps.milestones b { font-size: clamp(1.4rem, 2.2vw, 1.875rem); }
+.steps.milestones .step-what { font-size: .9375rem; max-width: 20ch; }
+.line-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.line-chart .floor, .slope .floor { stroke: var(--line-strong); stroke-width: 1.5; }
+.line-chart .area { fill: var(--blue); opacity: .16; }
+.line-chart .line { fill: none; stroke: var(--blue); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; }
+.line-chart .gap { fill: none; stroke: var(--line-strong); stroke-width: 2.5; stroke-dasharray: 3 7; stroke-linecap: round; }
+.line-chart circle { fill: #fff; stroke: var(--blue); stroke-width: 3.5; }
+.line-chart .first circle { stroke: var(--line-strong); }
+.line-chart .latest circle { fill: var(--ink); stroke: var(--ink); }
+.line-chart text { font-family: var(--font); text-anchor: middle; font-variant-numeric: tabular-nums; }
+.line-chart .val { font-size: 13px; font-weight: 700; fill: var(--ink); }
+.line-chart .latest .val { font-size: 15px; }
+.line-chart .yr { font-size: 12.5px; fill: var(--body); }
+.compare-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(18px, 2.6vw, 36px); }
+.compare-list li { grid-template-columns: minmax(0, 1fr); gap: 6px; align-content: start; padding: 18px 0 20px; }
+.compare-list .change { justify-self: start; }
+.slope-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.slope { display: block; width: 100%; height: auto; overflow: visible; }
+.slope .rise { stroke: var(--green); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; }
+.slope .then { fill: #fff; stroke: var(--line-strong); stroke-width: 3; }
+.slope .now { fill: var(--ink); }
+.down ~ .slope-row .rise { stroke: var(--accent); }
+.slope-then { font-size: .9375rem; color: var(--muted); }
+.slope-now { font-size: 1.125rem; color: var(--ink); }
+@keyframes draw { from { stroke-dashoffset: 1; } }
+@keyframes pop { from { transform: scale(0); } }
+.js [data-reveal] :is(.line-chart .line, .slope .rise) { stroke-dashoffset: 1; }
+.js [data-reveal].in :is(.line-chart .line, .slope .rise) { stroke-dashoffset: 0; animation: draw 1.1s ease .15s both; }
+.js [data-reveal] :is(.line-chart .area, .line-chart .point, .slope .now) { opacity: 0; }
+.js [data-reveal].in :is(.line-chart .area, .line-chart .point, .slope .now) { opacity: 1; animation: fade-in .6s ease .7s both; }
+.chart.replay .line-chart .line { animation: draw 1s ease both; }
+.chart.replay :is(.line-chart .area, .line-chart .point) { animation: fade-in .5s ease .55s both; }
+.js [data-reveal] .bubble { transform: scale(0); }
+.js [data-reveal].in .bubble { transform: none; animation: pop .55s cubic-bezier(.2, .8, .3, 1.15) both; animation-delay: calc(.1s + var(--i, 0) * 55ms); }
+@media (min-width: 721px) {
+  /* On wide screens the drawn chart shows the years; the list of bars stays for screen readers. */
+  .chart[data-chart] .bars { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 
 .news-item .go { width: 40px; height: 40px; display: grid; place-items: center; color: var(--ink); }
 .news-item .go svg { width: 22px; height: 22px; }
@@ -849,6 +906,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
      effects", for example): things still fade and charts still fill, but nothing
      slides, zooms or pops. */
   .js [data-reveal], .js .slide-panel > * { transform: none; }
+  .js [data-reveal] .bubble { transform: none; opacity: 0; }
+  .js [data-reveal].in .bubble { opacity: 1; animation-name: fade-in; }
   .slide-photo img, .slide.is-active .slide-photo img, .card:hover .photo img { transform: none; }
   .js [data-reveal].in .pictogram .pic { animation-name: fade-in; }
   .notice .tag::before { animation: none; }
@@ -885,6 +944,8 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 }
 
 @media (max-width: 900px) {
+  .utility .container { gap: 10px; }
+  .lang-switch { padding-left: 12px; }
   .slide, .cta-photo { grid-template-columns: minmax(0, 1fr); min-height: 0; }
   .slide-photo, .cta-photo .photo { aspect-ratio: 16 / 10; min-height: 0; }
   .slide-panel { padding-bottom: clamp(28px, 3vw, 44px); }
@@ -894,9 +955,10 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
   .feature .body, .feature.reverse .body { border-radius: 0 0 var(--radius) var(--radius); }
   .feature .feature-media .photo { aspect-ratio: 16 / 10; min-height: 0; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser, .compare-list { grid-template-columns: minmax(0, 1fr); }
-  .steps { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px clamp(16px, 2.4vw, 32px); }
+  .partners, .partner-list.two, .news-home, .glance, .mix, .vaccine-groups, .people-grid, .tools-grid, .tools-teaser { grid-template-columns: minmax(0, 1fr); }
+  .steps, .steps.milestones { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px clamp(16px, 2.4vw, 32px); }
   .steps::before { display: none; }
+  .compare-list { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .waffle { max-width: 440px; }
   .figures { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px 0; }
   .figure:nth-child(odd) { padding-left: 0; border-left: 0; }
@@ -916,6 +978,11 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 
 @media (max-width: 720px) {
   body { font-size: 1rem; padding-bottom: 60px; }
+  .line-chart { display: none; }
+  .pair-row .bar { width: calc(var(--w) * .64%); }
+  .compare-list { grid-template-columns: minmax(0, 1fr); }
+  .bubbles, .circle-pair { --k: .7; }
+  .bubbles li { min-width: 72px; }
   .figure .n { font-size: clamp(1.6rem, 7vw, 2.4rem); }
   .bars li { grid-template-columns: 4.4em minmax(0, 1fr) 4.8em; gap: 8px; font-size: .875rem; }
   .bars.wide-label li { grid-template-columns: 8.2em minmax(0, 1fr) 3.8em; }
@@ -959,6 +1026,7 @@ html:lang(bn) [lang="en"] { font-family: "Atkinson Hyperlegible Next", "Segoe UI
 @media print {
   .utility, .brand-actions, .site-header, .mbar, .band-wrap, .cta-photo, .quick, .notice, .map, .site-footer .social, .search, .carousel-controls, .tool-form, .plan-actions { display: none !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .js [data-reveal] :is(.bar, .then-bars i, .fund-track span, .pic, .wards span, .steps li) { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .js [data-reveal] :is(.bar, .then-bars i, .fund-track span, .pic, .wards span, .steps li, .bubble, .line-chart .area, .line-chart .point, .slope .now) { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .js [data-reveal] :is(.line-chart .line, .slope .rise) { stroke-dashoffset: 0 !important; animation: none !important; }
   .js .guess .guess-answer { display: grid !important; }
 }

@@ -634,5 +634,37 @@
         }
       ]
     }
+  ],
+  "milestones": [
+    {
+      "id": "opened",
+      "year": "1974",
+      "icon": "clinic"
+    },
+    {
+      "id": "handover",
+      "year": "1994",
+      "icon": "family"
+    },
+    {
+      "id": "selffunded",
+      "year": "2004",
+      "icon": "check"
+    },
+    {
+      "id": "institute",
+      "year": "2011",
+      "icon": "cap"
+    },
+    {
+      "id": "dental",
+      "year": "2017",
+      "icon": "heart"
+    },
+    {
+      "id": "today",
+      "year": "2021-22",
+      "icon": "growth"
+    }
   ]
 }

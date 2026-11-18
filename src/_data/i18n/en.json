@@ -648,7 +648,7 @@
     },
     "vaccines_eyebrow": "Immunization",
     "vaccines_title": "{total} vaccinations, {kinds} vaccines",
-    "vaccines_intro": "Radda gives the childhood vaccines of the national programme (EPI) and offers other vaccines for all ages.",
+    "vaccines_intro": "Each circle's area is the number of vaccinations. The six vaccines of the national programme (EPI) dwarf all the others together.",
     "vaccine_groups": {
       "epi": "National programme (EPI)",
       "other": "Other vaccines"
@@ -778,6 +778,16 @@
         "when": "Up to five years",
         "what": "growth checks"
       }
+    },
+    "history_eyebrow": "Since 1974",
+    "history_title": "Half a century in one line",
+    "milestones": {
+      "opened": "Rädda Barnen opens the centre in Mirpur",
+      "handover": "Handed over to a Bangladeshi trust; 169,917 service contacts that year",
+      "selffunded": "Rädda Barnen's funding ends; the centre pays its own way",
+      "institute": "First batch at the Radda Paramedic Institute",
+      "dental": "Dental care begins",
+      "today": "525,845 service contacts, with no foreign donation"
     }
   },
   "tools": {
