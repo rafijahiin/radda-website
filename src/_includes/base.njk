@@ -43,33 +43,17 @@
       <span class="u-hours">{{ t.meta.hours_short }}</span>
     </div>
     <div class="u-right">
+      <a class="u-extra" href="tel:{{ site.phone_tel }}">{{ site.phone_display }}</a>
       <a class="u-extra" href="mailto:{{ site.email }}">{{ site.email }}</a>
       <a class="lang-switch" href="{{ root }}{{ otherLang.dir }}{{ file }}" lang="{{ otherLang.code }}" hreflang="{{ otherLang.code }}" aria-label="{{ t.nav.switch_aria }}" data-lang="{{ otherLang.code }}">{{ t.nav.switch_to }}</a>
     </div>
   </div>
 </div>
-<div class="brand-band">
-  <div class="container">
-    <a class="logo" href="{{ up }}index.html" aria-label="{{ t.meta.home_aria }}">
-      <img src="{{ root }}assets/img/logo-radda-white.png" alt="" width="62" height="62">
-      <span class="logo-text"><strong>{{ t.meta.logo_name }}</strong><span>{{ t.meta.logo_sub }}</span></span>
-    </a>
-    <div class="brand-actions">
-      <a class="btn btn-outline" href="tel:{{ site.phone_tel }}">{{ t.meta.call_on | replace("{phone}", site.phone_display) }}</a>
-      {%- if appeal.published %}
-      <a class="btn btn-accent" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>
-      {%- endif %}
-      <a class="btn btn-white" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
-    </div>
-    <button class="search-btn band-search" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
-    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="{{ t.nav.open_menu }}"><span></span><span></span></button>
-  </div>
-</div>
 <header class="site-header">
   <div class="container">
-    <a class="logo nav-logo" href="{{ up }}index.html" aria-label="{{ t.meta.home_aria }}">
-      <img src="{{ root }}assets/img/logo-radda.png" alt="" width="40" height="40">
-      <span class="logo-text"><strong>{{ t.meta.logo_name }}</strong></span>
+    <a class="logo" href="{{ up }}index.html" aria-label="{{ t.meta.home_aria }}">
+      <img src="{{ root }}assets/img/logo-radda-white.png" alt="" width="54" height="54">
+      <span class="logo-text"><strong>{{ t.meta.logo_name }}</strong><span>{{ t.meta.logo_sub }}</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="{{ t.nav.aria }}">
       {%- for item in ["services", "about", "impact", "tools", "news", "visit"] %}
@@ -77,7 +61,15 @@
       {%- endfor %}
       <a class="btn btn-primary nav-cta" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
     </nav>
-    <button class="search-btn" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
+    <div class="header-actions">
+      <button class="search-btn" type="button" aria-label="{{ t.nav.search }}" aria-haspopup="dialog" data-search-open>{% icon "search", 2.6 %}</button>
+      {%- if appeal.published %}
+      <a class="btn btn-accent" href="{{ up }}rebuild.html">{{ t.rebuild.nav }}</a>
+      {%- else %}
+      <a class="btn btn-white" href="{{ up }}visit.html#register">{{ t.nav.cta }}</a>
+      {%- endif %}
+    </div>
+    <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="{{ t.nav.open_menu }}"><span></span><span></span></button>
   </div>
 </header>
 

@@ -111,7 +111,7 @@
     "id": "mirpur-1-update",
     "type": "update",
     "url": "",
-    "notice": true,
+    "notice": false,
     "notice_until": "",
     "date_text_en": "September 2026",
     "date_text_bn": "সেপ্টেম্বর ২০২৬",

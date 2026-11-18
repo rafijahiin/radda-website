@@ -18,6 +18,7 @@
   var DONE_LABEL_MS = 2000;
   var SLIDE_INTERVAL_MS = 7000;
   var SWIPE_MIN_PX = 40;
+  var SCROLLED_AFTER_PX = 60;
   var COUNT_MS = 1400;
   var COUNT_SAFETY_MS = 250;
   var PICTOGRAM_MS = 900;
@@ -39,11 +40,7 @@
   /* Header: shadow once the page scrolls */
   var header = document.querySelector(".site-header");
   if (header) {
-    // The small logo joins the menu row once the cyan band above it has scrolled away.
-    var band = document.querySelector(".brand-band");
-    var onScroll = function () {
-      header.classList.toggle("scrolled", window.scrollY > (band ? band.offsetTop + band.offsetHeight : 8));
-    };
+    var onScroll = function () { header.classList.toggle("scrolled", window.scrollY > SCROLLED_AFTER_PX); };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
